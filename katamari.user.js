@@ -4,7 +4,7 @@
 // @version      0.1
 // @description  Play Katamari Damacy on websites!
 // @author       Vukky, original authors: Alex Leone, David Nufer, David Truong
-// @match        *://*
+// @match        *://*/*
 // @grant        none
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js
 // @updateURL    https://raw.githubusercontent.com/Vukky123/userscripts/main/katamari.js
