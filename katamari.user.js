@@ -1,13 +1,14 @@
 // ==UserScript==
 // @name         Katamari!
 // @namespace    https://vukky.ga
-// @version      0.1
+// @version      0.1.1
 // @description  Play Katamari Damacy on websites!
 // @author       Vukky, original authors: Alex Leone, David Nufer, David Truong
 // @match        *://*/*
 // @grant        none
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js
 // @updateURL    https://raw.githubusercontent.com/Vukky123/userscripts/main/katamari.js
+// @icon         https://vukky.ga/scripts/katamari/assets/ball.png
 // ==/UserScript==
 
 (function() {
@@ -26,15 +27,14 @@
         target.appendChild(scriptNode);
     }
     addDOMScriptNode(null, null, letsPlayKatamari);
-    /*
-    Copyright Alex Leone, David Nufer, David Truong, 2011-03-11. kathack.com
-
-    javascript:var i,s,ss=['http://kathack.com/js/kh.js','http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js'];for(i=0;i!=ss.length;i++){s=document.createElement('script');s.src=ss[i];document.body.appendChild(s);}void(0);
-    or, for this userscript:
-    javascript:letsPlayKatamari()
-
-    */
     function letsPlayKatamari() {
+        /*
+         Copyright Alex Leone, David Nufer, David Truong, 2011-03-11. kathack.com
+
+         javascript:var i,s,ss=['http://kathack.com/js/kh.js','http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js'];for(i=0;i!=ss.length;i++){s=document.createElement('script');s.src=ss[i];document.body.appendChild(s);}void(0);
+         or, for this userscript:
+         javascript:letsPlayKatamari()
+        */
         var BORDER_STYLE = "1px solid #bbb",
             CSS_TRANSFORM = null,
             CSS_TRANSFORM_ORIGIN = null,
