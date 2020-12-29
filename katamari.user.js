@@ -1,13 +1,13 @@
 // ==UserScript==
-// @name         Katamari!
+// @name         Katamari Everywhere!
 // @namespace    https://vukky.ga
-// @version      0.1.1
-// @description  Play Katamari Damacy on websites!
+// @version      0.1.2
+// @description  Play Katamari Damacy on websites! The unoffical reboot of kathack.com.
 // @author       Vukky, original authors: Alex Leone, David Nufer, David Truong
 // @match        *://*/*
 // @grant        none
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js
-// @updateURL    https://raw.githubusercontent.com/Vukky123/userscripts/main/katamari.js
+// @updateURL    https://raw.githubusercontent.com/Vukky123/userscripts/main/katamari.user.js
 // @icon         https://vukky.ga/scripts/katamari/assets/ball.png
 // ==/UserScript==
 
