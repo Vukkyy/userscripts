@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Vukkyfy
 // @namespace    https://vukky.ga
-// @version      0.1.1
+// @version      0.1.2
 // @description  All <img> images are now Vukkies. Uh oh.
 // @author       Vukky
 // @match        *://*/*
@@ -13,12 +13,14 @@
 (function() {
     'use strict';
 
+    const deniedSites = ["github.com", "discord.com", "ptb.discord.com", "canary.discord.com"]
+
     function vukkyfy() {
         let images = document.getElementsByTagName('img');
 
         for (var image of images) {
-            let randomNum = Math.floor(Math.random() * 34) + 1;
-            image.src = 'https://sivusto.tk/innervukky/' + randomNum + '.png';
+            let randomNum = Math.ceil(Math.random() * 34);
+            image.src = `https://sivusto.tk/innervukky/${randomNum}.png'`;
         };
 
         if(document.location.hostname == "www.youtube.com") {
@@ -32,5 +34,5 @@
         }
     }
 
-    setInterval(vukkyfy, 1000);
+    if(!deniedSites.includes(document.location.hostname)) setInterval(vukkyfy, 1000);
 })();
