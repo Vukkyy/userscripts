@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Vukkyfy
 // @namespace    https://vukky.ga
-// @version      0.1.3
+// @version      0.1.4
 // @description  All <img> images are now Vukkies. Uh oh.
 // @author       Vukky
 // @match        *://*/*
@@ -21,6 +21,7 @@
         for (var image of images) {
             let randomNum = Math.ceil(Math.random() * 34);
             image.src = `https://sivusto.tk/innervukky/${randomNum}.png`;
+            image.srcset = `https://sivusto.tk/innervukky/${randomNum}.png`;
         };
 
         if(document.location.hostname == "www.youtube.com") {
