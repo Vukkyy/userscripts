@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Skribbl: No Avatar Bodies
 // @namespace    https://vukky.ga
-// @version      0.2
+// @version      0.3
 // @description  Destroys skribbl bodies, so you only have faces. Incompatible with No Avatars.
 // @author       Vukky
 // @match        https://skribbl.io/**
@@ -11,20 +11,21 @@
 
 (function() {
     'use strict';
-
-    setInterval(() => {
-        var bodies = document.getElementsByClassName("color");
-        for (let i = 0; i < bodies.length; i++) {
-            const body = bodies[i];
-            body.remove();
-        }
-
-        var avatarArrows = document.getElementsByClassName("avatarArrow");
-        for (let i = 0; i < avatarArrows.length; i++) {
-            const avatarArrow = avatarArrows[i];
-            if(avatarArrow.className.startsWith("avatarArrow avatarArrow") && avatarArrow.attributes[1].value == "0") {
-                avatarArrow.remove();
+    if(!window.vukkyNoAvatarsInstalled) {
+        setInterval(() => {
+            var bodies = document.getElementsByClassName("color");
+            for (let i = 0; i < bodies.length; i++) {
+                const body = bodies[i];
+                body.remove();
             }
-        }
-    }, 1000);
+    
+            var avatarArrows = document.getElementsByClassName("avatarArrow");
+            for (let i = 0; i < avatarArrows.length; i++) {
+                const avatarArrow = avatarArrows[i];
+                if(avatarArrow.className.startsWith("avatarArrow avatarArrow") && avatarArrow.attributes[1].value == "0") {
+                    avatarArrow.remove();
+                }
+            }
+        }, 1000);
+    }
 })();

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Skribbl: No Avatars
 // @namespace    https://vukky.ga
-// @version      0.2
+// @version      0.3
 // @description  Destroys all traces of avatars.
 // @author       Vukky
 // @match        https://skribbl.io/**
@@ -11,6 +11,7 @@
 
 (function() {
     'use strict';
+    window.vukkyNoAvatarsInstalled = true;
 
     setInterval(() => {
         var avatars = document.getElementsByClassName("avatar");
@@ -25,7 +26,7 @@
             avatarContainer.remove();
         }
 
-        document.getElementById("loginAvatarCustomizeContainer").remove();
-        document.getElementById("logoAvatarContainer").remove();
+        if(document.getElementById("loginAvatarCustomizeContainer")) document.getElementById("loginAvatarCustomizeContainer").remove();
+        if(document.getElementById("logoAvatarContainer")) document.getElementById("logoAvatarContainer").remove();
     }, 1000);
 })();
