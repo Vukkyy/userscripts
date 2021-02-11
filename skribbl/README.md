@@ -1,4 +1,5 @@
 # Userscripts for skribbl.io
+Tested in Tampermonkey, on Microsoft Edge Chromium `90.0.794.0 (Official build) canary (64-bit)`.
 
 ## skribblnoavatars [(Install)](https://github.com/Vukky123/userscripts/raw/main/skribbl/skribblnoavatars.user.js)
 Removes all traces of avatars.
