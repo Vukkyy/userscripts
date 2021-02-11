@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         Skribbl: No Avatars
 // @namespace    https://vukky.ga
-// @version      0.1
+// @version      0.2
 // @description  Destroys all traces of avatars.
-// @author       You
+// @author       Vukky
 // @match        https://skribbl.io/**
 // @grant        none
 // @updateURL    https://raw.githubusercontent.com/Vukky123/userscripts/main/skribbl/skribblnoavatars.user.js

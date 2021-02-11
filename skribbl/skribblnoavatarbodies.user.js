@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         Skribbl: No Avatar Bodies
 // @namespace    https://vukky.ga
-// @version      0.1
+// @version      0.2
 // @description  Destroys skribbl bodies, so you only have faces. Incompatible with No Avatars.
-// @author       You
+// @author       Vukky
 // @match        https://skribbl.io/**
 // @grant        none
 // @updateURL    https://raw.githubusercontent.com/Vukky123/userscripts/main/skribbl/skribblnoavatarbodies.user.js

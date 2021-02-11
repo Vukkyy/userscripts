@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         Skribbl: No Timer
 // @namespace    https://vukky.ga
-// @version      0.1
+// @version      0.2
 // @description  Is the timer scary? Do you wish you didn't know how much time you have left? Great! This is for you.
-// @author       You
+// @author       Vukky
 // @match        https://skribbl.io/**
 // @grant        none
 // @updateURL    https://raw.githubusercontent.com/Vukky123/userscripts/main/skribbl/skribblnotimer.user.js
