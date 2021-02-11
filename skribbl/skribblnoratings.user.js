@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Skribbl: No Ratings
 // @namespace    https://vukky.ga
-// @version      0.1
+// @version      0.2
 // @description  Do you hate how people give you thumbs downs for NO REASON AT ALL??? This is for you!
 // @author       Vukky
 // @match        https://skribbl.io/**
@@ -13,7 +13,8 @@
     'use strict';
 
     setInterval(() => {
-        var iconList = ["iconThumbsUp", "iconThumbsDown", "thumbsUp", "thumbsDown"];
+        if(document.getElementById("rateDrawing")) document.getElementById("rateDrawing").remove();
+        var iconList = ["iconThumbsUp", "iconThumbsDown"];
         for (let j = 0; j < iconList.length; j++) {
             var icons = document.getElementsByClassName(iconList[j]);
             for (let i = 0; i < icons.length; i++) {

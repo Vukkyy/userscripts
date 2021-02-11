@@ -1,7 +1,7 @@
 # Userscripts for skribbl.io
 Tested in Tampermonkey, on Microsoft Edge Chromium `90.0.794.0 (Official build) canary (64-bit)`.
 
-**NEW SCRIPTS:** skribbldonttypemore, skribblnoratings
+**NEW SCRIPTS:** skribblquickbuttons, skribblurlshortcuts
 
 ## skribblcrownsforall [(Install)](https://github.com/Vukky123/userscripts/raw/main/skribbl/skribblcrownsforall.user.js)
 Gives all avatars a crown. **Purely visual. You will not become an owner.**
@@ -31,3 +31,13 @@ Removes the "ratings" (👍👎) from the game.
 Removes the timer from the game.
 
 ![Game without timer](https://i.imgur.com/QCllYsr.png)
+
+## skribblquickbuttons [(Install)](https://github.com/Vukky123/userscripts/raw/main/skribbl/skribblquickbuttons.user.js)
+Adds multiple buttons related to connections.
+
+**Enhanced with skribblurlshortcuts!** Switch server, Start private game, and Join Public Game are only available if you have skribblurlshortcuts insalled.
+
+![Game with skribblquickbuttons](https://i.imgur.com/j5mt8je.png) ![Private game settings with skribblquickbuttons](https://i.imgur.com/PBgXHFp.png)
+
+## skribblurlshortcuts [(Install)](https://github.com/Vukky123/userscripts/raw/main/skribbl/skribblurlshortcuts.user.js)
+Adds shortcuts to the URLs. To play, go to `skribbl.io/?play`. To start a private lobby, go to `skribbl.io/?create`.
