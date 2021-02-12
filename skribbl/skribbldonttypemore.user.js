@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Skribbl: Don't Type More
 // @namespace    https://vukky.ga
-// @version      0.2
+// @version      0.3
 // @description  Don't type more than the actual length of the word + 1! Run "vukkyDontTypeMoreOn = false" in console to quickly disable it - "vukkyDontTypeMoreOn = true" to turn back on.
 // @author       Vukky
 // @match        https://skribbl.io/**
@@ -18,7 +18,7 @@
         var wordLength = document.getElementById("currentWord").textContent.length;
         if(window.vukkyDontTypeMoreOn && !wordLength == 0) {
             var maxLength;
-            if(!window.vukkyDontTypeMoreTrueLength) {
+            if(window.vukkyDontTypeMoreTrueLength) {
                 maxLength = wordLength;
             } else {
                 maxLength = wordLength + 1;
