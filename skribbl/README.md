@@ -39,5 +39,8 @@ Adds multiple buttons to make actions faster.
 
 ![Game with skribblquickbuttons](https://i.imgur.com/j5mt8je.png) ![Private game settings with skribblquickbuttons](https://i.imgur.com/PBgXHFp.png) ![Picking words with skribblquickbuttons](https://i.imgur.com/b7tEQdY.png)
 
+## skribblsurprise [(Install)](https://github.com/Vukky123/userscripts/raw/main/skribbl/skribblsurprise.user.js)
+Leaves which word you get to draw up to fate. Scary!
+
 ## skribblurlshortcuts [(Install)](https://github.com/Vukky123/userscripts/raw/main/skribbl/skribblurlshortcuts.user.js)
 Adds shortcuts to the URLs. To play, go to `skribbl.io/?play`. To start a private lobby, go to `skribbl.io/?create`.
