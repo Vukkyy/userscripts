@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Skribbl: Skribbl Surprise
 // @namespace    https://vukky.ga
-// @version      0.1
+// @version      0.2
 // @description  Leaves which word you get to draw up to fate. Scary!
 // @author       Vukky, Synne (name and description)
 // @match        https://skribbl.io/**
@@ -12,6 +12,7 @@
 (function() {
     'use strict';
     setInterval(() => {
+        document.getElementsByClassName("wordContainer")[0].style.opacity = "0%"
         if(document.getElementsByClassName("wordContainer")[0].children.length > 0) {
             if(document.getElementsByClassName("wordContainer")[0].style.display == "") {
                 document.getElementsByClassName("word")[Math.floor(Math.random() * (2 - 0 + 1)) + 0].click()
