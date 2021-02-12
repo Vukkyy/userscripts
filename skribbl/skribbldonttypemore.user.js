@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Skribbl: Don't Type More
 // @namespace    https://vukky.ga
-// @version      0.1
+// @version      0.2
 // @description  Don't type more than the actual length of the word + 1! Run "vukkyDontTypeMoreOn = false" in console to quickly disable it - "vukkyDontTypeMoreOn = true" to turn back on.
 // @author       Vukky
 // @match        https://skribbl.io/**
@@ -12,11 +12,17 @@
 (function() {
     'use strict';
     window.vukkyDontTypeMoreOn = true;
+    window.vukkyDontTypeMoreTrueLength = false;
 
     setInterval(() => {
         var wordLength = document.getElementById("currentWord").textContent.length;
         if(window.vukkyDontTypeMoreOn && !wordLength == 0) {
-            var maxLength = wordLength + 1;
+            var maxLength;
+            if(!window.vukkyDontTypeMoreTrueLength) {
+                maxLength = wordLength;
+            } else {
+                maxLength = wordLength + 1;
+            }
             document.getElementById("inputChat").setAttribute("maxlength", maxLength);
             document.getElementById("inputChat").setAttribute("placeholder", "Type your guess here... (max " + maxLength + " characters)");
         } else {
