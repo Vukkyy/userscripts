@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Skribbl: Quick Buttons
 // @namespace    https://vukky.ga
-// @version      0.2
+// @version      0.3
 // @description  Adds quick buttons to the game.
 // @author       Vukky
 // @match        https://skribbl.io/**

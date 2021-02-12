@@ -33,11 +33,11 @@ Removes the timer from the game.
 ![Game without timer](https://i.imgur.com/QCllYsr.png)
 
 ## skribblquickbuttons [(Install)](https://github.com/Vukky123/userscripts/raw/main/skribbl/skribblquickbuttons.user.js)
-Adds multiple buttons related to connections.
+Adds multiple buttons to make actions faster.
 
 **Enhanced with skribblurlshortcuts!** Switch server, Start private game, and Join Public Game are only available if you have skribblurlshortcuts installed.
 
-![Game with skribblquickbuttons](https://i.imgur.com/j5mt8je.png) ![Private game settings with skribblquickbuttons](https://i.imgur.com/PBgXHFp.png)
+![Game with skribblquickbuttons](https://i.imgur.com/j5mt8je.png) ![Private game settings with skribblquickbuttons](https://i.imgur.com/PBgXHFp.png) ![Picking words with skribblquickbuttons](https://i.imgur.com/b7tEQdY.png)
 
 ## skribblurlshortcuts [(Install)](https://github.com/Vukky123/userscripts/raw/main/skribbl/skribblurlshortcuts.user.js)
 Adds shortcuts to the URLs. To play, go to `skribbl.io/?play`. To start a private lobby, go to `skribbl.io/?create`.
