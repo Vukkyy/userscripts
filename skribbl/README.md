@@ -24,6 +24,9 @@ Removes all traces of avatars.
 
 ![Login screen without avatars](https://i.imgur.com/PkCh3VI.png) ![Game without avatars](https://i.imgur.com/dcxs5Bk.png)
 
+## skribblnochat [(Install)](https://github.com/Vukky123/userscripts/raw/main/skribbl/skribblnochat.user.js)
+Removes the chat from the game. Not sure why you would want to do this.
+
 ## skribblnoratings [(Install)](https://github.com/Vukky123/userscripts/raw/main/skribbl/skribblnoratings.user.js)
 Removes the "ratings" (👍👎) from the game.
 
