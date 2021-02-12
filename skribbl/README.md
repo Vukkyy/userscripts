@@ -10,10 +10,7 @@ Gives all avatars a crown. **Purely visual. You will not become an owner.**
 
 ## skribbldonttypemore [(Install)](https://github.com/Vukky123/userscripts/raw/main/skribbl/skribbldonttypemore.user.js)
 Prevents you from typing more than `word length + 1` characters in the chat.
-To turn it off, run `vukkyDontTypeMoreOn = false` in the console. To turn it back on, run `vukkyDontTypeMoreOn = true` in the console.
-
-### Extras
-If you want the character limit to be the actual word, use `vukkyDontTypeMoreTrueLength = true`. To turn it off, use `vukkyDontTypeMoreTrueLength = false`.
+To change its settings, click on the Tampermonkey icon in your extension bar, then click "Don't Type More Settings".
 
 ![Game with skribbldonttypemore on](https://i.imgur.com/hzQ3eL3.png)
 
