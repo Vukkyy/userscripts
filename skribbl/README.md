@@ -1,7 +1,12 @@
 # Userscripts for skribbl.io
 Tested in Tampermonkey, on Microsoft Edge Chromium `90.0.794.0 (Official build) canary (64-bit)`.
 
-**NEW SCRIPTS:** skribblsurprise
+**NEW SCRIPTS:** skribbl+
+
+## skribbl+ [(Install)](https://github.com/Vukky123/userscripts/raw/main/skribbl/skribblplus.user.js)
+A experimental userscript that will combine all of my userscripts into one.
+
+The avatar customization scripts (crownsforall, noavatarbodies, noavatars, and a special new one also related to crowns 👀) are currently supported.
 
 ## skribblcrownsforall [(Install)](https://github.com/Vukky123/userscripts/raw/main/skribbl/skribblcrownsforall.user.js)
 Gives all avatars a crown. **Purely visual. You will not become an owner.**
