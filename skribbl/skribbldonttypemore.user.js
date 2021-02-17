@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Skribbl: Don't Type More
 // @namespace    https://vukky.ga
-// @version      0.4
+// @version      0.5
 // @description  Don't type more than the actual length of the word + 1! Run "vukkyDontTypeMoreOn = false" in console to quickly disable it - "vukkyDontTypeMoreOn = true" to turn back on.
 // @author       Vukky
 // @match        https://skribbl.io/**
@@ -38,10 +38,6 @@
             },
           }
     });
-
-    if(document.location.href == "https://skribbl.io/vukky/donttypemore") {
-        GM_config.open();
-    }
 
     setInterval(() => {
         var wordLength = document.getElementById("currentWord").textContent.length;
