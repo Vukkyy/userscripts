@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         skribbl+
 // @namespace    https://vukky.ga
-// @version      0.2.1
+// @version      0.2.2
 // @description  skribbl+ is a combination of all the Skribbl userscripts that I have previously created.
 // @author       Vukky
 // @match        http*://skribbl.io/*
@@ -71,7 +71,7 @@
           },
           'css': "#skribblplus .section_header_holder { text-align: center; }",
           'events': {
-            'open': function(doc) {
+            'open': function() {
                 function removeAvatarsDisabler() {
                     var crownsforall = GM_config.get('crownsforall', true);
                     var crownsfornone = GM_config.get('crownsfornone', true);
@@ -162,6 +162,11 @@
                         GM_config.fields['removechat'].node.disabled = true
                     }
                 }, false);
+            },
+            'reset': function() {
+                GM_config.save();
+                GM_config.close();
+                GM_config.open();
             }
           }
     });
