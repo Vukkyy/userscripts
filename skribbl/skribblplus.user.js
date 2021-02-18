@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         skribbl+
 // @namespace    https://vukky.ga
-// @version      0.2.0
+// @version      0.2.1
 // @description  skribbl+ is a combination of all the Skribbl userscripts that I have previously created.
 // @author       Vukky
 // @match        http*://skribbl.io/*
@@ -82,11 +82,29 @@
                         GM_config.fields['removeavatars'].node.disabled = true
                     }
                 }
-                var crownsfornone = GM_config.get('crownsforall', true);
+                var crownsfornone = GM_config.get('crownsfornone', true);
+                var crownsforall = GM_config.get('crownsfornone', true);
                 if(crownsfornone == false) {
                     GM_config.fields['crownsforall'].node.disabled = false
                 } else {
                     GM_config.fields['crownsforall'].node.disabled = true
+                }
+                if(crownsforall == false) {
+                    GM_config.fields['crownsforall'].node.disabled = false
+                } else {
+                    GM_config.fields['crownsforall'].node.disabled = true
+                }
+                var removechat = GM_config.get('removechat', true);
+                var deletechatmessages = GM_config.get('deletechatmessages', true);
+                if(removechat == false) {
+                    GM_config.fields['deletechatmessages'].node.disabled = false
+                } else {
+                    GM_config.fields['deletechatmessages'].node.disabled = true
+                }
+                if(deletechatmessages == false) {
+                    GM_config.fields['removechat'].node.disabled = false
+                } else {
+                    GM_config.fields['removechat'].node.disabled = true
                 }
                 removeAvatarsDisabler();
                 GM_config.fields['removeavatars'].node.addEventListener('change', function () {
