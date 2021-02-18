@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         skribbl+
 // @namespace    https://vukky.ga
-// @version      0.2.2
+// @version      0.3.0
 // @description  skribbl+ is a combination of all the Skribbl userscripts that I have previously created.
 // @author       Vukky
 // @match        http*://skribbl.io/*
@@ -21,7 +21,7 @@
     GM_config.init(
         {
           'id': 'skribblplus',
-          'title': "skribbl+",
+          'title': "skribbl+ 0.3.0",
           'fields':
           {
             'removeavatars':
@@ -49,22 +49,42 @@
               'type': 'checkbox',
               'default': false
             },
-            'deletechatmessages':
+            'donttypemore':
             {
-              'label': 'Delete individual chat messages',
-              'section': ['Misc', 'Various other features.'],
+              'label': 'Enable Don\'t Type More',
+              'section': ['Don\'t Type More', 'Don\'t type more than the actual length of the word.'],
               'type': 'checkbox',
               'default': false
+            },
+            'donttypemorecharacters':
+            {
+              'label': 'How many extra characters?',
+              'type': 'unsigned int',
+              'min': 0,
+              'default': 1
             },
             'removechat':
             {
               'label': "Remove the chat (but why?)",
+              'section': ['Misc', 'Various other features.'],
+              'type': 'checkbox',
+              'default': false
+            },
+            'deletechatmessages':
+            {
+              'label': 'Delete individual chat messages',
               'type': 'checkbox',
               'default': false
             },
             'urlshortcuts':
             {
               'label': "URL shortcuts (skribbl.io/?play, skribbl.io/?create)",
+              'type': 'checkbox',
+              'default': false
+            },
+            'noexplanations':
+            {
+              'label': "Hide About and How to Play",
               'type': 'checkbox',
               'default': false
             },
@@ -287,6 +307,27 @@
             if(document.getElementById("screenGame").style.display == "") {
                 document.getElementById("boxMessages").style.display = "";
             }
+        }
+
+        var wordLength = document.getElementById("currentWord").textContent.length;
+        if(GM_config.get('donttypemore') == true && !wordLength == 0) {
+            var maxLength;
+            maxLength = wordLength + GM_config.get('donttypemorecharacters')
+            document.getElementById("inputChat").setAttribute("maxlength", maxLength);
+            document.getElementById("inputChat").setAttribute("placeholder", "Type your guess here... (max " + maxLength + " characters)");
+        } else {
+            document.getElementById("inputChat").setAttribute("maxlength", "100");
+            document.getElementById("inputChat").setAttribute("placeholder", "Type your guess here...");
+        }
+
+        if(GM_config.get('noexplanations') == true) {
+            document.getElementById("tabUpdate").style.display = "none";
+            document.getElementById("tabAbout").style.display = "none";
+            document.getElementById("tabHow").style.display = "none";
+        } else if (GM_config.get('noexplanations') == false) {
+            document.getElementById("tabUpdate").style.display = "";
+            document.getElementById("tabAbout").style.display = "";
+            document.getElementById("tabHow").style.display = "";
         }
     }, 100);
 })();
