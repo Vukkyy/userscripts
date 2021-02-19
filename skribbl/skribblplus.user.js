@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         skribbl+
 // @namespace    https://vukky.ga
-// @version      0.3.0
+// @version      0.4.0
 // @description  skribbl+ is a combination of all the Skribbl userscripts that I have previously created.
 // @author       Vukky
 // @match        http*://skribbl.io/*
@@ -21,7 +21,7 @@
     GM_config.init(
         {
           'id': 'skribblplus',
-          'title': "skribbl+ 0.3.0",
+          'title': "skribbl+ 0.4.0",
           'fields':
           {
             'removeavatars':
@@ -87,6 +87,13 @@
               'label': "Hide About and How to Play",
               'type': 'checkbox',
               'default': false
+            },
+            'language':
+            {
+              'label': "Skribbl.io UI language",
+              'type': 'radio',
+              'options': ['English', 'Norwegian'],
+              'default': 'English'
             },
           },
           'css': "#skribblplus .section_header_holder { text-align: center; }",
@@ -192,6 +199,78 @@
     });
 
     setInterval(() => {
+        var lang_play, lang_lobby_play, lang_create_private_room, lang_delete_message, lang_rounds, lang_language, lang_invite_your_friends, lang_players, lang_contact, lang_result, lang_score, lang_you, lang_round, lang_round_of, lang_settings, lang_copy;
+        switch(GM_config.get('language')) {
+            case "English":
+                lang_play = "Play!",
+                lang_lobby_play = "Start Game"
+                lang_create_private_room = "Create Private Room",
+                lang_delete_message = "Delete this message",
+                lang_rounds = "Rounds",
+                lang_language = "Language",
+                lang_invite_your_friends = "Invite your friends!",
+                lang_players = "Players",
+                lang_contact = "Contact",
+                lang_result = "Result"
+                lang_score = "Score:",
+                lang_you = "You",
+                lang_round = "Round",
+                lang_round_of = "of",
+                lang_settings = "Settings",
+                lang_copy = "Copy"
+                break;
+            case "Norwegian":
+                lang_play = "Spill!",
+                lang_lobby_play = "Start Spill"
+                lang_create_private_room = "Lag Privat Rom",
+                lang_delete_message = "Slett denne meldingen",
+                lang_rounds = "Runder",
+                lang_language = "Språk",
+                lang_invite_your_friends = "Inviter vennene dine!",
+                lang_players = "Spillere",
+                lang_contact = "Kontakt",
+                lang_result = "Resultat",
+                lang_score = "Poeng:",
+                lang_you = "Deg",
+                lang_round = "Runde",
+                lang_round_of = "av",
+                lang_settings = "Innstillinger",
+                lang_copy = "Kopier"
+                break;
+        }
+        document.getElementById("formLogin").childNodes[2].id = "buttonLoginPlay"
+        document.getElementById("buttonLoginPlay").innerText = lang_play
+        document.getElementById("buttonLoginCreatePrivate").innerText = lang_create_private_room
+        document.getElementById("buttonLobbyPlay").innerText = lang_lobby_play
+        document.getElementsByClassName("containerSettings")[0].childNodes[0].childNodes[0].innerText = lang_rounds
+        document.getElementsByClassName("containerSettings")[0].childNodes[2].childNodes[0].innerText = lang_language
+        document.getElementsByClassName("invite-container")[0].childNodes[0].innerText = lang_invite_your_friends
+        document.getElementsByClassName("lobbySection")[0].childNodes[0].innerText = lang_players
+        document.getElementsByClassName("lobbySectionSettings")[0].childNodes[0].innerText = lang_settings
+        document.getElementById("inviteCopyButton").innerText = lang_copy
+        document.getElementsByClassName("you")[0].innerText = lang_you
+        document.getElementById("tos").childNodes[0].innerText = lang_contact
+        if(document.getElementById("overlay").childNodes[0].childNodes[0].innerText == "Result") {
+            document.getElementById("overlay").childNodes[0].childNodes[0].innerText = lang_result
+        } else if (document.getElementById("overlay").childNodes[0].childNodes[0].innerText.startsWith("Round")) {
+            document.getElementById("overlay").childNodes[0].childNodes[0].innerText = lang_round + " " + document.getElementById("overlay").childNodes[0].childNodes[0].innerText.match(/\d+/g)[0]
+        }
+        var scores = document.getElementsByClassName("score")
+        for (let i = 0; i < scores.length; i++) {
+            const score = scores[i];
+            if(score.innerText == "" && score.parentNode.parentNode.id.startsWith("player")) continue;
+            score.innerText = lang_score + " " + score.innerText.replace( /^\D+/g, '')
+        }
+        var names = document.getElementsByClassName("name")
+        for (let i = 0; i < names.length; i++) {
+            const name = names[i];
+            if(name.innerText == "" || !name.innerText.endsWith(")")) continue;
+            name.innerText = name.innerText.split('(')[0].trim() + " (" + lang_you + ")"
+        }
+        if(document.getElementById("round").innerText.match(/\d+/g) != null) {
+            document.getElementById("round").innerText = lang_round + " " + document.getElementById("round").innerText.match(/\d+/g)[0] + " " + lang_round_of + " " + document.getElementById("round").innerText.match(/\d+/g)[1]
+        }
+
         if(GM_config.get('removeavatars') == true) {
             var avatars = document.getElementsByClassName("avatar");
             for (let i = 0; i < avatars.length; i++) {
@@ -270,7 +349,7 @@
         if(GM_config.get('deletechatmessages') == true) {
             // Some of this code is from https://github.com/Sv443/skribbl.io-plus.
             // Copyright (c) 2018 Sv443 / Sven Fehler
-            var deleteButton = "<span id='del_msg' style='font-weight: bold; color: red; cursor: pointer;' title='Delete this message'>X</span> ";
+            var deleteButton = "<span id='del_msg' style='font-weight: bold; color: red; cursor: pointer;' title='" + lang_delete_message + "'>X</span> ";
             var messages = document.getElementById("boxMessages").childNodes;
             for (let i = 0; i < messages.length; i++) {
                 const message = messages[i].innerHTML;
@@ -288,9 +367,9 @@
                 }
             }
         }
-        
+
         if(GM_config.get('urlshortcuts') == true) {
-            if(!document.getElementById("screenLogin").style.display != "none") {
+            if(document.getElementById("screenLogin").style.display != "none") {
                 if(location.search == "?play") {
                     document.getElementById("formLogin").getElementsByTagName("button")[0].click();
                     document.getElementById("containerLogoBig").style.display = ""
