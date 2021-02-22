@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         skribbl+
 // @namespace    https://vukky.ga
-// @version      0.4.1
+// @version      0.5.0
 // @description  skribbl+ is a combination of all the Skribbl userscripts that I have previously created.
 // @author       Vukky
 // @match        http*://skribbl.io/*
@@ -21,7 +21,7 @@
     GM_config.init(
         {
           'id': 'skribblplus',
-          'title': "skribbl+ 0.4.0",
+          'title': "skribbl+ 0.5.0",
           'fields':
           {
             'removeavatars':
@@ -90,9 +90,9 @@
             },
             'language':
             {
-              'label': "Skribbl.io UI language",
+              'label': "Skribbl.io UI language (Disable will make skribbl+ stop editing the UI text)",
               'type': 'radio',
-              'options': ['English', 'Norwegian'],
+              'options': ['English', 'Norwegian', 'Disable'],
               'default': 'English'
             },
           },
@@ -199,7 +199,7 @@
     });
 
     setInterval(() => {
-        var lang_play, lang_lobby_play, lang_create_private_room, lang_delete_message, lang_rounds, lang_language, lang_invite_your_friends, lang_players, lang_contact, lang_result, lang_score, lang_you, lang_round, lang_round_of, lang_settings, lang_copy;
+        var lang_play, lang_lobby_play, lang_create_private_room, lang_delete_message, lang_rounds, lang_language, lang_invite_your_friends, lang_players, lang_contact, lang_result, lang_score, lang_you, lang_round, lang_round_of, lang_settings, lang_copy, lang_time_is_up, lang_the_word_was, lang_choosing_a_word, lang_choose_a_word, lang_guessed_word, lang_joined, lang_drawing_now, lang_left;
         switch(GM_config.get('language')) {
             case "English":
                 lang_play = "Play!",
@@ -212,12 +212,20 @@
                 lang_players = "Players",
                 lang_contact = "Contact",
                 lang_result = "Result"
-                lang_score = "Score:",
+                lang_score = "Points:",
                 lang_you = "You",
                 lang_round = "Round",
                 lang_round_of = "of",
                 lang_settings = "Settings",
-                lang_copy = "Copy"
+                lang_copy = "Copy",
+                lang_time_is_up = "Time is up!",
+                lang_the_word_was = "The word was",
+                lang_choosing_a_word = "is choosing a word!",
+                lang_choose_a_word = "Choose a word",
+                lang_guessed_word = "guessed the word!",
+                lang_joined = "joined.",
+                lang_drawing_now = "is drawing now!",
+                lang_left = "left."
                 break;
             case "Norwegian":
                 lang_play = "Spill!",
@@ -235,40 +243,70 @@
                 lang_round = "Runde",
                 lang_round_of = "av",
                 lang_settings = "Innstillinger",
-                lang_copy = "Kopier"
+                lang_copy = "Kopier",
+                lang_time_is_up = "Tiden er ute!",
+                lang_the_word_was = "Ordet var",
+                lang_choosing_a_word = "velger et ord!",
+                lang_choose_a_word = "Velg et ord",
+                lang_guessed_word = "gjettet ordet!",
+                lang_joined = "ble med.",
+                lang_drawing_now = "tegner nå!",
+                lang_left = "gikk ut."
                 break;
         }
         document.getElementById("formLogin").childNodes[2].id = "buttonLoginPlay"
-        document.getElementById("buttonLoginPlay").innerText = lang_play
-        document.getElementById("buttonLoginCreatePrivate").innerText = lang_create_private_room
-        document.getElementById("buttonLobbyPlay").innerText = lang_lobby_play
-        document.getElementsByClassName("containerSettings")[0].childNodes[0].childNodes[0].innerText = lang_rounds
-        document.getElementsByClassName("containerSettings")[0].childNodes[2].childNodes[0].innerText = lang_language
-        document.getElementsByClassName("invite-container")[0].childNodes[0].innerText = lang_invite_your_friends
-        document.getElementsByClassName("lobbySection")[0].childNodes[0].innerText = lang_players
-        document.getElementsByClassName("lobbySectionSettings")[0].childNodes[0].innerText = lang_settings
-        document.getElementById("inviteCopyButton").innerText = lang_copy
-        document.getElementsByClassName("you")[0].innerText = lang_you
-        document.getElementById("tos").childNodes[0].innerText = lang_contact
-        if(document.getElementById("overlay").childNodes[0].childNodes[0].innerText == "Result") {
-            document.getElementById("overlay").childNodes[0].childNodes[0].innerText = lang_result
-        } else if (document.getElementById("overlay").childNodes[0].childNodes[0].innerText.startsWith("Round")) {
-            document.getElementById("overlay").childNodes[0].childNodes[0].innerText = lang_round + " " + document.getElementById("overlay").childNodes[0].childNodes[0].innerText.match(/\d+/g)[0]
-        }
-        var scores = document.getElementsByClassName("score")
-        for (let i = 0; i < scores.length; i++) {
-            const score = scores[i];
-            if(score.innerText == "" && !score.parentNode.parentNode.id.startsWith("player") || score.parentNode.parentNode.id == "") continue;
-            score.innerText = lang_score + " " + score.innerText.replace( /^\D+/g, '')
-        }
-        var names = document.getElementsByClassName("name")
-        for (let i = 0; i < names.length; i++) {
-            const name = names[i];
-            if(name.innerText == "" || !name.innerText.endsWith(")")) continue;
-            name.innerText = name.innerText.split('(')[0].trim() + " (" + lang_you + ")"
-        }
-        if(document.getElementById("round").innerText.match(/\d+/g) != null) {
-            document.getElementById("round").innerText = lang_round + " " + document.getElementById("round").innerText.match(/\d+/g)[0] + " " + lang_round_of + " " + document.getElementById("round").innerText.match(/\d+/g)[1]
+        if(GM_config.get('language') != "Disable") {
+            document.getElementById("buttonLoginPlay").innerText = lang_play
+            document.getElementById("buttonLoginCreatePrivate").innerText = lang_create_private_room
+            document.getElementById("buttonLobbyPlay").innerText = lang_lobby_play
+            document.getElementsByClassName("containerSettings")[0].childNodes[0].childNodes[0].innerText = lang_rounds
+            document.getElementsByClassName("containerSettings")[0].childNodes[2].childNodes[0].innerText = lang_language
+            document.getElementsByClassName("invite-container")[0].childNodes[0].innerText = lang_invite_your_friends
+            document.getElementsByClassName("lobbySection")[0].childNodes[0].innerText = lang_players
+            document.getElementsByClassName("lobbySectionSettings")[0].childNodes[0].innerText = lang_settings
+            document.getElementById("inviteCopyButton").innerText = lang_copy
+            document.getElementsByClassName("you")[0].innerText = lang_you
+            document.getElementById("tos").childNodes[0].innerText = lang_contact
+            if (document.getElementById("overlay").childNodes[0].childNodes[0].innerText == "Result") {
+                document.getElementById("overlay").childNodes[0].childNodes[0].innerText = lang_result
+            } else if (document.getElementById("overlay").childNodes[0].childNodes[0].innerText.startsWith("Round")) {
+                document.getElementById("overlay").childNodes[0].childNodes[0].innerText = lang_round + " " + document.getElementById("overlay").childNodes[0].childNodes[0].innerText.match(/\d+/g)[0]
+            } else if (document.getElementById("overlay").childNodes[0].childNodes[0].innerText.startsWith("The word was:")) {
+                document.getElementById("overlay").childNodes[0].childNodes[0].innerText = lang_the_word_was + ": " + document.getElementById("overlay").childNodes[0].childNodes[0].innerText.split("The word was: ")[1]
+            } else if (document.getElementById("overlay").childNodes[0].childNodes[0].innerText.endsWith("is choosing a word!")) {
+                document.getElementById("overlay").childNodes[0].childNodes[0].innerText = document.getElementById("overlay").childNodes[0].childNodes[0].innerText.split(" is choosing a word!")[0] + " " + lang_choosing_a_word
+            } else if (document.getElementById("overlay").childNodes[0].childNodes[0].innerText == "Choose a word") {
+                document.getElementById("overlay").childNodes[0].childNodes[0].innerText = lang_choose_a_word
+            }
+            if (document.getElementsByClassName("revealReason")[0].innerText == "Time is up!") {
+                document.getElementsByClassName("revealReason")[0].innerText = lang_time_is_up
+            }
+            var scores = document.getElementsByClassName("score")
+            for (let i = 0; i < scores.length; i++) {
+                const score = scores[i];
+                if(score.innerText == "" && !score.parentNode.parentNode.id.startsWith("player") || score.parentNode.parentNode.id == "") continue;
+                score.innerText = lang_score + " " + score.innerText.replace( /^\D+/g, '')
+            }
+            var names = document.getElementsByClassName("name")
+            for (let i = 0; i < names.length; i++) {
+                const name = names[i];
+                if(name.innerText == "" || !name.innerText.endsWith(")")) continue;
+                name.innerText = name.innerText.split('(')[0].trim() + " (" + lang_you + ")"
+            }
+            var messages = document.getElementById("boxMessages").childNodes
+            for (let i = 0; i < messages.length; i++) {
+                if(messages[i] == undefined) break;
+                let message = messages[i];
+                let messageText = messages[i].getElementsByTagName("span")[messages[i].getElementsByTagName("span").length - 1];
+                if(message.style.color == "rgb(86, 206, 39)" && messageText.innerText.endsWith("guessed the word!")) messageText.innerText = messageText.innerText.split(" guessed the word!")[0] + " " + lang_guessed_word;
+                if(message.style.color == "rgb(86, 206, 39)" && messageText.innerText.endsWith("joined.")) messageText.innerText = messageText.innerText.split(" joined.")[0] + " " + lang_joined;
+                if(message.style.color == "rgb(86, 206, 39)" && messageText.innerText.startsWith("The word was")) messageText.innerText = lang_the_word_was + " " + messageText.innerText.split("The word was ")[1];
+                if(message.style.color == "rgb(57, 117, 206)" && messageText.innerText.endsWith("is drawing now!")) messageText.innerText = messageText.innerText.split(" is drawing now!")[0] + " " + lang_drawing_now;
+                if(message.style.color == "rgb(206, 79, 10)" && messageText.innerText.endsWith("left.")) messageText.innerText = messageText.innerText.split(" left.")[0] + " " + lang_left;
+            }
+            if(document.getElementById("round").innerText.match(/\d+/g) != null) {
+                document.getElementById("round").innerText = lang_round + " " + document.getElementById("round").innerText.match(/\d+/g)[0] + " " + lang_round_of + " " + document.getElementById("round").innerText.match(/\d+/g)[1]
+            }
         }
 
         if(GM_config.get('removeavatars') == true) {
