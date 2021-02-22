@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         skribbl+
 // @namespace    https://vukky.ga
-// @version      0.4.0
+// @version      0.4.1
 // @description  skribbl+ is a combination of all the Skribbl userscripts that I have previously created.
 // @author       Vukky
 // @match        http*://skribbl.io/*
@@ -258,7 +258,7 @@
         var scores = document.getElementsByClassName("score")
         for (let i = 0; i < scores.length; i++) {
             const score = scores[i];
-            if(score.innerText == "" && score.parentNode.parentNode.id.startsWith("player")) continue;
+            if(score.innerText == "" && !score.parentNode.parentNode.id.startsWith("player") || score.parentNode.parentNode.id == "") continue;
             score.innerText = lang_score + " " + score.innerText.replace( /^\D+/g, '')
         }
         var names = document.getElementsByClassName("name")

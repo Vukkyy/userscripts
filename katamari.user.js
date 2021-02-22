@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Katamari Everywhere!
 // @namespace    https://vukky.ga
-// @version      0.2.0
+// @version      0.3.0
 // @description  Play Katamari Damacy on websites! The unoffical reboot of kathack.com.
 // @author       Vukky, original authors: Alex Leone, David Nufer, David Truong
 // @match        *://*/*
@@ -10,6 +10,8 @@
 // @updateURL    https://raw.githubusercontent.com/Vukky123/userscripts/main/katamari.user.js
 // @icon         https://vukky.ga/scripts/katamari/assets/ball.png
 // ==/UserScript==
+
+jQuery.noConflict();
 
 (function() {
     'use strict';
@@ -385,9 +387,10 @@
 
             this.init = function () {
                 canvas_el = document.createElement('canvas');
+                // Code modified: duplicated width and height, added background-color
                 canvas_el.width = radius * 2;
                 canvas_el.height = radius * 2;
-                canvas_el.style.cssText = 'position: absolute; z-index: 500;';
+                canvas_el.style.cssText = 'position: absolute; z-index: 500; width: ' + radius * 2 + 'px; height:' + radius * 2 + 'px; background-color: transparent;';
                 parentNode.appendChild(canvas_el);
                 canvas_ctx = canvas_el.getContext('2d');
 
@@ -573,8 +576,11 @@
                 canvas_el.style.left = (x - radius) + 'px';
                 canvas_el.style.top = (y - radius) + 'px';
                 if (radius != lastR) {
+                    // Code modified: duplicated width and height
                     canvas_el.width = 2 * radius + 1;
                     canvas_el.height = 2 * radius + 1;
+                    canvas_el.style.width = 2 * radius + 1 + 'px';
+                    canvas_el.style.height = 2 * radius + 1 + 'px';
                     lastR = radius;
                 }
                 /* draw white circle. */
@@ -792,7 +798,7 @@ text-align:left;\
 z-index:501;';
             d.innerHTML = '<h1 style="font-size:16pt">\
 <a href="http://kathack.com/" style="color:blue;text-decoration:none;">\
-Katamari!</a></h1>\
+Katamari Everywhere!</a></h1>\
 <button style="position:absolute;top:0;right:0;">X</button>\
 <p>Controls: Hold down <b><select id="mouseb">\
 <option value="0">Left-Click</option>\
@@ -862,4 +868,4 @@ Realistic Pickups? <input id="checkv" type="checkbox" checked="checked" />\
             main();
         }  
     }
-})();
+})(jQuery);
