@@ -387,6 +387,7 @@
         if(GM_config.get('deletechatmessages') == true) {
             // Some of this code is from https://github.com/Sv443/skribbl.io-plus.
             // Copyright (c) 2018 Sv443 / Sven Fehler
+            // https://raw.githubusercontent.com/Sv443/skribbl.io-plus/master/LICENSE
             var deleteButton = "<span id='del_msg' style='font-weight: bold; color: red; cursor: pointer;' title='" + lang_delete_message + "'>X</span> ";
             var messages = document.getElementById("boxMessages").childNodes;
             for (let i = 0; i < messages.length; i++) {

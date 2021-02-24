@@ -6,6 +6,8 @@ Tested in Tampermonkey, on Microsoft Edge Chromium `90.0.794.0 (Official build) 
 ## skribbl+ [(Install)](https://github.com/Vukky123/userscripts/raw/main/skribbl/skribblplus.user.js)
 A experimental userscript that will combine all of my userscripts into one.
 
+Uses code from [skribbl.io+](https://github.com/Sv443/skribbl.io-plus) [(license)](https://raw.githubusercontent.com/Sv443/skribbl.io-plus/master/LICENSE) by Sv443.
+
 ## skribblcrownsforall [(Install)](https://github.com/Vukky123/userscripts/raw/main/skribbl/skribblcrownsforall.user.js)
 Gives all avatars a crown. **Purely visual. You will not become an owner.**
 
