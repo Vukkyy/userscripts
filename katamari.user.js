@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         Katamari Everywhere!
 // @namespace    https://vukky.ga
-// @version      0.3.0
+// @version      0.3.1
 // @description  Play Katamari Damacy on websites! The unoffical reboot of kathack.com.
 // @author       Vukky, original authors: Alex Leone, David Nufer, David Truong
 // @match        *://*/*
 // @grant        none
-// @require      http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js
+// @require      https://code.jquery.com/jquery-3.6.0.min.js
 // @updateURL    https://raw.githubusercontent.com/Vukky123/userscripts/main/katamari.user.js
 // @icon         https://vukky.ga/scripts/katamari/assets/ball.png
 // ==/UserScript==
@@ -758,7 +758,7 @@ jQuery.noConflict();
             jQuery('#loadingp').empty();
             jQuery('<button>Start!</button>').click(function () {
                 var game, bgmusic, ballOpts;
-                if (jQuery('#bgmusicc').attr('checked')) {
+                if (jQuery('#bgmusicc').prop('checked')) {
                     if (!(bgmusic = document.getElementById('khbgmusic'))) {
                         bgmusic = document.createElement('audio');
                         bgmusic.id = 'khbgmusic';
