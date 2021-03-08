@@ -1,19 +1,17 @@
 // ==UserScript==
-// @name         Vukkyfy
+// @name         REAL Vukkyfy
 // @namespace    https://vukky.ga
 // @version      0.2.0
-// @description  All <img> images are now Vukkies. Uh oh.
+// @description  VUKKY VUKKY VUKKY VUKKY VUKKY VUKKY V
 // @author       Vukky
 // @match        *://*/*
-// @updateURL    https://raw.githubusercontent.com/Vukky123/userscripts/main/vukkyfy.user.js
+// @updateURL    https://raw.githubusercontent.com/Vukky123/userscripts/main/realvukkyfy.user.js
 // @icon         https://raw.githubusercontent.com/Vukky123/vukmoji/master/emojis/animated/vukkyspin.gif
 // @grant        none
 // ==/UserScript==
 
 (function() {
     'use strict';
-
-    const deniedSites = ["github.com", "discord.com", "ptb.discord.com", "canary.discord.com"]
 
     function vukkyfy() {
         let images = document.getElementsByTagName('img');
@@ -22,6 +20,12 @@
             image.src = `https://sivusto.tk/innervukky/${randomNum}.png`;
             image.srcset = `https://sivusto.tk/innervukky/${randomNum}.png`;
             image.style.backgroundImage = `url("https://sivusto.tk/innervukky/${randomNum}.png")`;
+        };
+
+        let divs = document.getElementsByTagName('div');
+        for (var div of divs) {
+            let randomNum = Math.ceil(Math.random() * 34);
+            div.style.background = `url("https://sivusto.tk/innervukky/${randomNum}.png")`;
         };
 
         if(document.location.hostname == "www.youtube.com") {
@@ -35,5 +39,5 @@
         }
     }
 
-    if(!deniedSites.includes(document.location.hostname)) setInterval(vukkyfy, 1000);
+    setInterval(vukkyfy, 1000);
 })();
