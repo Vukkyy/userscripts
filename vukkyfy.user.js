@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Vukkyfy
 // @namespace    https://vukky.ga
-// @version      0.3.1
+// @version      0.3.2
 // @description  All <img> images are now Vukkies. Uh oh.
 // @author       Vukky
 // @match        *://*/*
@@ -22,7 +22,7 @@
     GM_config.init(
         {
           'id': 'vukkyfy',
-          'title': "Vukkyfy 0.3.1",
+          'title': "Vukkyfy 0.3.2",
           'fields': {
             'images': {
               'label': 'Vukkyfy images',
@@ -82,6 +82,11 @@
             let ps = document.getElementsByTagName('p');
             for (var p of ps) {
                 p.innerText = "Vukky"
+            };
+
+            let spans = document.getElementsByTagName('span');
+            for (var span of spans) {
+                span.innerText = "Vukky"
             };
         }
 
