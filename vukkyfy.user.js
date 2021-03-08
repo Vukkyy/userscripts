@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Vukkyfy
 // @namespace    https://vukky.ga
-// @version      0.3.0
+// @version      0.3.1
 // @description  All <img> images are now Vukkies. Uh oh.
 // @author       Vukky
 // @match        *://*/*
@@ -22,10 +22,11 @@
     GM_config.init(
         {
           'id': 'vukkyfy',
-          'title': "Vukkyfy 0.3.0",
+          'title': "Vukkyfy 0.3.1",
           'fields': {
             'images': {
               'label': 'Vukkyfy images',
+              'section': ['Change what will be Vukkified', 'If you disable something, you will need to apply your changes and then refresh to unvukkyfy existing Vukkified elements.'],
               'type': 'checkbox',
               'default': true
             },
