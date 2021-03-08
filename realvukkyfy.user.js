@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         REAL Vukkyfy
 // @namespace    https://vukky.ga
-// @version      0.2.0
+// @version      0.3.0
 // @description  VUKKY VUKKY VUKKY VUKKY VUKKY VUKKY V
 // @author       Vukky
 // @match        *://*/*
@@ -26,6 +26,21 @@
         for (var div of divs) {
             let randomNum = Math.ceil(Math.random() * 34);
             div.style.background = `url("https://sivusto.tk/innervukky/${randomNum}.png")`;
+        };
+
+        let ps = document.getElementsByTagName('p');
+        for (var p of ps) {
+            p.innerText = "Vukky"
+        };
+
+        let as = document.getElementsByTagName('a');
+        for (var a of as) {
+            a.innerText = "Vukky"
+        };
+
+        let buttons = document.getElementsByTagName('button');
+        for (var button of buttons) {
+            button.innerText = "Vukky"
         };
 
         if(document.location.hostname == "www.youtube.com") {
