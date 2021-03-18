@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         skribbl+
 // @namespace    https://vukky.ga
-// @version      0.6.1
+// @version      0.7.0
 // @description  skribbl+ is a combination of all the Skribbl userscripts that I have previously created, with brand new features.
 // @author       Vukky
 // @match        http*://skribbl.io/*
@@ -16,12 +16,20 @@
 
 (function() {
     'use strict';
-    let music = null
+    let guessingmusic = null
     GM_xmlhttpRequest({
         method: "GET",
         url: "https://gist.githubusercontent.com/Vukky123/f41a7f6399af18e889a63be63fa55fa8/raw/865ed5e90fe6dc465eb3e9be982d7d2e6c614a57/cozmolostinredditmemeeconomy.txt",
         onload: function(response) {
-            music = response.responseText
+            guessingmusic = response.responseText
+        }
+    });
+    let customRoomWaitingMusic = null
+    GM_xmlhttpRequest({
+        method: "GET",
+        url: "https://gist.githubusercontent.com/Vukky123/f41a7f6399af18e889a63be63fa55fa8/raw/b2486c484af362413b774b140f9cecfb76836a12/animalcrossingnookscranny.txt",
+        onload: function(response) {
+            customRoomWaitingMusic = response.responseText
         }
     });
     GM_registerMenuCommand("skribbl+: Settings", opencfg);
@@ -31,7 +39,7 @@
     GM_config.init(
         {
           'id': 'skribblplus',
-          'title': "skribbl+ 0.6.1",
+          'title': "skribbl+ 0.7.0",
           'fields':
           {
             'removeavatars':
@@ -462,25 +470,41 @@
             document.getElementById("tabHow").style.display = "";
         }
 
-        if(GM_config.get('music') == true && music != null) {
-            if(!document.getElementById("cozmomusic")) {
+        if(GM_config.get('music') == true && guessingmusic != null && customRoomWaitingMusic != null) {
+            if(!document.getElementById("guessingmusic")) {
                 let audio = new Audio();
-                audio.id = "cozmomusic";
-                audio.src = music;
+                audio.id = "guessingmusic";
+                audio.src = guessingmusic;
+                audio.loop = true;
+                document.body.append(audio);
+            }
+            if(!document.getElementById("customRoomWaitingMusic")) {
+                let audio = new Audio();
+                audio.id = "customRoomWaitingMusic";
+                audio.src = customRoomWaitingMusic;
                 audio.loop = true;
                 document.body.append(audio);
             }
             if(document.getElementById("overlay").childNodes[0].childNodes[0].innerText.endsWith("is choosing a word!") || document.getElementById("overlay").childNodes[0].childNodes[0].innerText.endsWith(lang_choosing_a_word)) {
-                if(document.getElementById("overlay").style.opacity == "0") {
-                    document.getElementById("cozmomusic").play();
+                if(document.getElementById("screenGame").style.display == "" && document.getElementById("overlay").style.opacity == "0") {
+                    document.getElementById("guessingmusic").play();
                 }
             } else {
-                document.getElementById("cozmomusic").pause();
-                document.getElementById("cozmomusic").currentTime = 0;
+                document.getElementById("guessingmusic").pause();
+                document.getElementById("guessingmusic").currentTime = 0;
+            }
+            if(document.getElementById("screenLobby").style.display == "") {
+                document.getElementById("customRoomWaitingMusic").play();
+            } else {
+                document.getElementById("customRoomWaitingMusic").pause();
+                document.getElementById("customRoomWaitingMusic").currentTime = 0;
             }
         } else if (GM_config.get('music') == false) {
-            if(document.getElementById("cozmomusic")) {
-                document.getElementById("cozmomusic").remove();
+            if(document.getElementById("guessingmusic")) {
+                document.getElementById("guessingmusic").remove();
+            }
+            if(document.getElementById("customRoomWaitingMusic")) {
+                document.getElementById("customRoomWaitingMusic").remove();
             }
         }
     }, 100);
