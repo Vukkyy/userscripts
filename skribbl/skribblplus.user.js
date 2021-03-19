@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         skribbl+
 // @namespace    https://vukky.ga
-// @version      0.7.0
+// @version      0.7.1
 // @description  skribbl+ is a combination of all the Skribbl userscripts that I have previously created, with brand new features.
 // @author       Vukky
 // @match        http*://skribbl.io/*
@@ -39,7 +39,7 @@
     GM_config.init(
         {
           'id': 'skribblplus',
-          'title': "skribbl+ 0.7.0",
+          'title': "skribbl+ 0.7.1",
           'fields':
           {
             'removeavatars':
@@ -308,7 +308,7 @@
             var scores = document.getElementsByClassName("score")
             for (let i = 0; i < scores.length; i++) {
                 const score = scores[i];
-                if(score.innerText == "" && !score.parentNode.parentNode.id.startsWith("player") || score.parentNode.parentNode.id == "") continue;
+                if(score.parentNode.parentNode.className == "revealContainer" || score.innerText == "" && !score.parentNode.parentNode.id.startsWith("player") || score.parentNode.parentNode.id == "") continue;
                 score.innerText = lang_score + " " + score.innerText.replace( /^\D+/g, '')
             }
             var names = document.getElementsByClassName("name")
