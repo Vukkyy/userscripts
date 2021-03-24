@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         skribbl+
 // @namespace    https://vukky.ga
-// @version      0.8.0
+// @version      0.9.0
 // @description  skribbl+ is a combination of all the Skribbl userscripts that I have previously created, with brand new features.
 // @author       Vukky
 // @match        http*://skribbl.io/*
@@ -52,7 +52,7 @@
     GM_config.init(
         {
           'id': 'skribblplus',
-          'title': "skribbl+ 0.8.0",
+          'title': "skribbl+ 0.9.0",
           'fields':
           {
             'removeavatars':
@@ -129,6 +129,12 @@
             'music':
             {
               'label': "Play music",
+              'type': 'checkbox',
+              'default': false
+            },
+            'googlelookup':
+            {
+              'label': "Look up word on Google button (only when you are drawing)",
               'type': 'checkbox',
               'default': false
             }
@@ -512,42 +518,49 @@
                 audio.loop = true;
                 document.body.append(audio);
             }
-            if(document.getElementById("skribblplus")) {
-                document.getElementById("settingsmusic").play();
-                document.getElementById("customRoomWaitingMusic").pause();
-                document.getElementById("drawingmusic").pause();
-                document.getElementById("guessingmusic").pause();
-            } else {
-                document.getElementById("settingsmusic").pause();
-                document.getElementById("settingsmusic").currentTime = 0;
-                if(document.getElementById("overlay").childNodes[0].childNodes[0].innerText.endsWith("is choosing a word!") || document.getElementById("overlay").childNodes[0].childNodes[0].innerText.endsWith(lang_choosing_a_word)) {
-                    if(document.getElementById("screenGame").style.display == "" && document.getElementById("overlay").style.opacity == "0") {
-                        document.getElementById("guessingmusic").play();
+            if(document.querySelector("#audio").style.backgroundImage != 'url("res/audio_off.gif")') {
+                if(document.getElementById("skribblplus")) {
+                    document.getElementById("settingsmusic").play();
+                    document.getElementById("customRoomWaitingMusic").pause();
+                    document.getElementById("drawingmusic").pause();
+                    document.getElementById("guessingmusic").pause();
+                } else {
+                    document.getElementById("settingsmusic").pause();
+                    document.getElementById("settingsmusic").currentTime = 0;
+                    if(document.getElementById("overlay").childNodes[0].childNodes[0].innerText.endsWith("is choosing a word!") || document.getElementById("overlay").childNodes[0].childNodes[0].innerText.endsWith(lang_choosing_a_word)) {
+                        if(document.getElementById("screenGame").style.display == "" && document.getElementById("overlay").style.opacity == "0") {
+                            document.getElementById("guessingmusic").play();
+                        } else {
+                            document.getElementById("guessingmusic").pause();
+                            document.getElementById("guessingmusic").currentTime = 0;
+                        }
                     } else {
                         document.getElementById("guessingmusic").pause();
                         document.getElementById("guessingmusic").currentTime = 0;
                     }
-                } else {
-                    document.getElementById("guessingmusic").pause();
-                    document.getElementById("guessingmusic").currentTime = 0;
-                }
-                if(document.getElementById("overlay").childNodes[0].childNodes[0].innerText == "Choose a word" || document.getElementById("overlay").childNodes[0].childNodes[0].innerText == lang_choose_a_word) {
-                    if(document.getElementById("screenGame").style.display == "" && document.getElementById("overlay").style.opacity == "0") {
-                        document.getElementById("drawingmusic").play();
+                    if(document.getElementById("overlay").childNodes[0].childNodes[0].innerText == "Choose a word" || document.getElementById("overlay").childNodes[0].childNodes[0].innerText == lang_choose_a_word) {
+                        if(document.getElementById("screenGame").style.display == "" && document.getElementById("overlay").style.opacity == "0") {
+                            document.getElementById("drawingmusic").play();
+                        } else {
+                            document.getElementById("drawingmusic").pause();
+                            document.getElementById("drawingmusic").currentTime = 0;
+                        }
                     } else {
                         document.getElementById("drawingmusic").pause();
                         document.getElementById("drawingmusic").currentTime = 0;
                     }
-                } else {
-                    document.getElementById("drawingmusic").pause();
-                    document.getElementById("drawingmusic").currentTime = 0;
+                    if(document.getElementById("screenLobby").style.display == "") {
+                        document.getElementById("customRoomWaitingMusic").play();
+                    } else {
+                        document.getElementById("customRoomWaitingMusic").pause();
+                        document.getElementById("customRoomWaitingMusic").currentTime = 0;
+                    }
                 }
-                if(document.getElementById("screenLobby").style.display == "") {
-                    document.getElementById("customRoomWaitingMusic").play();
-                } else {
-                    document.getElementById("customRoomWaitingMusic").pause();
-                    document.getElementById("customRoomWaitingMusic").currentTime = 0;
-                }
+            } else {
+                document.getElementById("settingsmusic").pause();
+                document.getElementById("customRoomWaitingMusic").pause();
+                document.getElementById("drawingmusic").pause();
+                document.getElementById("guessingmusic").pause();
             }
         } else if (GM_config.get('music') == false) {
             if(document.getElementById("drawingmusic")) {
@@ -558,6 +571,29 @@
             }
             if(document.getElementById("customRoomWaitingMusic")) {
                 document.getElementById("customRoomWaitingMusic").remove();
+            }
+        }
+
+        if(GM_config.get('googlelookup') == true) {
+            if(!document.getElementById("googlelookup")) {
+                let googlelookup = document.createElement("button");
+                googlelookup.classList.add("btn");
+                googlelookup.classList.add("btn-primary");
+                googlelookup.id = "googlelookup"
+                googlelookup.innerText = "Look up on Google"
+                googlelookup.onclick = function(){
+                    window.open("https://google.com/search?q=" + document.getElementById("currentWord").innerText)
+                };
+                document.getElementsByClassName("gameHeaderButtons")[0].appendChild(googlelookup); 
+            }
+            if(document.getElementsByClassName("containerToolbar")[0].style.display == "") {
+                document.getElementById("googlelookup").style.display = ""
+            } else {
+                document.getElementById("googlelookup").style.display = "none"
+            }
+        } else if (GM_config.get('googlelookup') == false) {
+            if(document.getElementById("googlelookup")) {
+                document.getElementById("googlelookup").remove();
             }
         }
     }, 100);
