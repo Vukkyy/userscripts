@@ -1,5 +1,5 @@
 # Userscripts for skribbl.io
-Tested in Tampermonkey, on Microsoft Edge Chromium `90.0.794.0 (Official build) canary (64-bit)`.
+Tested in Tampermonkey, on Microsoft Edge Chromium `90.0.794.0 (Official build) canary (64-bit)` and Brave `Version 1.24.8 Chromium: 89.0.4389.90 (Official Build) nightly (64-bit)`.
 
 ## skribbl+ [(Install)](https://github.com/Vukky123/userscripts/raw/main/skribbl/skribblplus.user.js)
 The ultimate skribbl userscript.
