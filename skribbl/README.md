@@ -4,7 +4,7 @@ Tested in Tampermonkey, on Microsoft Edge Chromium `90.0.794.0 (Official build) 
 ## skribbl+ [(Install)](https://github.com/Vukky123/userscripts/raw/main/skribbl/skribblplus.user.js)
 The ultimate skribbl userscript.
 
-Hide the chat, give everyone cosmetic crowns, take everyone's crowns, stop yourself from typing more than the length of the word, play amazing music tracks, play in Norwegian, and more!
+Hide the chat, give everyone cosmetic crowns, take the owner's crown (cosmetic), stop yourself from typing more than the length of the word, play amazing music tracks, play in Norwegian, and more!
 
 Uses code from [skribbl.io+](https://github.com/Sv443/skribbl.io-plus) [(license)](https://raw.githubusercontent.com/Sv443/skribbl.io-plus/master/LICENSE) by Sv443.
 
