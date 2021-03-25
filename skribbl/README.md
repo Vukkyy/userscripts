@@ -6,7 +6,7 @@ The ultimate skribbl userscript.
 
 Hide the chat, give everyone cosmetic crowns, take the owner's crown (cosmetic), stop yourself from typing more than the length of the word, play amazing music tracks, play in Norwegian, and more!
 
-Change the settings my clicking on the Tampermonkey icon while on skribbl.io, then press "Settings" under skribbl+.
+Change the settings by clicking on the Tampermonkey icon while on skribbl.io, then press "Settings" under skribbl+.
 
 ### Default configuration
 On installation, the following features are automatically enabled (they can be disabled in the settings menu):
