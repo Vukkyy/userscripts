@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         skribbl+
 // @namespace    https://vukky.ga
-// @version      0.10.0
+// @version      0.10.1
 // @description  skribbl+ is a combination of all the Skribbl userscripts that I have previously created, with brand new features.
 // @author       Vukky
 // @icon         https://skribbl.io/res/favicon.png
@@ -26,7 +26,7 @@
     GM_config.init(
         {
           'id': 'skribblplus',
-          'title': "skribbl+ 0.10.0",
+          'title': "skribbl+ 0.10.1",
           'fields':
           {
             'removeavatars':
@@ -576,6 +576,9 @@
             }
             if(document.getElementById("customRoomWaitingMusic")) {
                 document.getElementById("customRoomWaitingMusic").remove();
+            }
+            if(document.getElementById("settingsmusic")) {
+                document.getElementById("settingsmusic").remove();
             }
         }
 
