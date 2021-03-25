@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         skribbl+
 // @namespace    https://vukky.ga
-// @version      0.9.0
+// @version      0.9.1
 // @description  skribbl+ is a combination of all the Skribbl userscripts that I have previously created, with brand new features.
 // @author       Vukky
 // @match        http*://skribbl.io/*
@@ -16,35 +16,7 @@
 
 (function() {
     'use strict';
-    let drawingmusic, customRoomWaitingMusic, guessingmusic, settingsmusic = null
-    GM_xmlhttpRequest({
-        method: "GET",
-        url: "https://gist.githubusercontent.com/Vukky123/6ae8fc55dac45784fdb2cfbe880ef79f/raw/427622be80883632d5fa13f26059dc54cedcad91/cozmolostinredditmemeeconomy.txt",
-        onload: function(response) {
-            drawingmusic = response.responseText
-        }
-    });
-    GM_xmlhttpRequest({
-        method: "GET",
-        url: "https://gist.githubusercontent.com/Vukky123/f41a7f6399af18e889a63be63fa55fa8/raw/b2486c484af362413b774b140f9cecfb76836a12/animalcrossingnookscranny.txt",
-        onload: function(response) {
-            customRoomWaitingMusic = response.responseText
-        }
-    });
-    GM_xmlhttpRequest({
-        method: "GET",
-        url: "https://gist.githubusercontent.com/Vukky123/f797b169fb7975f2164884236d91f7a2/raw/455d02395cbd6e6e556fbfa28333b27a8eaac5a1/wiishopnoteblock.txt",
-        onload: function(response) {
-            guessingmusic = response.responseText
-        }
-    });
-    GM_xmlhttpRequest({
-        method: "GET",
-        url: "https://gist.githubusercontent.com/Vukky123/dd513af113eb1fed71044701097a2140/raw/88f8744d2c26d523746fec257addbd8c9c3ae31f/nnidmedley.txt",
-        onload: function(response) {
-            settingsmusic = response.responseText
-        }
-    });
+    let drawingmusic, customRoomWaitingMusic, guessingmusic, settingsmusic = null;
     GM_registerMenuCommand("skribbl+: Settings", opencfg);
     function opencfg() {
         GM_config.open();
@@ -52,7 +24,7 @@
     GM_config.init(
         {
           'id': 'skribblplus',
-          'title': "skribbl+ 0.9.0",
+          'title': "skribbl+ 0.9.1",
           'fields':
           {
             'removeavatars':
@@ -487,6 +459,37 @@
             document.getElementById("tabUpdate").style.display = "";
             document.getElementById("tabAbout").style.display = "";
             document.getElementById("tabHow").style.display = "";
+        }
+
+        if(GM_config.get('music') == true) {
+            GM_xmlhttpRequest({
+                method: "GET",
+                url: "https://gist.githubusercontent.com/Vukky123/6ae8fc55dac45784fdb2cfbe880ef79f/raw/427622be80883632d5fa13f26059dc54cedcad91/cozmolostinredditmemeeconomy.txt",
+                onload: function(response) {
+                    drawingmusic = response.responseText
+                }
+            });
+            GM_xmlhttpRequest({
+                method: "GET",
+                url: "https://gist.githubusercontent.com/Vukky123/f41a7f6399af18e889a63be63fa55fa8/raw/b2486c484af362413b774b140f9cecfb76836a12/animalcrossingnookscranny.txt",
+                onload: function(response) {
+                    customRoomWaitingMusic = response.responseText
+                }
+            });
+            GM_xmlhttpRequest({
+                method: "GET",
+                url: "https://gist.githubusercontent.com/Vukky123/f797b169fb7975f2164884236d91f7a2/raw/455d02395cbd6e6e556fbfa28333b27a8eaac5a1/wiishopnoteblock.txt",
+                onload: function(response) {
+                    guessingmusic = response.responseText
+                }
+            });
+            GM_xmlhttpRequest({
+                method: "GET",
+                url: "https://gist.githubusercontent.com/Vukky123/dd513af113eb1fed71044701097a2140/raw/88f8744d2c26d523746fec257addbd8c9c3ae31f/nnidmedley.txt",
+                onload: function(response) {
+                    settingsmusic = response.responseText
+                }
+            });
         }
 
         if(GM_config.get('music') == true && drawingmusic != null && customRoomWaitingMusic != null && guessingmusic != null && settingsmusic != null) {
