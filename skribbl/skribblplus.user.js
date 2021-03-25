@@ -1,11 +1,13 @@
 // ==UserScript==
 // @name         skribbl+
 // @namespace    https://vukky.ga
-// @version      0.9.2
+// @version      0.10.0
 // @description  skribbl+ is a combination of all the Skribbl userscripts that I have previously created, with brand new features.
 // @author       Vukky
+// @icon         https://skribbl.io/res/favicon.png
 // @match        http*://skribbl.io/*
 // @updateURL    https://raw.githubusercontent.com/Vukky123/userscripts/main/skribbl/skribblplus.user.js
+// @downloadURL  https://raw.githubusercontent.com/Vukky123/userscripts/main/skribbl/skribblplus.user.js
 // @require      https://openuserjs.org/src/libs/sizzle/GM_config.js
 // @grant        GM_getValue
 // @grant        GM_setValue
@@ -24,7 +26,7 @@
     GM_config.init(
         {
           'id': 'skribblplus',
-          'title': "skribbl+ 0.9.2",
+          'title': "skribbl+ 0.10.0",
           'fields':
           {
             'removeavatars':
@@ -77,19 +79,19 @@
             {
               'label': 'Delete individual chat messages',
               'type': 'checkbox',
-              'default': false
+              'default': true
             },
             'urlshortcuts':
             {
               'label': "URL shortcuts (skribbl.io/?play, skribbl.io/?create)",
               'type': 'checkbox',
-              'default': false
+              'default': true
             },
             'noexplanations':
             {
               'label': "Hide About and How to Play",
               'type': 'checkbox',
-              'default': false
+              'default': true
             },
             'language':
             {
@@ -102,13 +104,13 @@
             {
               'label': "Play music",
               'type': 'checkbox',
-              'default': false
+              'default': true
             },
             'googlelookup':
             {
               'label': "Look up word on Google button (only when you are drawing)",
               'type': 'checkbox',
-              'default': false
+              'default': true
             }
           },
           'css': "#skribblplus .section_header_holder { text-align: center; }",
@@ -485,7 +487,7 @@
             });
             GM_xmlhttpRequest({
                 method: "GET",
-                url: "https://gist.githubusercontent.com/Vukky123/dd513af113eb1fed71044701097a2140/raw/88f8744d2c26d523746fec257addbd8c9c3ae31f/nnidmedley.txt",
+                url: "https://gist.githubusercontent.com/Vukky123/f9b17f1f0907628a0027ce036af6eed8/raw/886719da56bae557c8472beb0665337f8ccdc302/internetsettingsrearrangement.txt",
                 onload: function(response) {
                     settingsmusic = response.responseText
                 }

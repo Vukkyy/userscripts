@@ -12,7 +12,7 @@ Uses music from:
 * Guessing music - [Wii Shop Channel - Minecraft Note Blocks by BlockFusion](https://www.youtube.com/watch?v=gpoj5Q2pddM)
 * Drawing music - [Anki Cozmo: Lost in Reddit (Full Soundtrack by The Helio Sequence) - "Meme Economy"](https://www.youtube.com/watch?v=mCFgO06Lf6c)
 * Custom lobby music - [Animal Crossing - Nook's Cranny by Nintendo](https://www.youtube.com/watch?v=KdS-EonI124)
-* Settings music - [Account setup - Nintendo Network ID Settings by Nintendo, medley by Jimseh](https://www.youtube.com/watch?v=LFmJQkPDNeA)
+* Settings music - [Internet Settings - Nintendo 3DS System Settings by Nintendo, re-arrangement by legoj15](https://www.youtube.com/watch?v=77BWKq4tqHQ)
 
 **Music is downloaded over GitHub Gists.** As such, the script needs to connect to gist.githubusercontent.com in order for music to function. The music is about *8,35 MB*, as of 25/03/2021.
 
