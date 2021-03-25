@@ -1,5 +1,5 @@
 # Legacy userscripts
-[Consider using skribbl+ instead.](README.md)
+[Consider using skribbl+ instead.](README.md#skribbl-install)
 
 ## skribblcrownsforall [(Install)](https://github.com/Vukky123/userscripts/raw/main/skribbl/skribblcrownsforall.user.js)
 Gives all avatars a crown. **Purely visual. You will not become an owner.**
