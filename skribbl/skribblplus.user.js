@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         skribbl+
 // @namespace    https://vukky.ga
-// @version      0.9.1
+// @version      0.9.2
 // @description  skribbl+ is a combination of all the Skribbl userscripts that I have previously created, with brand new features.
 // @author       Vukky
 // @match        http*://skribbl.io/*
@@ -24,7 +24,7 @@
     GM_config.init(
         {
           'id': 'skribblplus',
-          'title': "skribbl+ 0.9.1",
+          'title': "skribbl+ 0.9.2",
           'fields':
           {
             'removeavatars':
@@ -461,7 +461,7 @@
             document.getElementById("tabHow").style.display = "";
         }
 
-        if(GM_config.get('music') == true) {
+        if(GM_config.get('music') == true && drawingmusic == null && customRoomWaitingMusic == null && guessingmusic == null && settingsmusic == null) {
             GM_xmlhttpRequest({
                 method: "GET",
                 url: "https://gist.githubusercontent.com/Vukky123/6ae8fc55dac45784fdb2cfbe880ef79f/raw/427622be80883632d5fa13f26059dc54cedcad91/cozmolostinredditmemeeconomy.txt",
