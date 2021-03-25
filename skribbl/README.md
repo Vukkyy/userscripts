@@ -4,6 +4,8 @@ Tested in Tampermonkey, on Microsoft Edge Chromium `90.0.794.0 (Official build) 
 ## skribbl+ [(Install)](https://github.com/Vukky123/userscripts/raw/main/skribbl/skribblplus.user.js)
 The ultimate skribbl userscript.
 
+Change the settings my clicking on the Tampermonkey icon while on skribbl.io, then press "Settings" under skribbl+.
+
 Hide the chat, give everyone cosmetic crowns, take the owner's crown (cosmetic), stop yourself from typing more than the length of the word, play amazing music tracks, play in Norwegian, and more!
 
 Uses code from [skribbl.io+](https://github.com/Sv443/skribbl.io-plus) [(license)](https://raw.githubusercontent.com/Sv443/skribbl.io-plus/master/LICENSE) by Sv443.
@@ -15,6 +17,13 @@ Uses music from:
 * Settings music - [Internet Settings - Nintendo 3DS System Settings by Nintendo, re-arrangement by legoj15](https://www.youtube.com/watch?v=77BWKq4tqHQ)
 
 **Music is downloaded over GitHub Gists.** As such, the script needs to connect to gist.githubusercontent.com in order for music to function. The music is about *8,35 MB*, as of 25/03/2021.
+
+On installation, the following features are automatically enabled (they can be disabled in the settings menu):
+* Delete individual chat messages
+* URL shortcuts
+* Hide About and How To Play
+* Play music
+* Look up word on Google button
 
 ## Legacy scripts
 No longer maintained. [Most of these scripts are available in skribbl+.](#skribbl-install)
