@@ -14,8 +14,10 @@ Uses music from:
 * Custom lobby music - [Animal Crossing - Nook's Cranny by Nintendo](https://www.youtube.com/watch?v=KdS-EonI124)
 * Settings music - [Account setup - Nintendo Network ID Settings by Nintendo, medley by Jimseh](https://www.youtube.com/watch?v=LFmJQkPDNeA)
 
+**Music is downloaded over GitHub Gists.** As such, the script needs to connect to gist.githubusercontent.com in order for music to function. The music is about *8,35 MB*, as of 25/03/2021.
+
 ## Legacy scripts
-No longer maintained.
+No longer maintained. [Most of these scripts are available in skribbl+.](#skribbl-install)
 
 ### skribblcrownsforall [(Install)](https://github.com/Vukky123/userscripts/raw/main/skribbl/skribblcrownsforall.user.js)
 Gives all avatars a crown. **Purely visual. You will not become an owner.**
