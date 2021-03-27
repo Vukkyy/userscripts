@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         skribbl+
 // @namespace    https://vukky.ga
-// @version      0.10.2
+// @version      0.10.3
 // @description  skribbl+ is a combination of all the Skribbl userscripts that I have previously created, with brand new features.
 // @author       Vukky
 // @icon         https://skribbl.io/res/favicon.png
@@ -26,7 +26,7 @@
     GM_config.init(
         {
           'id': 'skribblplus',
-          'title': "skribbl+ 0.10.2",
+          'title': "skribbl+ 0.10.3",
           'fields':
           {
             'removeavatars':
@@ -84,12 +84,6 @@
             'urlshortcuts':
             {
               'label': "URL shortcuts (skribbl.io/?play, skribbl.io/?create)",
-              'type': 'checkbox',
-              'default': true
-            },
-            'noexplanations':
-            {
-              'label': "Hide About and How to Play",
               'type': 'checkbox',
               'default': true
             },
@@ -215,6 +209,7 @@
           }
     });
 
+    const changelog = "Thanks for using skribbl+! Changelogs will be here in the future.<br>-Vukky"
     setInterval(() => {
         document.querySelector(".gameHeaderButtons").style = "display: flex; float: right; justify-content: center; align-items: center;"
         var lang_play, lang_lobby_play, lang_create_private_room, lang_delete_message, lang_rounds, lang_language, lang_invite_your_friends, lang_players, lang_contact, lang_result, lang_score, lang_you, lang_round, lang_round_of, lang_settings, lang_copy, lang_time_is_up, lang_the_word_was, lang_choosing_a_word, lang_choose_a_word, lang_guessed_word, lang_joined, lang_drawing_now, lang_left;
@@ -454,15 +449,10 @@
             document.getElementById("inputChat").setAttribute("placeholder", "Type your guess here...");
         }
 
-        if(GM_config.get('noexplanations') == true) {
-            document.getElementById("tabUpdate").style.display = "none";
-            document.getElementById("tabAbout").style.display = "none";
-            document.getElementById("tabHow").style.display = "none";
-        } else if (GM_config.get('noexplanations') == false) {
-            document.getElementById("tabUpdate").style.display = "";
-            document.getElementById("tabAbout").style.display = "";
-            document.getElementById("tabHow").style.display = "";
-        }
+        document.getElementById("tabUpdate").style.display = "none";
+        document.getElementById("tabAbout").style.display = "none";
+        document.getElementById("tabHow").style.display = "none";
+        document.querySelector(".updateInfo").innerHTML = changelog
 
         if(GM_config.get('music') == true && drawingmusic == null && customRoomWaitingMusic == null && guessingmusic == null && settingsmusic == null) {
             GM_xmlhttpRequest({
