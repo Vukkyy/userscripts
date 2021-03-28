@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         skribbl+
 // @namespace    https://vukky.ga
-// @version      0.10.3
+// @version      0.11.0
 // @description  skribbl+ is a combination of all the Skribbl userscripts that I have previously created, with brand new features.
 // @author       Vukky
 // @icon         https://skribbl.io/res/favicon.png
@@ -19,6 +19,9 @@
 (function() {
     'use strict';
     let drawingmusic, customRoomWaitingMusic, guessingmusic, settingsmusic = null;
+    let requestsaresent = false;
+    let loadedmusic = [];
+    let musicamount = 4
     GM_registerMenuCommand("skribbl+: Settings", opencfg);
     function opencfg() {
         GM_config.open();
@@ -26,7 +29,7 @@
     GM_config.init(
         {
           'id': 'skribblplus',
-          'title': "skribbl+ 0.10.3",
+          'title': "skribbl+ 0.11.0",
           'fields':
           {
             'removeavatars':
@@ -68,22 +71,10 @@
               'min': 0,
               'default': 1
             },
-            'removechat':
-            {
-              'label': "Remove the chat (but why?)",
-              'section': ['Misc', 'Various other features.'],
-              'type': 'checkbox',
-              'default': false
-            },
             'deletechatmessages':
             {
               'label': 'Delete individual chat messages',
-              'type': 'checkbox',
-              'default': true
-            },
-            'urlshortcuts':
-            {
-              'label': "URL shortcuts (skribbl.io/?play, skribbl.io/?create)",
+              'section': ['Misc', 'Various other features.'],
               'type': 'checkbox',
               'default': true
             },
@@ -103,6 +94,12 @@
             'googlelookup':
             {
               'label': "Look up word on Google button (only when you are drawing)",
+              'type': 'checkbox',
+              'default': true
+            }, 
+            'quickjump':
+            {
+              'label': "Buttons to easily switch lobbies",
               'type': 'checkbox',
               'default': true
             }
@@ -131,18 +128,6 @@
                     GM_config.fields['crownsforall'].node.disabled = false
                 } else {
                     GM_config.fields['crownsforall'].node.disabled = true
-                }
-                var removechat = GM_config.get('removechat', true);
-                var deletechatmessages = GM_config.get('deletechatmessages', true);
-                if(removechat == false) {
-                    GM_config.fields['deletechatmessages'].node.disabled = false
-                } else {
-                    GM_config.fields['deletechatmessages'].node.disabled = true
-                }
-                if(deletechatmessages == false) {
-                    GM_config.fields['removechat'].node.disabled = false
-                } else {
-                    GM_config.fields['removechat'].node.disabled = true
                 }
                 removeAvatarsDisabler();
                 GM_config.fields['removeavatars'].node.addEventListener('change', function () {
@@ -184,22 +169,6 @@
                         GM_config.fields['removeavatars'].node.disabled = true
                     }
                 }, false);
-                GM_config.fields['removechat'].node.addEventListener('change', function () {
-                    var removechat = GM_config.get('removechat', true);
-                    if(removechat == false) {
-                        GM_config.fields['deletechatmessages'].node.disabled = false
-                    } else {
-                        GM_config.fields['deletechatmessages'].node.disabled = true
-                    }
-                }, false);
-                GM_config.fields['deletechatmessages'].node.addEventListener('change', function () {
-                    var deletechatmessages = GM_config.get('deletechatmessages', true);
-                    if(deletechatmessages == false) {
-                        GM_config.fields['removechat'].node.disabled = false
-                    } else {
-                        GM_config.fields['removechat'].node.disabled = true
-                    }
-                }, false);
             },
             'reset': function() {
                 GM_config.save();
@@ -209,37 +178,28 @@
           }
     });
 
-    const changelog = "Thanks for using skribbl+! Changelogs will be here in the future.<br>-Vukky"
+    const changelog = "<strong>Skribbl+ 0.11.0</strong><br>URL Shortcuts is no longer optional.<br>Remove chat has been removed.<br>There's a settings button right above me now! No need to mess with Tampermonkey to change options while on the main menu.<br>Added 2 buttons that allow you to easily switch between lobbies.<br>If you have music enabled, skribbl+ now waits for all the music tracks to load before you can play.<br>The reCAPTCHA badge is now hidden.<br>YouTube and Twitch links in the chat are now automatically removed. (only on your end!)<br>Totally not being selfish by slapping my Twitter below."
     setInterval(() => {
         document.querySelector(".gameHeaderButtons").style = "display: flex; float: right; justify-content: center; align-items: center;"
-        var lang_play, lang_lobby_play, lang_create_private_room, lang_delete_message, lang_rounds, lang_language, lang_invite_your_friends, lang_players, lang_contact, lang_result, lang_score, lang_you, lang_round, lang_round_of, lang_settings, lang_copy, lang_time_is_up, lang_the_word_was, lang_choosing_a_word, lang_choose_a_word, lang_guessed_word, lang_joined, lang_drawing_now, lang_left;
+        document.querySelector(".grecaptcha-badge").style.display = "none"
+        if(!document.querySelector("#skribblplusCredit")) {
+            let credit = document.createElement('a');
+            credit.innerHTML = '<img style="margin-right:5px" src="res/social/twitter.png">skribbl+ by Vukky</a>'
+            credit.href = "https://twitter.com/vukky_ltd"
+            credit.id = "skribblplusCredit"
+            credit.style.marginLeft = "10px"
+            document.querySelector(".col-xs-12").childNodes[0].appendChild(credit)
+        }
+        var messages = document.getElementById("boxMessages").childNodes
+        for (let i = 0; i < messages.length; i++) {
+            if(messages[i] == undefined) break;
+            let message = messages[i];
+            let messageText = messages[i].getElementsByTagName("span")[messages[i].getElementsByTagName("span").length - 1];
+            if(/https:\/\/www.(twitch|youtube).​(com|tv)\//.test(messageText.innerText)) message.remove()
+        }
+
+        var lang_play, lang_lobby_play, lang_create_private_room, lang_delete_message, lang_rounds, lang_language, lang_invite_your_friends, lang_players, lang_contact, lang_result, lang_score, lang_you, lang_round, lang_round_of, lang_settings, lang_copy, lang_time_is_up, lang_the_word_was, lang_choosing_a_word, lang_choose_a_word, lang_guessed_word, lang_joined, lang_drawing_now, lang_left, lang_loading_music, lang_skribblplus_settings;
         switch(GM_config.get('language')) {
-            case "English":
-                lang_play = "Play!",
-                lang_lobby_play = "Start Game"
-                lang_create_private_room = "Create Private Room",
-                lang_delete_message = "Delete this message",
-                lang_rounds = "Rounds",
-                lang_language = "Language",
-                lang_invite_your_friends = "Invite your friends!",
-                lang_players = "Players",
-                lang_contact = "Contact",
-                lang_result = "Result"
-                lang_score = "Points:",
-                lang_you = "You",
-                lang_round = "Round",
-                lang_round_of = "of",
-                lang_settings = "Settings",
-                lang_copy = "Copy",
-                lang_time_is_up = "Time is up!",
-                lang_the_word_was = "The word was",
-                lang_choosing_a_word = "is choosing a word!",
-                lang_choose_a_word = "Choose a word",
-                lang_guessed_word = "guessed the word!",
-                lang_joined = "joined.",
-                lang_drawing_now = "is drawing now!",
-                lang_left = "left."
-                break;
             case "Norwegian":
                 lang_play = "Spill!",
                 lang_lobby_play = "Start Spill"
@@ -264,7 +224,37 @@
                 lang_guessed_word = "gjettet ordet!",
                 lang_joined = "ble med.",
                 lang_drawing_now = "tegner nå!",
-                lang_left = "gikk ut."
+                lang_left = "gikk ut.",
+                lang_loading_music = "Laster musikk...",
+                lang_skribblplus_settings = "skribbl+ innstillinger"
+                break;
+            default:
+                lang_play = "Play!",
+                lang_lobby_play = "Start Game"
+                lang_create_private_room = "Create Private Room",
+                lang_delete_message = "Delete this message",
+                lang_rounds = "Rounds",
+                lang_language = "Language",
+                lang_invite_your_friends = "Invite your friends!",
+                lang_players = "Players",
+                lang_contact = "Contact",
+                lang_result = "Result"
+                lang_score = "Points:",
+                lang_you = "You",
+                lang_round = "Round",
+                lang_round_of = "of",
+                lang_settings = "Settings",
+                lang_copy = "Copy",
+                lang_time_is_up = "Time is up!",
+                lang_the_word_was = "The word was",
+                lang_choosing_a_word = "is choosing a word!",
+                lang_choose_a_word = "Choose a word",
+                lang_guessed_word = "guessed the word!",
+                lang_joined = "joined.",
+                lang_drawing_now = "is drawing now!",
+                lang_left = "left.",
+                lang_loading_music = "Loading music...",
+                lang_skribblplus_settings = "skribbl+ settings"
                 break;
         }
         document.getElementById("formLogin").childNodes[2].id = "buttonLoginPlay"
@@ -420,24 +410,6 @@
             }
         }
 
-        if(GM_config.get('urlshortcuts') == true) {
-            if(document.getElementById("screenLogin").style.display != "none") {
-                if(location.search == "?play") {
-                    document.getElementById("formLogin").getElementsByTagName("button")[0].click();
-                } else if (location.search == "?create") {
-                    document.getElementById("formLogin").getElementsByTagName("button")[1].click();
-                }
-            }
-        }
-
-        if(GM_config.get('removechat') == true) {
-            document.getElementById("boxMessages").style.display = "none";
-        } else if (GM_config.get('removechat') == false) {
-            if(document.getElementById("screenGame").style.display == "") {
-                document.getElementById("boxMessages").style.display = "";
-            }
-        }
-
         var wordLength = document.getElementById("currentWord").textContent.length;
         if(GM_config.get('donttypemore') == true && !wordLength == 0) {
             var maxLength;
@@ -453,13 +425,45 @@
         document.getElementById("tabAbout").style.display = "none";
         document.getElementById("tabHow").style.display = "none";
         document.querySelector(".updateInfo").innerHTML = changelog
+        if(!document.querySelector("#optionsButton")) {
+            let optionsbutton = document.createElement("button");
+            optionsbutton.classList.add("btn");
+            optionsbutton.classList.add("btn-primary");
+            optionsbutton.classList.add("btn-block");
+            optionsbutton.id = "optionsButton"
+            optionsbutton.innerText = lang_skribblplus_settings
+            optionsbutton.type = "button"
+            optionsbutton.onclick = function(){
+                GM_config.open();
+            };
+            document.querySelector("#formLogin").appendChild(optionsbutton); 
+        } else {
+            document.querySelector("#optionsButton").innerText = lang_skribblplus_settings
+        }
+        if(!document.querySelector("#optionsButtonGame")) {
+            let optionsbutton = document.createElement("button");
+            optionsbutton.classList.add("btn");
+            optionsbutton.classList.add("btn-primary");
+            optionsbutton.classList.add("btn-block");
+            optionsbutton.id = "optionsButtonGame"
+            optionsbutton.innerText = lang_skribblplus_settings
+            optionsbutton.type = "button"
+            optionsbutton.onclick = function(){
+                GM_config.open();
+            };
+            document.querySelector(".tooltip-wrapper").insertBefore(optionsbutton, document.querySelector("#votekickCurrentPlayer")); 
+        } else {
+            document.querySelector("#optionsButtonGame").innerText = lang_skribblplus_settings
+        }
 
-        if(GM_config.get('music') == true && drawingmusic == null && customRoomWaitingMusic == null && guessingmusic == null && settingsmusic == null) {
+        if(GM_config.get('music') == true && requestsaresent == false) {
+            requestsaresent = true;
             GM_xmlhttpRequest({
                 method: "GET",
                 url: "https://gist.githubusercontent.com/Vukky123/6ae8fc55dac45784fdb2cfbe880ef79f/raw/427622be80883632d5fa13f26059dc54cedcad91/cozmolostinredditmemeeconomy.txt",
                 onload: function(response) {
                     drawingmusic = response.responseText
+                    loadedmusic.push("drawing")
                 }
             });
             GM_xmlhttpRequest({
@@ -467,6 +471,7 @@
                 url: "https://gist.githubusercontent.com/Vukky123/f41a7f6399af18e889a63be63fa55fa8/raw/b2486c484af362413b774b140f9cecfb76836a12/animalcrossingnookscranny.txt",
                 onload: function(response) {
                     customRoomWaitingMusic = response.responseText
+                    loadedmusic.push("customroom")
                 }
             });
             GM_xmlhttpRequest({
@@ -474,6 +479,7 @@
                 url: "https://gist.githubusercontent.com/Vukky123/f797b169fb7975f2164884236d91f7a2/raw/455d02395cbd6e6e556fbfa28333b27a8eaac5a1/wiishopnoteblock.txt",
                 onload: function(response) {
                     guessingmusic = response.responseText
+                    loadedmusic.push("guessing")
                 }
             });
             GM_xmlhttpRequest({
@@ -481,8 +487,31 @@
                 url: "https://gist.githubusercontent.com/Vukky123/f9b17f1f0907628a0027ce036af6eed8/raw/886719da56bae557c8472beb0665337f8ccdc302/internetsettingsrearrangement.txt",
                 onload: function(response) {
                     settingsmusic = response.responseText
+                    loadedmusic.push("settings")
                 }
             });
+        }
+
+        if(GM_config.get('music') == true) {
+            if(loadedmusic.length != musicamount && document.querySelector("#screenLogin").style.display == "") {
+                document.querySelector("#buttonLoginPlay").disabled = true
+                document.querySelector("#buttonLoginPlay").innerHTML = lang_loading_music + " (" + loadedmusic.length + "/" + musicamount + ")";
+                document.querySelector("#buttonLoginCreatePrivate").disabled = true
+                document.querySelector("#buttonLoginCreatePrivate").innerHTML = lang_loading_music + " (" + loadedmusic.length + "/" + musicamount + ")";
+            } else {
+                document.querySelector("#buttonLoginPlay").disabled = false
+                document.querySelector("#buttonLoginCreatePrivate").disabled = false
+            }
+        }
+
+        if(document.getElementById("screenLogin").style.display != "none") {
+            if(document.getElementById("formLogin").getElementsByTagName("button")[0].disabled == false) {
+                if(location.search == "?play") {
+                    document.getElementById("formLogin").getElementsByTagName("button")[0].click();
+                } else if (location.search == "?create") {
+                    document.getElementById("formLogin").getElementsByTagName("button")[1].click();
+                }
+            }
         }
 
         if(GM_config.get('music') == true && drawingmusic != null && customRoomWaitingMusic != null && guessingmusic != null && settingsmusic != null) {
@@ -583,6 +612,7 @@
                 googlelookup.onclick = function(){
                     window.open("https://google.com/search?q=" + document.getElementById("currentWord").innerText)
                 };
+                googlelookup.style.margin = "0 0.5em"
                 document.getElementsByClassName("gameHeaderButtons")[0].appendChild(googlelookup); 
             }
             if(document.getElementsByClassName("containerToolbar")[0].style.display == "") {
@@ -593,6 +623,40 @@
         } else if (GM_config.get('googlelookup') == false) {
             if(document.getElementById("googlelookup")) {
                 document.getElementById("googlelookup").remove();
+            }
+        }
+
+        if(GM_config.get('quickjump') == true) {
+            if(!document.getElementById("nextlobby")) {
+                let nxtlby = document.createElement("button");
+                nxtlby.classList.add("btn");
+                nxtlby.classList.add("btn-warning");
+                nxtlby.id = "nextlobby"
+                nxtlby.innerText = "Next lobby"
+                nxtlby.onclick = function(){
+                    document.location.search = "?play"
+                };
+                nxtlby.style.margin = "0 0.5em"
+                document.getElementsByClassName("gameHeaderButtons")[0].appendChild(nxtlby); 
+            }
+            if(!document.getElementById("exitgame")) {
+                let extgme = document.createElement("button");
+                extgme.classList.add("btn");
+                extgme.classList.add("btn-danger");
+                extgme.id = "exitgame"
+                extgme.innerText = "Exit game"
+                extgme.onclick = function(){
+                    document.location.href = "https://skribbl.io"
+                };
+                extgme.style.margin = "0 0.5em"
+                document.getElementsByClassName("gameHeaderButtons")[0].appendChild(extgme); 
+            }
+        } else if (GM_config.get('quickjump') == false) {
+            if(document.getElementById("nextlobby")) {
+                document.getElementById("nextlobby").remove();
+            }
+            if(document.getElementById("exitgame")) {
+                document.getElementById("exitgame").remove();
             }
         }
     }, 100);
