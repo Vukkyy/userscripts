@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         skribbl+
 // @namespace    https://vukky.ga
-// @version      0.11.0
+// @version      0.11.1
 // @description  skribbl+ is a combination of all the Skribbl userscripts that I have previously created, with brand new features.
 // @author       Vukky
 // @icon         https://skribbl.io/res/favicon.png
@@ -29,7 +29,7 @@
     GM_config.init(
         {
           'id': 'skribblplus',
-          'title': "skribbl+ 0.11.0",
+          'title': "skribbl+ 0.11.1",
           'fields':
           {
             'removeavatars':
@@ -178,7 +178,7 @@
           }
     });
 
-    const changelog = "<strong>Skribbl+ 0.11.0</strong><br>URL Shortcuts is no longer optional.<br>Remove chat has been removed.<br>There's a settings button right above me now! No need to mess with Tampermonkey to change options while on the main menu.<br>Added 2 buttons that allow you to easily switch between lobbies.<br>If you have music enabled, skribbl+ now waits for all the music tracks to load before you can play.<br>The reCAPTCHA badge is now hidden.<br>YouTube and Twitch links in the chat are now automatically removed. (only on your end!)<br>Totally not being selfish by slapping my Twitter below."
+    const changelog = "<strong>Skribbl+ 0.11.1</strong><br>If you join a lobby and someone's already drawing, you'll now hear the guessing music!"
     setInterval(() => {
         document.querySelector(".gameHeaderButtons").style = "display: flex; float: right; justify-content: center; align-items: center;"
         document.querySelector(".grecaptcha-badge").style.display = "none"
@@ -560,8 +560,19 @@
                             document.getElementById("guessingmusic").currentTime = 0;
                         }
                     } else {
-                        document.getElementById("guessingmusic").pause();
-                        document.getElementById("guessingmusic").currentTime = 0;
+                        if(document.getElementById("screenGame").style.display == "" && document.getElementById("overlay").childNodes[0].childNodes[0].innerText == "") {
+                            let drawers = document.querySelectorAll(".drawing")
+                            for (let i = 0; i < drawers.length; i++) {
+                                const drawer = drawers[i];
+                                if(drawer.style.display == "") {
+                                    document.getElementById("guessingmusic").play();
+                                    break;
+                                }
+                            }
+                        } else {
+                            document.getElementById("guessingmusic").pause();
+                            document.getElementById("guessingmusic").currentTime = 0;
+                        }
                     }
                     if(document.getElementById("overlay").childNodes[0].childNodes[0].innerText == "Choose a word" || document.getElementById("overlay").childNodes[0].childNodes[0].innerText == lang_choose_a_word) {
                         if(document.getElementById("screenGame").style.display == "" && document.getElementById("overlay").style.opacity == "0") {
