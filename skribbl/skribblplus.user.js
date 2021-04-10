@@ -12,16 +12,10 @@
 // @grant        GM_getValue
 // @grant        GM_setValue
 // @grant        GM_registerMenuCommand
-// @grant        GM_xmlhttpRequest
-// @connect      gist.githubusercontent.com
 // ==/UserScript==
 
 (function() {
     'use strict';
-    let drawingmusic, customRoomWaitingMusic, guessingmusic, settingsmusic = null;
-    let requestsaresent = false;
-    let loadedmusic = [];
-    let musicamount = 4
     GM_registerMenuCommand("skribbl+: Settings", opencfg);
     function opencfg() {
         GM_config.open();
@@ -198,7 +192,7 @@
             if(/https:\/\/www.(twitch|youtube).​(com|tv)\//.test(messageText.innerText)) message.remove()
         }
 
-        var lang_play, lang_lobby_play, lang_create_private_room, lang_delete_message, lang_rounds, lang_language, lang_invite_your_friends, lang_players, lang_contact, lang_result, lang_score, lang_you, lang_round, lang_round_of, lang_settings, lang_copy, lang_time_is_up, lang_the_word_was, lang_choosing_a_word, lang_choose_a_word, lang_guessed_word, lang_joined, lang_drawing_now, lang_left, lang_loading_music, lang_skribblplus_settings;
+        var lang_play, lang_lobby_play, lang_create_private_room, lang_delete_message, lang_rounds, lang_language, lang_invite_your_friends, lang_players, lang_contact, lang_result, lang_score, lang_you, lang_round, lang_round_of, lang_settings, lang_copy, lang_time_is_up, lang_the_word_was, lang_choosing_a_word, lang_choose_a_word, lang_guessed_word, lang_joined, lang_drawing_now, lang_left, lang_skribblplus_settings;
         switch(GM_config.get('language')) {
             case "Norwegian":
                 lang_play = "Spill!",
@@ -225,7 +219,6 @@
                 lang_joined = "ble med.",
                 lang_drawing_now = "tegner nå!",
                 lang_left = "gikk ut.",
-                lang_loading_music = "Laster musikk...",
                 lang_skribblplus_settings = "skribbl+ innstillinger"
                 break;
             default:
@@ -253,7 +246,6 @@
                 lang_joined = "joined.",
                 lang_drawing_now = "is drawing now!",
                 lang_left = "left.",
-                lang_loading_music = "Loading music...",
                 lang_skribblplus_settings = "skribbl+ settings"
                 break;
         }
@@ -411,7 +403,7 @@
         }
 
         var wordLength = document.getElementById("currentWord").textContent.length;
-        if(GM_config.get('donttypemore') == true && !wordLength == 0) {
+        if(GM_config.get('donttypemore') == true && wordLength != 0) {
             var maxLength;
             maxLength = wordLength + GM_config.get('donttypemorecharacters')
             document.getElementById("inputChat").setAttribute("maxlength", maxLength);
@@ -456,54 +448,6 @@
             document.querySelector("#optionsButtonGame").innerText = lang_skribblplus_settings
         }
 
-        if(GM_config.get('music') == true && requestsaresent == false) {
-            requestsaresent = true;
-            GM_xmlhttpRequest({
-                method: "GET",
-                url: "https://gist.githubusercontent.com/Vukky123/6ae8fc55dac45784fdb2cfbe880ef79f/raw/427622be80883632d5fa13f26059dc54cedcad91/cozmolostinredditmemeeconomy.txt",
-                onload: function(response) {
-                    drawingmusic = response.responseText
-                    loadedmusic.push("drawing")
-                }
-            });
-            GM_xmlhttpRequest({
-                method: "GET",
-                url: "https://gist.githubusercontent.com/Vukky123/f41a7f6399af18e889a63be63fa55fa8/raw/b2486c484af362413b774b140f9cecfb76836a12/animalcrossingnookscranny.txt",
-                onload: function(response) {
-                    customRoomWaitingMusic = response.responseText
-                    loadedmusic.push("customroom")
-                }
-            });
-            GM_xmlhttpRequest({
-                method: "GET",
-                url: "https://gist.githubusercontent.com/Vukky123/f797b169fb7975f2164884236d91f7a2/raw/455d02395cbd6e6e556fbfa28333b27a8eaac5a1/wiishopnoteblock.txt",
-                onload: function(response) {
-                    guessingmusic = response.responseText
-                    loadedmusic.push("guessing")
-                }
-            });
-            GM_xmlhttpRequest({
-                method: "GET",
-                url: "https://gist.githubusercontent.com/Vukky123/f9b17f1f0907628a0027ce036af6eed8/raw/886719da56bae557c8472beb0665337f8ccdc302/internetsettingsrearrangement.txt",
-                onload: function(response) {
-                    settingsmusic = response.responseText
-                    loadedmusic.push("settings")
-                }
-            });
-        }
-
-        if(GM_config.get('music') == true) {
-            if(loadedmusic.length != musicamount && document.querySelector("#screenLogin").style.display == "") {
-                document.querySelector("#buttonLoginPlay").disabled = true
-                document.querySelector("#buttonLoginPlay").innerHTML = lang_loading_music + " (" + loadedmusic.length + "/" + musicamount + ")";
-                document.querySelector("#buttonLoginCreatePrivate").disabled = true
-                document.querySelector("#buttonLoginCreatePrivate").innerHTML = lang_loading_music + " (" + loadedmusic.length + "/" + musicamount + ")";
-            } else {
-                document.querySelector("#buttonLoginPlay").disabled = false
-                document.querySelector("#buttonLoginCreatePrivate").disabled = false
-            }
-        }
-
         if(document.getElementById("screenLogin").style.display != "none") {
             if(document.getElementById("formLogin").getElementsByTagName("button")[0].disabled == false) {
                 if(location.search == "?play") {
@@ -514,32 +458,32 @@
             }
         }
 
-        if(GM_config.get('music') == true && drawingmusic != null && customRoomWaitingMusic != null && guessingmusic != null && settingsmusic != null) {
+        if(GM_config.get('music') == true) {
             if(!document.getElementById("drawingmusic")) {
                 let audio = new Audio();
                 audio.id = "drawingmusic";
-                audio.src = drawingmusic;
+                audio.src = "";
                 audio.loop = true;
                 document.body.append(audio);
             }
             if(!document.getElementById("guessingmusic")) {
                 let audio = new Audio();
                 audio.id = "guessingmusic";
-                audio.src = guessingmusic;
+                audio.src = "https://github.com/Vukky123/userscripts/releases/download/skribblplus-music/coconutmall.mp3";
                 audio.loop = true;
                 document.body.append(audio);
             }
             if(!document.getElementById("settingsmusic")) {
                 let audio = new Audio();
                 audio.id = "settingsmusic";
-                audio.src = settingsmusic;
+                audio.src = "";
                 audio.loop = true;
                 document.body.append(audio);
             }
             if(!document.getElementById("customRoomWaitingMusic")) {
                 let audio = new Audio();
                 audio.id = "customRoomWaitingMusic";
-                audio.src = customRoomWaitingMusic;
+                audio.src = "https://github.com/Vukky123/userscripts/releases/download/skribblplus-music/snesclassicmenu.mp3";
                 audio.loop = true;
                 document.body.append(audio);
             }
@@ -564,6 +508,7 @@
                             let drawers = document.querySelectorAll(".drawing")
                             for (let i = 0; i < drawers.length; i++) {
                                 const drawer = drawers[i];
+                                if(drawer.parentNode.parentNode.id == "gamePlayerDummy") continue;
                                 if(drawer.style.display == "") {
                                     document.getElementById("guessingmusic").play();
                                     break;

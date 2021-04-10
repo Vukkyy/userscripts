@@ -17,15 +17,15 @@ On installation, the following features are automatically enabled (they can be d
 * Look up word on Google button
 
 ### Music disclaimer
-**Music is downloaded over GitHub Gists.** As such, the script needs to connect to gist.githubusercontent.com in order for music to function. The music is about *8,35 MB*, as of 25/03/2021.
+**Music is downloaded over GitHub Gists.** As such, the script needs to connect to github.com and github-releases.githubusercontent.com in order for music to function. The music is about *8,35 MB*, as of 25/03/2021.
 
 ### Credits
 Uses code from [skribbl.io+](https://github.com/Sv443/skribbl.io-plus) [(license)](https://raw.githubusercontent.com/Sv443/skribbl.io-plus/master/LICENSE) by Sv443.
 
 Uses music from:
-* Guessing music - [Wii Shop Channel - Minecraft Note Blocks by BlockFusion](https://www.youtube.com/watch?v=gpoj5Q2pddM)
+* Guessing music - [Coconut Mall Theme (Minecraft Note Block Cover) by Campbell Block](https://www.youtube.com/watch?v=zcC6x6RsPr8)
 * Drawing music - [Anki Cozmo: Lost in Reddit (Full Soundtrack by The Helio Sequence) - "Meme Economy"](https://www.youtube.com/watch?v=mCFgO06Lf6c)
-* Custom lobby music - [Animal Crossing - Nook's Cranny by Nintendo](https://www.youtube.com/watch?v=KdS-EonI124)
+* Custom lobby music - [SNES Classic Edition - Menu Song by Nintendo](https://www.youtube.com/watch?v=pvbJAVKQ1YM)
 * Settings music - [Internet Settings - Nintendo 3DS System Settings by Nintendo, re-arrangement by legoj15](https://www.youtube.com/watch?v=77BWKq4tqHQ)
 
 ## [Legacy scripts](LEGACY.md)
