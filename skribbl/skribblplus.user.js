@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         skribbl+
 // @namespace    https://vukky.ga
-// @version      0.11.1
+// @version      0.12.0
 // @description  skribbl+ is a combination of all the Skribbl userscripts that I have previously created, with brand new features.
 // @author       Vukky
 // @icon         https://skribbl.io/res/favicon.png
@@ -23,7 +23,7 @@
     GM_config.init(
         {
           'id': 'skribblplus',
-          'title': "skribbl+ 0.11.1",
+          'title': "skribbl+ 0.12.0",
           'fields':
           {
             'removeavatars':
@@ -172,7 +172,7 @@
           }
     });
 
-    const changelog = "<strong>Skribbl+ 0.11.1</strong><br>If you join a lobby and someone's already drawing, you'll now hear the guessing music!"
+    const changelog = "<strong>Skribbl+ 0.12.0</strong><br>Brand new music tracks have arrived!"
     setInterval(() => {
         document.querySelector(".gameHeaderButtons").style = "display: flex; float: right; justify-content: center; align-items: center;"
         document.querySelector(".grecaptcha-badge").style.display = "none"
@@ -476,7 +476,7 @@
             if(!document.getElementById("settingsmusic")) {
                 let audio = new Audio();
                 audio.id = "settingsmusic";
-                audio.src = "";
+                audio.src = "https://github.com/Vukky123/userscripts/releases/download/skribblplus-music/forestlifeacnh.ogg";
                 audio.loop = true;
                 document.body.append(audio);
             }

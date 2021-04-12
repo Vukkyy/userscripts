@@ -26,7 +26,7 @@ Uses music from:
 * Guessing music - [Coconut Mall Theme (Minecraft Note Block Cover) by Campbell Block](https://www.youtube.com/watch?v=zcC6x6RsPr8)
 * Drawing music - [Anki Cozmo: Lost in Reddit (Full Soundtrack by The Helio Sequence) - "Meme Economy"](https://www.youtube.com/watch?v=mCFgO06Lf6c)
 * Custom lobby music - [SNES Classic Edition - Menu Song by Nintendo](https://www.youtube.com/watch?v=pvbJAVKQ1YM)
-* Settings music - [Internet Settings - Nintendo 3DS System Settings by Nintendo, re-arrangement by legoj15](https://www.youtube.com/watch?v=77BWKq4tqHQ)
+* Settings music - [Forest Life (Aircheck) - Animal Crossing: New Horizons by Nintendo](https://www.youtube.com/watch?v=vUtdY-aOTrs)
 
 ## [Legacy scripts](LEGACY.md)
 No longer maintained. [Most of these scripts are available in skribbl+.](#skribbl-install)
