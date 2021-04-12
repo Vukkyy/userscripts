@@ -16,6 +16,7 @@
 
 (function() {
     'use strict';
+    let winsfxplayed;
     GM_registerMenuCommand("skribbl+: Settings", opencfg);
     function opencfg() {
         GM_config.open();
@@ -172,7 +173,7 @@
           }
     });
 
-    const changelog = "<strong>Skribbl+ 0.12.0</strong><br>Brand new music tracks have arrived!"
+    const changelog = "<strong>Skribbl+ 0.12.0</strong><br>Play Music: Brand new music tracks have arrived!<br>Play Music: A sound effect has been added for when the results display."
     setInterval(() => {
         document.querySelector(".gameHeaderButtons").style = "display: flex; float: right; justify-content: center; align-items: center;"
         document.querySelector(".grecaptcha-badge").style.display = "none"
@@ -462,7 +463,7 @@
             if(!document.getElementById("drawingmusic")) {
                 let audio = new Audio();
                 audio.id = "drawingmusic";
-                audio.src = "";
+                audio.src = "https://github.com/Vukky123/userscripts/releases/download/skribblplus-music/supermariogalaxydinopiranha.mp3";
                 audio.loop = true;
                 document.body.append(audio);
             }
@@ -487,16 +488,23 @@
                 audio.loop = true;
                 document.body.append(audio);
             }
+            if(!document.getElementById("winsfx")) {
+                let audio = new Audio();
+                audio.id = "winsfx";
+                audio.src = "https://github.com/Vukky123/userscripts/releases/download/skribblplus-music/pokemoncafemixget.mp3";
+                document.body.append(audio);
+            }
             if(document.querySelector("#audio").style.backgroundImage != 'url("res/audio_off.gif")') {
                 if(document.getElementById("skribblplus")) {
                     document.getElementById("settingsmusic").play();
                     document.getElementById("customRoomWaitingMusic").pause();
                     document.getElementById("drawingmusic").pause();
                     document.getElementById("guessingmusic").pause();
+                    document.getElementById("winsfx").pause();
                 } else {
                     document.getElementById("settingsmusic").pause();
                     document.getElementById("settingsmusic").currentTime = 0;
-                    if(document.getElementById("overlay").childNodes[0].childNodes[0].innerText.endsWith("is choosing a word!") || document.getElementById("overlay").childNodes[0].childNodes[0].innerText.endsWith(lang_choosing_a_word)) {
+                    if(document.getElementById("overlay").childNodes[0].childNodes[0].innerText.endsWith(lang_choosing_a_word)) {
                         if(document.getElementById("screenGame").style.display == "" && document.getElementById("overlay").style.opacity == "0") {
                             document.getElementById("guessingmusic").play();
                         } else {
@@ -536,12 +544,24 @@
                         document.getElementById("customRoomWaitingMusic").pause();
                         document.getElementById("customRoomWaitingMusic").currentTime = 0;
                     }
+                    if(document.getElementById("overlay").childNodes[0].childNodes[0].innerText == lang_result) {
+                        if(document.getElementById("screenGame").style.display == "" && document.getElementById("overlay").style.opacity == "1") {
+                            if(!winsfxplayed) document.getElementById("winsfx").play();
+                            winsfxplayed = true;
+                        } else {
+                            document.getElementById("winsfx").pause();
+                            document.getElementById("winsfx").currentTime = 0;
+                        }
+                    } else {
+                        winsfxplayed = false;
+                    }
                 }
             } else {
                 document.getElementById("settingsmusic").pause();
                 document.getElementById("customRoomWaitingMusic").pause();
                 document.getElementById("drawingmusic").pause();
                 document.getElementById("guessingmusic").pause();
+                document.getElementById("winsfx").pause();
             }
         } else if (GM_config.get('music') == false) {
             if(document.getElementById("drawingmusic")) {
@@ -555,6 +575,9 @@
             }
             if(document.getElementById("settingsmusic")) {
                 document.getElementById("settingsmusic").remove();
+            }
+            if(document.getElementById("winsfx")) {
+                document.getElementById("winsfx").remove();
             }
         }
 
