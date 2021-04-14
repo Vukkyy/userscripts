@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         POPBOT
 // @namespace    https://vukky.ga
-// @version      0.5.0
+// @version      0.5.1
 // @description  popcat forever
 // @author       Vukky
 // @match        http*://popcat.click/*
@@ -62,7 +62,7 @@ if(document.location.search) {
     console.log(
         "%cWARNING",
         "color:red;font-size:4rem;-webkit-text-stroke: 2px black;font-weight:bold",
-        "\npopbot has detected that the popcat may have discovered your botting!!\npopbot has tried to revert the curse of the popcat."
+        `\npopbot has detected that the popcat may have discovered your botting at ${new Date().toTimeString()}!!\npopbot has tried to revert the curse of the popcat.`
     );
     if(document.location.search != "?bot") window.popbot.popforever(parseInt(document.location.search.substr(1)))
 }
