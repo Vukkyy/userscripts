@@ -10,13 +10,27 @@
 // @downloadURL  https://raw.githubusercontent.com/Vukky123/userscripts/main/popbot.user.js
 // ==/UserScript==
 
-setInterval(function(){
-    document.title = document.querySelector(".counter").textContent
-}, 1)
 window.popbot = {}
 window.popbot._internal = {
-    showPopWarn: true
+    showPopWarn: true,
+    showBotWarn: true,
+    botWarn: function(){
+        if(window.popbot._internal.showBotWarn == false) return;
+        if(document.querySelector(".cat-img").classList.contains("bot") || document.cookie.includes("bot=true")) {
+            document.querySelector(".cat-img").classList.remove("bot")
+            document.cookie="bot=; expires = Thu, 01 Jan 1970 00:00:00 GMT"
+            console.log(
+                "%cWARNING",
+                "color:red;font-size:4rem;-webkit-text-stroke: 2px black;font-weight:bold",
+                "\npopbot has detected that the popcat has discovered your botting!!\npopbot has tried to revert the curse of the popcat, but a refresh may be needed."
+            );
+        }
+    }
 }
+setInterval(function(){
+    document.title = document.querySelector(".counter").textContent
+    window.popbot._internal.botWarn()
+}, 1)
 window.popbot.pop = async function pop(amount) {
         if(!amount) amount = 1;
         if(amount >= 4000 && window.popbot._internal.showPopWarn == true) {
