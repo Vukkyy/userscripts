@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         POPBOT
 // @namespace    https://vukky.ga
-// @version      0.3
+// @version      0.4
 // @description  popcat forever
 // @author       Vukky
 // @match        http*://popcat.click/
