@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         POPBOT
 // @namespace    https://vukky.ga
-// @version      0.1
+// @version      0.2
 // @description  popcat forever
 // @author       Vukky
 // @match        http*://popcat.click/
@@ -12,7 +12,7 @@
 
 setInterval(function(){
     document.title = document.querySelector(".counter").textContent
-}, 50)
+}, 1)
 window.popbot = {}
 window.popbot.pop = async function pop(amount) {
         for(let i = 0; i < amount; i++){
