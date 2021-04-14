@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         POPBOT
 // @namespace    https://vukky.ga
-// @version      0.2
+// @version      0.3
 // @description  popcat forever
 // @author       Vukky
 // @match        http*://popcat.click/
@@ -14,12 +14,20 @@ setInterval(function(){
     document.title = document.querySelector(".counter").textContent
 }, 1)
 window.popbot = {}
+window.popbot._internal = {
+    showPopWarn: true
+}
 window.popbot.pop = async function pop(amount) {
+        if(!amount) amount = 1;
+        if(amount >= 4000 && window.popbot._internal.showPopWarn == true) {
+            console.warn("hey! it may take a while to pop this long, just so you know. this message won't show again until you close the tab or refresh.")
+            window.popbot._internal.showPopWarn = false
+        }
         for(let i = 0; i < amount; i++){
             document.dispatchEvent(new KeyboardEvent('keydown',{'key':'a'}));
             document.dispatchEvent(new KeyboardEvent('keyup',{'key':'a'}));
         }
-        return "done";
+        return `your popcat just popped ${amount} time${amount == 1 ? "" : "s"}! pretty cool, don't you think?`;
 }
 window.popbot.popforever = async function popforever(amount) {
     await window.popbot.pop(amount)
@@ -27,3 +35,9 @@ window.popbot.popforever = async function popforever(amount) {
         window.popbot.popforever(amount)
     }, 1)
 }
+
+console.log(
+    "%cPOPBOT",
+    "color:ffffff;font-size:4rem;-webkit-text-stroke: 2px black;font-weight:bold",
+    "by vukky\nto start popping, you can do popbot.pop(amount), or to do it on loop forever, popbot.popforever(amount)\nfor example, below, type popbot.pop(1) and press enter to pop once!\n\npopbot is a fun project published for free. if you paid for it, you've been scammed.\nnote that the errors and warnings you may see here are normal most of the time!"
+);
