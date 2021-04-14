@@ -1,13 +1,14 @@
 // ==UserScript==
 // @name         POPBOT
 // @namespace    https://vukky.ga
-// @version      0.4
+// @version      0.4.1
 // @description  popcat forever
 // @author       Vukky
 // @match        http*://popcat.click/
 // @grant        none
 // @updateURL    https://raw.githubusercontent.com/Vukky123/userscripts/main/popbot.user.js
 // @downloadURL  https://raw.githubusercontent.com/Vukky123/userscripts/main/popbot.user.js
+// @icon         https://popcat.click/icons/favicon.ico
 // ==/UserScript==
 
 window.popbot = {}
