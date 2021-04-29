@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ArchiveTeam Tweaks
 // @namespace    https://vukky.ga
-// @version      0.1.0
+// @version      0.2.0
 // @description  Tweakings ArchiveTeam
 // @author       Vukky
 // @match        https://tracker.archiveteam.org/**
@@ -15,7 +15,7 @@
     'use strict';
 
     window.addEventListener('load', function() {
-        let version = "0.1.0";
+        let version = "0.2.0";
         let overloaded = " We don't want to overload the site we're archiving, so we've limited the number of downloads per minute.";
         if(document.title === "ArchiveTeam Warrior" && document.location.href === "http://127.0.0.1:8001/") {
             $(document).on("click", ".twisty", function(event) {
@@ -33,7 +33,10 @@
                     if($(this).css("backgroundColor") != "inherit") $(this).css("backgroundColor", "inherit");
                 })
                 $(".log-line").each(function() {
-                    if($(this).text().includes(overloaded)) $(this).text($(this).text().split(overloaded).join(""))
+                    if($(this).text().includes(overloaded)) $(this).text($(this).text().split(overloaded).join(""));
+                })
+                $(".item").each(function() {
+                    if(this.classList.contains("item-completed")) $(this).children("h3").css("backgroundColor", "#326827");
                 })
             }, 1);
         } else {
@@ -41,6 +44,6 @@
                 document.querySelector("#log").innerHTML = "Loading...";
             }
         }
-        console.log(`ArchiveTeam Tweaks ${version} ready!`);
+        console.log(`ArchiveTeam Tweaks ${version}`);
     }, false);
 })();
