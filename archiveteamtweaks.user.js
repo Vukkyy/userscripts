@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ArchiveTeam Tweaks
 // @namespace    https://vukky.ga
-// @version      0.2.1
+// @version      0.3.0
 // @description  Tweakings ArchiveTeam
 // @author       Vukky
 // @match        https://tracker.archiveteam.org/**
@@ -15,7 +15,7 @@
     'use strict';
 
     window.addEventListener('load', function() {
-        let version = "0.2.1";
+        let version = "0.3.0";
         let overloaded = " We don't want to overload the site we're archiving, so we've limited the number of downloads per minute.";
         if(document.title === "ArchiveTeam Warrior" && document.location.href === "http://127.0.0.1:8001/") {
             $(document).on("click", ".twisty", function(event) {
@@ -41,6 +41,9 @@
                 $(".item").each(function() {
                     if(this.classList.contains("item-completed")) $(this).children("h3").css("backgroundColor", "#326827");
                 })
+                $(".item h3 .name").each(function() {
+                    if($(this).text().length > 140) $(this).text("Item")
+                });
             }, 1);
         } else {
             if(document.querySelector("#log").innerHTML == "") {
