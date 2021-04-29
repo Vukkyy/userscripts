@@ -13,8 +13,10 @@
 
 window.popbot = {}
 window.popbot._internal = {
+    userCountryCount: 0,
     showPopWarn: true,
     showBotWarn: true,
+    showDropWarn: true,
     popForeverNumber: null,
     botWarn: function(){
         if(window.popbot._internal.showBotWarn == false) return;
@@ -26,9 +28,25 @@ window.popbot._internal = {
                 document.location.search = "bot"
             }
         }
+    },
+    numberWithCommas: function(x) {
+        return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
     }
 }
 setInterval(function(){
+    let pop = document.querySelector(".mine > span > span > span") || document.querySelector(".mine") ? document.querySelector(".mine").parentNode.querySelector(".count > .animated-number") : null
+    if(pop) {
+        let unparsedpop = pop
+        pop = parseInt(pop.textContent.replace(/,/g, "").trim())
+        if(window.popbot._internal.userCountryCount > pop && window.popbot._internal.showDropWarn == true) {
+            console.log(
+                "%cDROP",
+                "color:yellow;font-weight:bold",
+                `- your country's count appears to have dropped! it used to be ${window.popbot._internal.numberWithCommas(window.popbot._internal.userCountryCount)} but now it's ${unparsedpop.textContent.trim()}`
+            );
+        }
+        window.popbot._internal.userCountryCount = pop
+    }
     document.title = document.querySelector(".counter").textContent
     window.popbot._internal.botWarn()
 }, 1)
@@ -40,8 +58,8 @@ window.popbot.pop = async function pop(amount) {
         }
         for(let i = 0; i < amount; i++){
             document.dispatchEvent(new KeyboardEvent('keydown',{'key':'a'}));
-            document.dispatchEvent(new KeyboardEvent('keyup',{'key':'a'}));
         }
+        document.dispatchEvent(new KeyboardEvent('keyup',{'key':'a'}));
         return `your popcat just popped ${amount} time${amount == 1 ? "" : "s"}! pretty cool, don't you think?`;
 }
 window.popbot.popforever = async function popforever(amount) {
@@ -51,18 +69,43 @@ window.popbot.popforever = async function popforever(amount) {
         window.popbot.popforever(amount)
     }, 1)
 }
+window.popbot.popslow = async function popslow(amount) {
+    window.popbot._internal.popForeverNumber = "slow" + amount
+    await window.popbot.pop(amount)
+    setTimeout(function(){
+        window.popbot.popslow(amount)
+    }, 1000)
+}
+window.popbot.popsuperspeed = async function popsuperspeed() {
+    window.popbot._internal.popForeverNumber = "super"
+    setInterval(function(){
+        for (let i = 0; i < 1000; i++) {
+            document.dispatchEvent(new KeyboardEvent('keydown',{'key':'a'}));
+        }
+    }, 0);
+}
 
+console.groupCollapsed("POPBOT instructions")
 console.log(
     "%cPOPBOT",
     "color:ffffff;font-size:4rem;-webkit-text-stroke: 2px black;font-weight:bold",
-    "by vukky\nto start popping, you can do popbot.pop(amount), or to do it on loop forever, popbot.popforever(amount)\nfor example, below, type popbot.pop(1) and press enter to pop once!\n\npopbot is a fun project published for free. if you paid for it, you've been scammed.\nnote that the errors and warnings you may see here are normal most of the time!"
+    "by vukky\nto start popping, you can do popbot.pop(amount), or to do it on loop forever, popbot.popforever(amount).\nif you must, use your inner poppery with popbot.popsuperspeed().\nfor example, below, type popbot.pop(1) and press enter to pop once!\n\npopbot is a fun project published for free. if you paid for it, you've been scammed.\nnote that the errors and warnings you may see here are normal most of the time!\n\nyou'll see some ✨ automatic drop logs ✨ to tell you when your country's pop count has dropped, but these will likely lag with a high pop amount."
 );
+console.groupEnd()
 
 if(document.location.search) {
     console.log(
-        "%cWARNING",
-        "color:red;font-size:4rem;-webkit-text-stroke: 2px black;font-weight:bold",
-        `\npopbot has detected that the popcat may have discovered your botting at ${new Date().toTimeString()}!!\npopbot has tried to revert the curse of the popcat.`
+        "%cBOT DETECTED",
+        "color:red;font-weight:bold",
+        `- popbot has detected that the popcat may have discovered your botting at ${new Date().toTimeString()}!!\npopbot has tried to revert the curse of the popcat.`
     );
-    if(document.location.search != "?bot") window.popbot.popforever(parseInt(document.location.search.substr(1)))
+    if(document.location.search != "?bot") {
+        if(!document.location.search.startsWith("?slow") && document.location.search != "?super") {
+            window.popbot.popforever(parseInt(document.location.search.substr(1)))
+        } else if (document.location.search == "?super") {
+            window.popbot.popsuperspeed()
+        } else {
+            window.popbot.popslow(parseInt(document.location.search.substr(5)))
+        }
+    }
 }
