@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name         ArchiveTeam Tweaks
 // @namespace    https://vukky.ga
-// @version      0.3.0
+// @version      0.3.1
 // @description  Tweakings ArchiveTeam
 // @author       Vukky
 // @match        https://tracker.archiveteam.org/**
-// @match        http://127.0.0.1:8001
+// @include      http://127.0.0.1:*
 // @grant        none
 // @updateURL    https://raw.githubusercontent.com/Vukky123/userscripts/main/archiveteamtweaks.user.js
 // @downloadURL  https://raw.githubusercontent.com/Vukky123/userscripts/main/archiveteamtweaks.user.js
@@ -15,7 +15,7 @@
     'use strict';
 
     window.addEventListener('load', function() {
-        let version = "0.3.0";
+        let version = "0.3.1";
         let overloaded = " We don't want to overload the site we're archiving, so we've limited the number of downloads per minute.";
         if(document.title === "ArchiveTeam Warrior" && document.location.href === "http://127.0.0.1:8001/") {
             $(document).on("click", ".twisty", function(event) {
