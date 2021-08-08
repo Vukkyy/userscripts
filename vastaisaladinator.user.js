@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Vast.ai Saladinator
 // @namespace    https://vukky.ga
-// @version      0.1.1
+// @version      0.1.2
 // @description  Show profitable Vast.ai GPUs for Salad 2x earning rate mining using the Ozua Index.
 // @author       Vukky
 // @match        https://vast.ai/console/**
@@ -17,7 +17,7 @@
 
     GM_registerMenuCommand('Set desirable Ozua Index', async () => {
         let desiredOzuaIndex = prompt("Please set your desired Ozua Index. Any machines lower than your desired Ozua Index will be nuked from the page.", "200")
-        await GM_setValue("ozuaindex", desiredOzuaIndex);
+        if(desiredOzuaIndex != null) await GM_setValue("ozuaindex", desiredOzuaIndex);
     })
 
     let hashrates = {
