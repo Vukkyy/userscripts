@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Vast.ai Saladinator
 // @namespace    https://vukky.ga
-// @version      0.1.3
+// @version      0.2.0
 // @description  Show profitable Vast.ai GPUs for Salad 2x earning rate mining using the Ozua Index.
 // @author       Vukky
 // @match        https://vast.ai/console/**
@@ -31,8 +31,11 @@
     }
 
     setInterval(async () => {
-        let gpus = document.querySelectorAll('.card-expando');
-        gpus = Array.from(gpus);
+        // HA HA I AM SO FUNNY
+        document.querySelector(".vast-logo").innerHTML = "VukkyMiner";
+
+        // Add Ozua Index to GPUs
+        let gpus = Array.from(document.querySelectorAll('.card-expando'));
         for (let i = 0; i < gpus.length; i++) {
             if(gpus[i].querySelector(".dlperf").innerHTML.includes("Ozua Index")) continue;
             let gpuName = gpus[i].querySelector(".card-title").innerHTML.split("x ")[1];
@@ -44,6 +47,29 @@
                 gpus[i].style.display = "none";
                 continue;
             }
+        }
+
+        // Show stats on instance page
+        if(document.location.href.includes("instances")) {
+            if(!document.querySelector("#fancystats")) {
+                let fancyStats = document.createElement("div");
+                fancyStats.id = "fancystats";
+                fancyStats.innerHTML = "<div id='averageOZI'></div><div id='instancePrice'></div>"
+                document.querySelector(".instances-table").insertBefore(fancyStats, document.querySelector(".card-expando"));
+            }
+            let ozuaIndexes = Array.from(document.querySelectorAll(".dlperf")).map(e => parseInt(e.innerHTML.split(" ")[0]));
+            let totalOzuaIndex = 0;
+            for (let i = 0; i < ozuaIndexes.length; i++) {
+                totalOzuaIndex += ozuaIndexes[i];
+            }
+            let activeMachines = Array.from(document.querySelectorAll(".connect-button")).map(e => e.parentNode.parentNode);
+            let gpuPrices = Array.from(activeMachines.map(e => parseFloat(e.querySelector(".price-label").innerHTML.split("$")[1].split("/hr")[0])));
+            let totalGpuPrice = 0;
+            for (let i = 0; i < gpuPrices.length; i++) {
+                totalGpuPrice += gpuPrices[i];
+            }
+            document.querySelector("#averageOZI").innerHTML = `Average <a onclick="alert('The Ozua Index is a way to determine if a machine is profitable, using the formula (gpu hashrate * gpu amount / price). The higher, the better.')">Ozua Index</a>: ${parseInt(totalOzuaIndex / ozuaIndexes.length)}`
+            document.querySelector("#instancePrice").innerHTML = `Total cost of active instances: $${totalGpuPrice.toFixed(3)}/hr`
         }
     }, 1000);
 })();
