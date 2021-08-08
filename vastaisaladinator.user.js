@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Vast.ai Saladinator
 // @namespace    https://vukky.ga
-// @version      0.1.2
+// @version      0.1.3
 // @description  Show profitable Vast.ai GPUs for Salad 2x earning rate mining using the Ozua Index.
 // @author       Vukky
 // @match        https://vast.ai/console/**
@@ -24,7 +24,7 @@
         "RTX A5000": 87,
         "RTX 3090": 107,
         "RTX 3080": 80,
-        "RTX 3070": 60,
+        "RTX 3070": 52,
         "A100 PCIE": 174,
         "A100 SXM4": 174,
         "Tesla V100": 84
