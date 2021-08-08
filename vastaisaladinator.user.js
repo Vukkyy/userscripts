@@ -27,7 +27,7 @@
         "RTX 3070": 60,
         "A100 PCIE": 174,
         "A100 SXM4": 174,
-        "Tesla V100": 90
+        "Tesla V100": 84
     }
 
     setInterval(async () => {
