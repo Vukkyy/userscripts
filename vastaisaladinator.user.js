@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Vast.ai Saladinator
 // @namespace    https://vukky.ga
-// @version      0.1.0
+// @version      0.1.1
 // @description  Show profitable Vast.ai GPUs for Salad 2x earning rate mining using the Ozua Index.
 // @author       Vukky
 // @match        https://vast.ai/console/**
