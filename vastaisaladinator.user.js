@@ -31,6 +31,8 @@
     }
 
     setInterval(async () => {
+        if(document.querySelector(".rent-notification h4")) document.querySelector(".rent-notification h4").innerHTML = "It's yours!";
+        
         // HA HA I AM SO FUNNY
         document.querySelector(".vast-logo").innerHTML = "VukkyMiner";
 
