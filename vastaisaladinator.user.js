@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Vast.ai Saladinator
 // @namespace    https://vukky.ga
-// @version      0.2.0
+// @version      0.2.1
 // @description  Show profitable Vast.ai GPUs for Salad 2x earning rate mining using the Ozua Index.
 // @author       Vukky
 // @match        https://vast.ai/console/**
@@ -32,7 +32,7 @@
 
     setInterval(async () => {
         if(document.querySelector(".rent-notification h4")) document.querySelector(".rent-notification h4").innerHTML = "It's yours!";
-        
+
         // HA HA I AM SO FUNNY
         document.querySelector(".vast-logo").innerHTML = "VukkyMiner";
 
