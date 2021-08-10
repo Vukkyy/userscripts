@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Vast.ai Saladinator
 // @namespace    https://vukky.ga
-// @version      0.2.1
+// @version      0.2.2
 // @description  Show profitable Vast.ai GPUs for Salad 2x earning rate mining using the Ozua Index.
 // @author       Vukky
 // @match        https://vast.ai/console/**
@@ -44,11 +44,15 @@
             let gpuAmount = parseInt(gpus[i].querySelector(".card-title").innerHTML.split("x ")[0]);
             let gpuPrice = parseFloat(gpus[i].querySelector(`.price-label${document.location.href.includes("instances") ? " div" : ""}`).innerHTML.split("$")[1].split("/hr")[0]);
             let ozuaIndex = hashrates[gpuName] != undefined ? hashrates[gpuName] * gpuAmount / gpuPrice : null;
-            gpus[i].querySelector(".dlperf").innerHTML = `${parseInt(ozuaIndex)} <a class="small-label" onclick="alert('The Ozua Index is a way to determine if a machine is profitable, using the formula (gpu hashrate * gpu amount / price). The higher, the better.')">Ozua Index</span>`;
-            if(ozuaIndex == null || ozuaIndex < parseInt(await GM_getValue("ozuaindex", 200)) && !document.location.href.includes("instances")) {
-                gpus[i].style.display = "none";
-                continue;
+            if(!document.location.href.includes("instances")) {
+                if(ozuaIndex == null || ozuaIndex < parseInt(await GM_getValue("ozuaindex", 200)) && !document.location.href.includes("instances")) {
+                    gpus[i].style.display = "none";
+                    continue;
+                }
+            } else if(ozuaIndex == null) {
+                ozuaIndex = "?";
             }
+            gpus[i].querySelector(".dlperf").innerHTML = `${parseInt(ozuaIndex)} <a class="small-label" onclick="alert('The Ozua Index is a way to determine if a machine is profitable, using the formula (gpu hashrate * gpu amount / price). The higher, the better.')">Ozua Index</span>`;
         }
 
         // Show stats on instance page
@@ -62,6 +66,7 @@
             let ozuaIndexes = Array.from(document.querySelectorAll(".dlperf")).map(e => parseInt(e.innerHTML.split(" ")[0]));
             let totalOzuaIndex = 0;
             for (let i = 0; i < ozuaIndexes.length; i++) {
+                if(ozuaIndexes[i] == "?") continue;
                 totalOzuaIndex += ozuaIndexes[i];
             }
             let activeMachines = Array.from(document.querySelectorAll(".connect-button")).map(e => e.parentNode.parentNode);
