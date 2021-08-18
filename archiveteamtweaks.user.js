@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ArchiveTeam Tweaks
 // @namespace    https://vukky.ga
-// @version      0.4.0
+// @version      0.4.1
 // @description  Tweakings ArchiveTeam
 // @author       Vukky
 // @match        https://tracker.archiveteam.org/**
@@ -68,12 +68,13 @@
                         sfx.play();
                     }
                 });
+                console.log(`ArchiveTeam Tweaks ${version}`);
             }, 1);
-        } else {
+        } else if (document.location.hostname == "tracker.archiveteam.org") {
             if(document.querySelector("#log").innerHTML == "") {
                 document.querySelector("#log").innerHTML = "Loading...";
             }
+            console.log(`ArchiveTeam Tweaks ${version}`);
         }
-        console.log(`ArchiveTeam Tweaks ${version}`);
     }, false);
 })();
