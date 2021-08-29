@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         FandomDesktop Destroyer
 // @namespace    https://vukky.ga
-// @version      0.2.0
+// @version      0.2.1
 // @description  No one likes you and your attempts to ruin everything, Fandom.
 // @author       Vukky
 // @match        https://*.fandom.com/wiki/**
@@ -33,6 +33,6 @@
         } else {
             noskin.searchParams.set("useskin", "oasis");
         }
-        document.location.href = noskin.href;
+        document.location.replace(noskin.href);
     }
 })();
