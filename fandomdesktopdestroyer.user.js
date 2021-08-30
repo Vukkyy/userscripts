@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         FandomDesktop Destroyer
 // @namespace    https://vukky.ga
-// @version      0.2.1
+// @version      0.3.0
 // @description  No one likes you and your attempts to ruin everything, Fandom.
 // @author       Vukky
 // @match        https://*.fandom.com/wiki/**
@@ -15,7 +15,12 @@
 (function() {
     'use strict';
 
-    GM_registerMenuCommand('Toggle Gamepedia dark mode', async () => {
+    if(GM_getValue("shutdown", false) == false) {
+        alert("FANDOMDESKTOPDESTROYER NO LONGER WORKS! It is a sad day indeed, but it was bound to happen. Please uninstall the userscript.")
+        GM_setValue("shutdown", true);
+    }
+
+    /*GM_registerMenuCommand('Toggle Gamepedia dark mode', async () => {
         await GM_setValue("dark", !await GM_getValue("dark", false));
         if(!document.body.classList.contains("is-gamepedia")) alert(`Just to let you know, this isn't a Gamepedia wiki. Your choice has been saved - Gamepedia dark mode is now turned ${await GM_getValue("dark", false) == true ? "on" : "off"}. Press OK to finish.`);
         undesktop(await GM_getValue("dark", false));
@@ -34,5 +39,5 @@
             noskin.searchParams.set("useskin", "oasis");
         }
         document.location.replace(noskin.href);
-    }
+    }*/
 })();
