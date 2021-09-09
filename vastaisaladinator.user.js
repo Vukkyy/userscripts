@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Vast.ai Saladinator
 // @namespace    https://vukky.ga
-// @version      0.2.2
+// @version      0.2.3
 // @description  Show profitable Vast.ai GPUs for Salad 2x earning rate mining using the Ozua Index.
 // @author       Vukky
 // @match        https://vast.ai/console/**
@@ -39,7 +39,6 @@
         // Add Ozua Index to GPUs
         let gpus = Array.from(document.querySelectorAll('.card-expando'));
         for (let i = 0; i < gpus.length; i++) {
-            if(gpus[i].querySelector(".dlperf").innerHTML.includes("Ozua Index")) continue;
             let gpuName = gpus[i].querySelector(".card-title").innerHTML.split("x ")[1];
             let gpuAmount = parseInt(gpus[i].querySelector(".card-title").innerHTML.split("x ")[0]);
             let gpuPrice = parseFloat(gpus[i].querySelector(`.price-label${document.location.href.includes("instances") ? " div" : ""}`).innerHTML.split("$")[1].split("/hr")[0]);
@@ -48,6 +47,8 @@
                 if(ozuaIndex == null || ozuaIndex < parseInt(await GM_getValue("ozuaindex", 200)) && !document.location.href.includes("instances")) {
                     gpus[i].style.display = "none";
                     continue;
+                } else {
+                    gpus[i].style.display = "";
                 }
             } else if(ozuaIndex == null) {
                 ozuaIndex = "?";
