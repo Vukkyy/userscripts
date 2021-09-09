@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Vast.ai Saladinator
 // @namespace    https://vukky.ga
-// @version      0.3.0
+// @version      0.3.1
 // @description  Improves vast.ai for usage with salad.com.
 // @author       Vukky
 // @match        https://vast.ai/console/**
