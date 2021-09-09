@@ -2,6 +2,8 @@
 
 Hello! Welcome to my magical list of userscripts that I have created!
 
+Some of these can improve your experience (vast-ly 😛) while others are just... well, dumb.
+
 ## Prerequisites
 
 To use these, you will need to install [Tampermonkey](https://tampermonkey.net).
