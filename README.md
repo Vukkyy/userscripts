@@ -10,4 +10,4 @@ Once you have done so, click the "install" links at the bottom to install any sc
 
 ## Available scripts
 
-Coming soon!
+Vast.ai Saladinator ([install](https://raw.githubusercontent.com/Vukkyy/userscripts/main/vastaisaladinator.user.js)) - Improves vast.ai for usage with salad.com.
