@@ -1,28 +1,30 @@
 // ==UserScript==
 // @name         Vast.ai Saladinator
 // @namespace    https://vukky.ga
-// @version      0.3.2
+// @version      0.3.3
 // @description  Improves vast.ai for usage with salad.com.
 // @author       Vukky
 // @match        https://vast.ai/console/**
 // @icon         https://www.google.com/s2/favicons?domain=vast.ai
 // @updateURL    https://raw.githubusercontent.com/Vukkyy/userscripts/main/vastaisaladinator.user.js
-// @grant        GM_getValue
-// @grant        GM_setValue
-// @grant        GM_deleteValue
 // @grant        GM_registerMenuCommand
 // ==/UserScript==
 
 (function() {
     'use strict';
 
+    if(!localStorage.getItem("ozuaindex")) {
+        localStorage.setItem("ozuaindex", "200");
+        localStorage.setItem("blockedinstances", "");
+    }
+
     GM_registerMenuCommand('Set desirable Ozua Index', async () => {
         let desiredOzuaIndex = prompt("Please set your desired Ozua Index. Any machines lower than your desired Ozua Index will be nuked from the page.", "200")
-        if(desiredOzuaIndex != null) await GM_setValue("ozuaindex", desiredOzuaIndex);
+        if(desiredOzuaIndex != null) localStorage.setItem("ozuaindex", desiredOzuaIndex);
     })
 
     GM_registerMenuCommand('Clear hidden machines data', async () => {
-        await GM_deleteValue("blockedinstances");
+        localStorage.setItem("blockedinstances", "");
         alert("You should now see hidden machines again!");
     })
 
@@ -45,13 +47,13 @@
         // Add Ozua Index to GPUs
         let gpus = Array.from(document.querySelectorAll('.card-expando'));
         for (let i = 0; i < gpus.length; i++) {
-            let blockedInstances = await GM_getValue("blockedinstances", "[]").split(",");
             let gpuName = gpus[i].querySelector(".card-title").innerHTML.split("x ")[1];
             let gpuAmount = parseInt(gpus[i].querySelector(".card-title").innerHTML.split("x ")[0]);
             let gpuPrice = parseFloat(gpus[i].querySelector(`.price-label${document.location.href.includes("instances") ? " div" : ""}`).innerHTML.split("$")[1].split("/hr")[0]);
             let ozuaIndex = hashrates[gpuName] != undefined ? hashrates[gpuName] * gpuAmount / gpuPrice : null;
             if(!document.location.href.includes("instances")) {
-                if(blockedInstances.includes(gpus[i].querySelector(".instance-id").innerHTML) || ozuaIndex == null || ozuaIndex < parseInt(await GM_getValue("ozuaindex", 200)) && !document.location.href.includes("instances")) {
+                let blockedInstances = localStorage.getItem("blockedinstances").split(",");
+                if(blockedInstances.includes(gpus[i].querySelector(".instance-id").innerHTML) || ozuaIndex == null || ozuaIndex < localStorage.getItem("ozuaindex") && !document.location.href.includes("instances")) {
                     gpus[i].style.display = "none";
                     continue;
                 } else {
@@ -64,10 +66,12 @@
             if(!gpus[i].querySelector(".hide-button")) {
                 gpus[i].querySelectorAll(".hostname")[1].className = "hostname hide-button";
                 gpus[i].querySelector(".hide-button").innerHTML = "(<a>hide</a>)";
-                gpus[i].querySelector(".hide-button a").onclick = async function(){
+                gpus[i].querySelector(".hide-button a").onclick = async function(event){
                     if(confirm("Are you sure? You won't see this instance on the Create page again!") == true) {
-                        blockedInstances.push(gpus[i].querySelector(".instance-id").innerHTML);
-                        await GM_setValue("blockedinstances", blockedInstances.join())
+                        let blockedInstances = localStorage.getItem("blockedinstances").split(",");
+                        if(blockedInstances.includes(event.path[2].querySelector(".instance-id").innerHTML)) return;
+                        blockedInstances.push(event.path[2].querySelector(".instance-id").innerHTML);
+                        localStorage.setItem("blockedinstances", blockedInstances.join());
                     }
                 };
             }
