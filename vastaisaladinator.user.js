@@ -51,7 +51,7 @@
             let gpuPrice = parseFloat(gpus[i].querySelector(`.price-label${document.location.href.includes("instances") ? " div" : ""}`).innerHTML.split("$")[1].split("/hr")[0]);
             let ozuaIndex = hashrates[gpuName] != undefined ? hashrates[gpuName] * gpuAmount / gpuPrice : null;
             if(!document.location.href.includes("instances")) {
-                if(blockedInstances.includes(gpus[i].querySelector(".instance-id").innerHTML) || ozuaIndex == null || ozuaIndex < parseInt(await GM_getValue("ozuaindex", 200)) && !document.location.href.includes("instances")) {
+                if(blockedInstances.contains(gpus[i].querySelector(".instance-id").innerHTML) || ozuaIndex == null || ozuaIndex < parseInt(await GM_getValue("ozuaindex", 200)) && !document.location.href.includes("instances")) {
                     gpus[i].style.display = "none";
                     continue;
                 } else {
