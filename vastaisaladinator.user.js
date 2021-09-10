@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Vast.ai Saladinator
 // @namespace    https://vukky.ga
-// @version      0.4.3
+// @version      0.4.4
 // @description  Improves vast.ai for usage with salad.com.
 // @author       Vukky
 // @match        https://vast.ai/console/**
@@ -64,67 +64,71 @@ var saladRate = 2;
     }
 
     setInterval(async () => {
-        if(document.querySelector(".rent-notification h4")) document.querySelector(".rent-notification h4").innerHTML = "It's yours!";
+        if(document.querySelector(".main").innerText == "error") {
+            document.querySelector(".main").innerHTML = "<b>Vast.ai has crashed.</b><br>Please refresh the page."
+        } else {
+            if(document.querySelector(".rent-notification h4")) document.querySelector(".rent-notification h4").innerHTML = "It's yours!";
 
-        // HA HA I AM SO FUNNY
-        document.querySelector(".vast-logo").innerHTML = "salad.ai";
-
-        // Add Ozua Index to GPUs
-        let gpus = Array.from(document.querySelectorAll('.card-expando'));
-        for (let i = 0; i < gpus.length; i++) {
-            let gpuName = gpus[i].querySelector(".card-title").innerHTML.split("x ")[1];
-            let gpuAmount = parseInt(gpus[i].querySelector(".card-title").innerHTML.split("x ")[0]);
-            let gpuPrice = parseFloat(gpus[i].querySelector(`.price-label${document.location.href.includes("instances") ? " div" : ""}`).innerHTML.split("$")[1].split("/hr")[0]);
-            let ozuaIndex = hashrates[gpuName] != undefined ? hashrates[gpuName] * gpuAmount / gpuPrice : null;
-            if(!document.location.href.includes("instances")) {
-                let blockedInstances = localStorage.getItem("blockedinstances").split(",");
-                if(blockedInstances.includes(gpus[i].querySelector(".instance-id").innerHTML) || ozuaIndex == null || ozuaIndex < localStorage.getItem("ozuaindex") && !document.location.href.includes("instances")) {
-                    gpus[i].style.display = "none";
-                    continue;
-                } else {
-                    gpus[i].style.display = "";
-                }
-            } else if(ozuaIndex == null) {
-                ozuaIndex = "?";
-            }
-            gpus[i].querySelector(".dlperf").innerHTML = `${parseInt(ozuaIndex)} <a class="small-label" onclick="alert('The Ozua Index is a way to determine if a machine is profitable, using the formula (gpu hashrate * gpu amount / price). The higher, the better.')">Ozua Index</span>`;
-            if(!gpus[i].querySelector(".hide-button")) {
-                gpus[i].querySelectorAll(".hostname")[1].className = "hostname hide-button";
-                gpus[i].querySelector(".hide-button").innerHTML = "(<a>hide</a>)";
-                gpus[i].querySelector(".hide-button a").onclick = async function(event){
-                    if(confirm("Are you sure? You won't see this instance on the Create page again!") == true) {
-                        let blockedInstances = localStorage.getItem("blockedinstances").split(",");
-                        if(blockedInstances.includes(event.path[2].querySelector(".instance-id").innerHTML)) return;
-                        blockedInstances.push(event.path[2].querySelector(".instance-id").innerHTML);
-                        localStorage.setItem("blockedinstances", blockedInstances.join());
+            // HA HA I AM SO FUNNY
+            document.querySelector(".vast-logo").innerHTML = "salad.ai";
+    
+            // Add Ozua Index to GPUs
+            let gpus = Array.from(document.querySelectorAll('.card-expando'));
+            for (let i = 0; i < gpus.length; i++) {
+                let gpuName = gpus[i].querySelector(".card-title").innerHTML.split("x ")[1];
+                let gpuAmount = parseInt(gpus[i].querySelector(".card-title").innerHTML.split("x ")[0]);
+                let gpuPrice = parseFloat(gpus[i].querySelector(`.price-label${document.location.href.includes("instances") ? " div" : ""}`).innerHTML.split("$")[1].split("/hr")[0]);
+                let ozuaIndex = hashrates[gpuName] != undefined ? hashrates[gpuName] * gpuAmount / gpuPrice : null;
+                if(!document.location.href.includes("instances")) {
+                    let blockedInstances = localStorage.getItem("blockedinstances").split(",");
+                    if(blockedInstances.includes(gpus[i].querySelector(".instance-id").innerHTML) || ozuaIndex == null || ozuaIndex < localStorage.getItem("ozuaindex") && !document.location.href.includes("instances")) {
+                        gpus[i].style.display = "none";
+                        continue;
+                    } else {
+                        gpus[i].style.display = "";
                     }
-                };
+                } else if(ozuaIndex == null) {
+                    ozuaIndex = "?";
+                }
+                gpus[i].querySelector(".dlperf").innerHTML = `${parseInt(ozuaIndex)} <a class="small-label" onclick="alert('The Ozua Index is a way to determine if a machine is profitable, using the formula (gpu hashrate * gpu amount / price). The higher, the better.')">Ozua Index</span>`;
+                if(!gpus[i].querySelector(".hide-button")) {
+                    gpus[i].querySelectorAll(".hostname")[1].className = "hostname hide-button";
+                    gpus[i].querySelector(".hide-button").innerHTML = "(<a>hide</a>)";
+                    gpus[i].querySelector(".hide-button a").onclick = async function(event){
+                        if(confirm("Are you sure? You won't see this instance on the Create page again!") == true) {
+                            let blockedInstances = localStorage.getItem("blockedinstances").split(",");
+                            if(blockedInstances.includes(event.path[2].querySelector(".instance-id").innerHTML)) return;
+                            blockedInstances.push(event.path[2].querySelector(".instance-id").innerHTML);
+                            localStorage.setItem("blockedinstances", blockedInstances.join());
+                        }
+                    };
+                }
             }
-        }
-
-        // Show stats on instance page
-        if(document.location.href.includes("instances")) {
-            if(!document.querySelector("#fancystats")) {
-                let fancyStats = document.createElement("div");
-                fancyStats.id = "fancystats";
-                fancyStats.innerHTML = "<b>Fancy Stats!</b><div id='averageOZI'></div><div id='instancePrice'></div><div id='earningRateExpiry'></div><br>"
-                document.querySelector(".instances-table").insertBefore(fancyStats, document.querySelector(".card-expando"));
+    
+            // Show stats on instance page
+            if(document.location.href.includes("instances")) {
+                if(!document.querySelector("#fancystats")) {
+                    let fancyStats = document.createElement("div");
+                    fancyStats.id = "fancystats";
+                    fancyStats.innerHTML = "<b>Fancy Stats!</b><div id='averageOZI'></div><div id='instancePrice'></div><div id='earningRateExpiry'></div><br>"
+                    document.querySelector(".instances-table").insertBefore(fancyStats, document.querySelector(".card-expando"));
+                }
+                let ozuaIndexes = Array.from(document.querySelectorAll(".dlperf")).map(e => parseInt(e.innerHTML.split(" ")[0]));
+                let totalOzuaIndex = 0;
+                for (let i = 0; i < ozuaIndexes.length; i++) {
+                    if(ozuaIndexes[i] == "?") continue;
+                    totalOzuaIndex += ozuaIndexes[i];
+                }
+                let activeMachines = Array.from(document.querySelectorAll(".connect-button")).map(e => e.parentNode.parentNode);
+                let gpuPrices = Array.from(activeMachines.map(e => parseFloat(e.querySelector(".price-label").innerHTML.split("$")[1].split("/hr")[0])));
+                let totalGpuPrice = 0;
+                for (let i = 0; i < gpuPrices.length; i++) {
+                    totalGpuPrice += gpuPrices[i];
+                }
+                document.querySelector("#averageOZI").innerHTML = `Average <a onclick="alert('The Ozua Index is a way to determine if a machine is profitable, using the formula (gpu hashrate * gpu amount / price). The higher, the better.')">Ozua Index</a>: ${parseInt(totalOzuaIndex / ozuaIndexes.length)}`
+                document.querySelector("#instancePrice").innerHTML = `Total cost of active instances: $${totalGpuPrice.toFixed(3)}/hr ($${(totalGpuPrice.toFixed(3) / saladRate / 4).toFixed(3)}/15min to be profitable)`
+                document.querySelector("#earningRateExpiry").innerHTML = `Salad earning rate will expire on: ${saladRateExpiry}`
             }
-            let ozuaIndexes = Array.from(document.querySelectorAll(".dlperf")).map(e => parseInt(e.innerHTML.split(" ")[0]));
-            let totalOzuaIndex = 0;
-            for (let i = 0; i < ozuaIndexes.length; i++) {
-                if(ozuaIndexes[i] == "?") continue;
-                totalOzuaIndex += ozuaIndexes[i];
-            }
-            let activeMachines = Array.from(document.querySelectorAll(".connect-button")).map(e => e.parentNode.parentNode);
-            let gpuPrices = Array.from(activeMachines.map(e => parseFloat(e.querySelector(".price-label").innerHTML.split("$")[1].split("/hr")[0])));
-            let totalGpuPrice = 0;
-            for (let i = 0; i < gpuPrices.length; i++) {
-                totalGpuPrice += gpuPrices[i];
-            }
-            document.querySelector("#averageOZI").innerHTML = `Average <a onclick="alert('The Ozua Index is a way to determine if a machine is profitable, using the formula (gpu hashrate * gpu amount / price). The higher, the better.')">Ozua Index</a>: ${parseInt(totalOzuaIndex / ozuaIndexes.length)}`
-            document.querySelector("#instancePrice").innerHTML = `Total cost of active instances: $${totalGpuPrice.toFixed(3)}/hr ($${(totalGpuPrice.toFixed(3) / saladRate / 4).toFixed(3)}/15min to be profitable)`
-            document.querySelector("#earningRateExpiry").innerHTML = `Salad earning rate will expire on: ${saladRateExpiry}`
         }
     }, 1000);
 })();
