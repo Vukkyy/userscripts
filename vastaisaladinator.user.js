@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Vast.ai Saladinator
 // @namespace    https://vukky.ga
-// @version      0.4.0
+// @version      0.4.1
 // @description  Improves vast.ai for usage with salad.com.
 // @author       Vukky
 // @match        https://vast.ai/console/**
@@ -13,6 +13,7 @@
 // ==/UserScript==
 
 var saladRateExpiry = "Loading...";
+var saladRate = 2;
 (function() {
     'use strict';
 
@@ -23,7 +24,12 @@ var saladRateExpiry = "Loading...";
           if(response.status == 401) {
             saladRateExpiry = "<a href='https://app.salad.io/login' target='_blank'>Login with Salad</a>";
           }
+          if(response.status == 404) {
+            saladRateExpiry = "You have the default earning rate.";
+            saladRate = 1;
+          }
           saladRateExpiry = new Date(JSON.parse(response.responseText).endsAt).toLocaleString();
+          saladRate = parseInt(JSON.parse(response.responseText).multiplier);
         }
     });
 
@@ -112,7 +118,7 @@ var saladRateExpiry = "Loading...";
                 totalGpuPrice += gpuPrices[i];
             }
             document.querySelector("#averageOZI").innerHTML = `Average <a onclick="alert('The Ozua Index is a way to determine if a machine is profitable, using the formula (gpu hashrate * gpu amount / price). The higher, the better.')">Ozua Index</a>: ${parseInt(totalOzuaIndex / ozuaIndexes.length)}`
-            document.querySelector("#instancePrice").innerHTML = `Total cost of active instances: $${totalGpuPrice.toFixed(3)}/hr ($${(totalGpuPrice.toFixed(3) / 2 / 4).toFixed(3)}/15min to be profitable)`
+            document.querySelector("#instancePrice").innerHTML = `Total cost of active instances: $${totalGpuPrice.toFixed(3)}/hr ($${(totalGpuPrice.toFixed(3) / saladRate / 4).toFixed(3)}/15min to be profitable)`
             document.querySelector("#earningRateExpiry").innerHTML = `Salad earning rate will expire on: ${saladRateExpiry}`
         }
     }, 1000);
