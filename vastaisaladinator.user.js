@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Vast.ai Saladinator
 // @namespace    https://vukky.ga
-// @version      0.4.1
+// @version      0.4.2
 // @description  Improves vast.ai for usage with salad.com.
 // @author       Vukky
 // @match        https://vast.ai/console/**
@@ -25,11 +25,16 @@ var saladRate = 2;
             saladRateExpiry = "<a href='https://app.salad.io/login' target='_blank'>Login with Salad</a>";
           }
           if(response.status == 404) {
-            saladRateExpiry = "You have the default earning rate.";
+            saladRateExpiry = "You have no special earning rate.";
             saladRate = 1;
           }
-          saladRateExpiry = new Date(JSON.parse(response.responseText).endsAt).toLocaleString();
-          saladRate = parseInt(JSON.parse(response.responseText).multiplier);
+          if(JSON.parse(response.responseText).earnedAmountLimit != undefined) {
+            saladRateExpiry = `${JSON.parse(response.responseText).earnedAmount}/${JSON.parse(response.responseText).earnedAmountLimit} (refresh to update)`
+            saladRate = parseInt(JSON.parse(response.responseText).multiplier);
+          } else {
+            saladRateExpiry = new Date(JSON.parse(response.responseText).endsAt).toLocaleString();
+            saladRate = parseInt(JSON.parse(response.responseText).multiplier);
+          }
         }
     });
 
