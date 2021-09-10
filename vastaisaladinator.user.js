@@ -98,7 +98,7 @@
                 totalGpuPrice += gpuPrices[i];
             }
             document.querySelector("#averageOZI").innerHTML = `Average <a onclick="alert('The Ozua Index is a way to determine if a machine is profitable, using the formula (gpu hashrate * gpu amount / price). The higher, the better.')">Ozua Index</a>: ${parseInt(totalOzuaIndex / ozuaIndexes.length)}`
-            document.querySelector("#instancePrice").innerHTML = `Total cost of active instances: $${totalGpuPrice.toFixed(3)}/hr`
+            document.querySelector("#instancePrice").innerHTML = `Total cost of active instances: $${totalGpuPrice.toFixed(3)}/hr ($${totalGpuPrice.toFixed(3) / 2 / 4}/15 min to be profitable)`
         }
     }, 1000);
 })();
