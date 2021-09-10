@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Vast.ai Saladinator
 // @namespace    https://vukky.ga
-// @version      0.4.2
+// @version      0.4.3
 // @description  Improves vast.ai for usage with salad.com.
 // @author       Vukky
 // @match        https://vast.ai/console/**
@@ -107,7 +107,7 @@ var saladRate = 2;
             if(!document.querySelector("#fancystats")) {
                 let fancyStats = document.createElement("div");
                 fancyStats.id = "fancystats";
-                fancyStats.innerHTML = "<div id='averageOZI'></div><div id='instancePrice'></div><div id='earningRateExpiry'></div><br>"
+                fancyStats.innerHTML = "<b>Fancy Stats!</b><div id='averageOZI'></div><div id='instancePrice'></div><div id='earningRateExpiry'></div><br>"
                 document.querySelector(".instances-table").insertBefore(fancyStats, document.querySelector(".card-expando"));
             }
             let ozuaIndexes = Array.from(document.querySelectorAll(".dlperf")).map(e => parseInt(e.innerHTML.split(" ")[0]));
