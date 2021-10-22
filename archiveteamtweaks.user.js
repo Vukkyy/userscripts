@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ArchiveTeam Tweaks
 // @namespace    https://vukky.ga
-// @version      0.5.2
+// @version      0.5.3
 // @description  Tweakings ArchiveTeam
 // @author       Vukky
 // @match        https://tracker.archiveteam.org/**
@@ -48,6 +48,10 @@
                 $(".item").each(function() {
                     if(this.classList.contains("item-completed")) {
                         $(this).children("h3").css("backgroundColor", "#326827");
+                        window.setTimeout(function() {
+                            $(this).slideUp(500, function() { $(this).remove(); });
+                        }, 5000);
+                    } else if (this.classList.contains("item-failed")) {
                         window.setTimeout(function() {
                             $(this).slideUp(500, function() { $(this).remove(); });
                         }, 5000);
