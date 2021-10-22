@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ArchiveTeam Tweaks
 // @namespace    https://vukky.ga
-// @version      0.5.1
+// @version      0.5.2
 // @description  Tweakings ArchiveTeam
 // @author       Vukky
 // @match        https://tracker.archiveteam.org/**
@@ -59,6 +59,10 @@
                 $(".tasks li .s").each(function() {
                     if($(this).text() > 0 && $(this).parent().css("opacity") == 0.5) $(this).parent().css("opacity", "1")
                     if($(this).text() == 0 && $(this).parent().css("opacity") == 1) $(this).parent().css("opacity", "0.5")
+                    if($(this).text() < 0 && $(this).parent().css("opacity") == 1) {
+                        $(this).parent().css("opacity", "0.5") // there are a few cases where the number is negative
+                        $(this).text("0");
+                    }
                 });
             }, 1);
         } else if (document.location.hostname == "tracker.archiveteam.org") {
