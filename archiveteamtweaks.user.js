@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ArchiveTeam Tweaks
 // @namespace    https://vukky.ga
-// @version      0.5.3
+// @version      0.5.4
 // @description  Tweakings ArchiveTeam
 // @author       Vukky
 // @match        https://tracker.archiveteam.org/**
@@ -29,6 +29,11 @@
                     $(item).addClass("open");
                 }
             });
+            function removeItem(item) {
+                window.setTimeout(function() {
+                    $(item).slideUp(500, function() { $(item).remove(); });
+                }, 5000);
+            }
             setInterval(() => {
                 if($("#help ul")[1] != undefined && document.querySelector("#attv") == null) {
                     let attv = document.createElement("li");
@@ -48,19 +53,15 @@
                 $(".item").each(function() {
                     if(this.classList.contains("item-completed")) {
                         $(this).children("h3").css("backgroundColor", "#326827");
-                        window.setTimeout(function() {
-                            $(this).slideUp(500, function() { $(this).remove(); });
-                        }, 5000);
+                        removeItem(this);
                     } else if (this.classList.contains("item-failed")) {
-                        window.setTimeout(function() {
-                            $(this).slideUp(500, function() { $(this).remove(); });
-                        }, 5000);
+                        removeItem(this);
                     }
                 })
                 $(".item h3 .name").each(function() {
                     if($(this).text().length > 140) $(this).text("Item")
                 });
-                $(".tasks li .s").each(function() {
+                $("#task-summary li .s").each(function() {
                     if($(this).text() > 0 && $(this).parent().css("opacity") == 0.5) $(this).parent().css("opacity", "1")
                     if($(this).text() == 0 && $(this).parent().css("opacity") == 1) $(this).parent().css("opacity", "0.5")
                     if($(this).text() < 0 && $(this).parent().css("opacity") == 1) {
