@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         skribbl+
 // @namespace    https://vukky.ga
-// @version      0.12.0
+// @version      0.12.1
 // @description  skribbl+ is a combination of all the Skribbl userscripts that I have previously created, with brand new features.
 // @author       Vukky
 // @icon         https://skribbl.io/res/favicon.png
@@ -173,14 +173,14 @@
           }
     });
 
-    const changelog = "<strong>Skribbl+ 0.12.0</strong><br>Play Music: Brand new music tracks have arrived!<br>Play Music: A sound effect has been added for when the results display."
+    const changelog = "<strong>Skribbl+ 0.12.1</strong><br>Updated Twitter link.<br><br><strong>Skribbl+ 0.12.0</strong><br>Play Music: Brand new music tracks have arrived!<br>Play Music: A sound effect has been added for when the results display."
     setInterval(() => {
         document.querySelector(".gameHeaderButtons").style = "display: flex; float: right; justify-content: center; align-items: center;"
         document.querySelector(".grecaptcha-badge").style.display = "none"
         if(!document.querySelector("#skribblplusCredit")) {
             let credit = document.createElement('a');
             credit.innerHTML = '<img style="margin-right:5px" src="res/social/twitter.png">skribbl+ by Vukky</a>'
-            credit.href = "https://twitter.com/vukky_ltd"
+            credit.href = "https://twitter.com/vukkied"
             credit.id = "skribblplusCredit"
             credit.style.marginLeft = "10px"
             document.querySelector(".col-xs-12").childNodes[0].appendChild(credit)
