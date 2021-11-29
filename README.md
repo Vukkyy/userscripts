@@ -12,6 +12,7 @@ Once you have done so, click the "install" links at the bottom to install any sc
 
 ## Available scripts
 
-Vast.ai Saladinator ([install](https://raw.githubusercontent.com/Vukkyy/userscripts/main/vastaisaladinator.user.js)) - Improves vast.ai for usage with salad.com.
+* Skribbl+ ([install](https://github.com/Vukky123/userscripts/raw/main/skribbl/skribblplus.user.js)) - Enhance your Skribbl.io experience!
+* Vast.ai Saladinator ([install](https://raw.githubusercontent.com/Vukkyy/userscripts/main/vastaisaladinator.user.js)) - Improves vast.ai for usage with salad.com.
 
 There are also various others that are not documented here, usually because they aren't ready or are no longer functional.
