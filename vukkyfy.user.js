@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Vukkyfy
 // @namespace    https://vukky.ga
-// @version      0.4.0
+// @version      0.4.1
 // @description  All <img> images are now Vukkies. Uh oh.
 // @author       Vukky
 // @match        *://*/*
@@ -61,7 +61,7 @@
         if(GM_config.get('images') == true) {
             let images = document.getElementsByTagName('img');
             for (var image of images) {
-                if(image.classList.contains("vkyfy-vukkied")) continue;
+                if(image.classList.contains("vkyfy-vukkied") && image.src.includes("sivusto.tk")) continue;
                 image.classList.add("vkyfy-vukkied");
                 let randomNum = Math.ceil(Math.random() * 34);
                 image.src = `https://sivusto.tk/innervukky/${randomNum}.png`;
