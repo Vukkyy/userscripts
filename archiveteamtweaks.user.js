@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         ArchiveTeam Tweaks
 // @namespace    https://vukky.ga
-// @version      0.5.4
+// @version      0.5.5
 // @description  Tweakings ArchiveTeam
 // @author       Vukky
-// @match        https://tracker.archiveteam.org/**
+// @match        http*://tracker.archiveteam.org/**
 // @include      http://127.0.0.1:*
 // @grant        GM.info
 // @updateURL    https://raw.githubusercontent.com/Vukky123/userscripts/main/archiveteamtweaks.user.js
