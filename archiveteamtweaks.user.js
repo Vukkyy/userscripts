@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ArchiveTeam Tweaks
 // @namespace    https://vukky.ga
-// @version      0.5.5
+// @version      0.6.0
 // @description  Tweakings ArchiveTeam
 // @author       Vukky
 // @match        http*://tracker.archiveteam.org/**
@@ -68,6 +68,9 @@
                         $(this).parent().css("opacity", "0.5") // there are a few cases where the number is negative
                         $(this).text("0");
                     }
+                });
+                $(".links a").each(function() {
+                    $(this).attr("target", "_blank")
                 });
             }, 1);
         } else if (document.location.hostname == "tracker.archiveteam.org") {
