@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pokéfarm Tweaks
 // @namespace    https://sus.omg.lol
-// @version      0.1.4
+// @version      0.1.5
 // @description  Enhancements for Pokefarm!
 // @author       Vukky
 // @match        https://pokefarm.com/users/*
@@ -18,7 +18,7 @@
 (function() {
     'use strict';
 
-    document.head.innerHTML += "<style>.boingo { animation:boingo 2s; } @keyframes boingo {from {margin:0;animation-timing-function:ease-out;}10% {margin:-12px 0 12px;animation-timing-function:ease-in;}20% {margin:0;animation-timing-function:ease-out;}30% {margin:-12px 0 12px;animation-timing-function:ease-in;}40% {margin:0;}}"
+    document.head.innerHTML += "<style>.boingo { animation:boingo 2s; } .goawayy { animation:goawayy 2s; } @keyframes boingo {from {margin:0;animation-timing-function:ease-out;}10% {margin:-12px 0 12px;animation-timing-function:ease-in;}20% {margin:0;animation-timing-function:ease-out;}30% {margin:-12px 0 12px;animation-timing-function:ease-in;}40% {margin:0;}} @keyframes goawayy {from {margin:0;}5% {margin:0 6px 0 -6px;}10% {margin:0 -6px 0 6px;}15% {margin:0;}}"
 
     window.addEventListener("click", function(event) {
         console.log(event.target);
@@ -30,7 +30,7 @@
         }
         if(event.target.parentNode.parentNode.querySelector(".egg") && event.target.parentNode.classList.contains("action")) {
             new Audio("https://play.pokemonshowdown.com/audio/notification.wav").play();
-            event.target.parentNode.parentNode.querySelector(".egg").classList.add("boingo")
+            event.target.parentNode.parentNode.querySelector(".egg").classList.add("goawayy")
         }
         if(event.target.getAttribute("data-hatch") == "") {
             console.log("HATCING!!");
