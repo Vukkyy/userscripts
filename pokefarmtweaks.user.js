@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Pokéfarm Tweaks
 // @namespace    https://sus.omg.lol
-// @version      0.1.1
-// @description  Enhancements for Pok
+// @version      0.1.2
+// @description  Enhancements for Pokefarm!
 // @author       Vukky
 // @match        https://pokefarm.com/users/*
 // @match        https://pokefarm.com/user/*
@@ -54,7 +54,9 @@
             "birthday garthic": "riolu",
             "birthday absol": "absol",
             "let's go eevee": "eevee-starter",
-            "let's go pikachu": "pikachu-starter"
+            "let's go pikachu": "pikachu-starter",
+            "shooting star cleffa": "cleffa",
+            "shooting star clefable": "clefable"
         }
         if(mappedSpecials[pokename]) pokename = mappedSpecials[pokename]
         return pokename;
