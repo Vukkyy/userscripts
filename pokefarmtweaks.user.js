@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pokéfarm Tweaks
 // @namespace    https://sus.omg.lol
-// @version      0.1.2
+// @version      0.1.3
 // @description  Enhancements for Pokefarm!
 // @author       Vukky
 // @match        https://pokefarm.com/users/*
@@ -56,7 +56,8 @@
             "let's go eevee": "eevee-starter",
             "let's go pikachu": "pikachu-starter",
             "shooting star cleffa": "cleffa",
-            "shooting star clefable": "clefable"
+            "shooting star clefable": "clefable",
+            "shooting star clefairy": "clefairy"
         }
         if(mappedSpecials[pokename]) pokename = mappedSpecials[pokename]
         return pokename;
