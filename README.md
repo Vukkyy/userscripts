@@ -13,7 +13,7 @@ Once you have done so, click the "install" links at the bottom to install any sc
 ## Available scripts
 
 * ArchiveTeam Tweaks ([install](https://raw.githubusercontent.com/Vukkyy/userscripts/main/archiveteamtweaks.user.js)) - Improves the ArchiveTeam Warrior web interface.
-* Vukkyfy ([install](https://raw.githubusercontent.com/Vukkyy/userscripts/main/vastaisaladinator.user.js)) - VUKKIES EVERYWHERE!!!!!
+* Vukkyfy ([install](https://raw.githubusercontent.com/Vukkyy/userscripts/main/vukkyfy.user.js)) - VUKKIES EVERYWHERE!!!!!
 * Skribbl+ ([install](https://github.com/Vukky123/userscripts/raw/main/skribbl/skribblplus.user.js)) - Enhance your Skribbl.io experience!
 * Vast.ai Saladinator ([install](https://raw.githubusercontent.com/Vukkyy/userscripts/main/vastaisaladinator.user.js)) - Improves vast.ai for usage with salad.com.
 * Pokéfarm Tweaks ([install](https://github.com/Vukky123/userscripts/raw/main/pokefarmtweaks.user.js)) - Sound effects for Pokéfarm Q!
