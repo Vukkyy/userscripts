@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pokéfarm Tweaks
 // @namespace    https://sus.omg.lol
-// @version      0.1.3
+// @version      0.1.4
 // @description  Enhancements for Pokefarm!
 // @author       Vukky
 // @match        https://pokefarm.com/users/*
@@ -26,6 +26,7 @@
             let pokename = nameMappery(event.target.parentNode.parentNode.parentNode.querySelector(".name .summarylink").innerText.toLowerCase(), event.target.parentNode.parentNode.parentNode);
             new Audio("https://play.pokemonshowdown.com/audio/cries/" + pokename + ".mp3").play();
             event.target.parentNode.parentNode.parentNode.querySelector(".pokemon").classList.add("boingo")
+            event.target.parentNode.parentNode.parentNode.querySelector(".icon").classList.add("boingo")
         }
         if(event.target.parentNode.parentNode.querySelector(".egg") && event.target.parentNode.classList.contains("action")) {
             new Audio("https://play.pokemonshowdown.com/audio/notification.wav").play();
