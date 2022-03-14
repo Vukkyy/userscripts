@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         Pokéfarm Tweaks
-// @namespace    http://tampermonkey.net/
-// @version      0.1.0
-// @description  try to take over the world!
-// @author       You
+// @namespace    https://sus.omg.lol
+// @version      0.1.1
+// @description  Enhancements for Pok
+// @author       Vukky
 // @match        https://pokefarm.com/users/*
 // @match        https://pokefarm.com/user/*
 // @match        https://pokefarm.com/summary**
