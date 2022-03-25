@@ -58,7 +58,11 @@
             "let's go pikachu": "pikachu-starter",
             "shooting star cleffa": "cleffa",
             "shooting star clefable": "clefable",
-            "shooting star clefairy": "clefairy"
+            "shooting star clefairy": "clefairy",
+            "snoralts": "ralts",
+            "snolia": "kirlia",
+            "frosvoir": "gardevoir",
+            "glaillade": "gallade"
         }
         if(mappedSpecials[pokename]) pokename = mappedSpecials[pokename]
         return pokename;
