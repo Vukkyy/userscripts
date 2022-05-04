@@ -1,9 +1,10 @@
 // ==UserScript==
 // @name         Pokéfarm Tweaks
 // @namespace    https://sus.omg.lol
-// @version      0.1.6
+// @version      0.1.7
 // @description  Enhancements for Pokefarm!
 // @author       Vukky
+// @match        https://pokefarm.com
 // @match        https://pokefarm.com/users/*
 // @match        https://pokefarm.com/user/*
 // @match        https://pokefarm.com/summary**
