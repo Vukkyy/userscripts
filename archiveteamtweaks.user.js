@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ArchiveTeam Tweaks
 // @namespace    https://vukky.ga
-// @version      0.6.1
+// @version      0.6.2
 // @description  Tweakings ArchiveTeam
 // @author       Vukky
 // @match        http*://tracker.archiveteam.org/**
@@ -16,6 +16,8 @@
 
     let version = GM.info.script.version;
     let overloaded = " We don't want to overload the site we're archiving, so we've limited the number of downloads per minute.";
+    let completedTasks = [];
+    let failedTasks = [];
     if(document.title === "ArchiveTeam Warrior" && document.location.href.startsWith("http://127.0.0.1")) {
         console.log(`ArchiveTeam Tweaks ${version}`);
         $(document).on("click", ".twisty", function(event) {
@@ -70,6 +72,22 @@
             });
             $(".links a").each(function() {
                 $(this).attr("target", "_blank")
+            });
+            $(".item-completed").each(function() {
+                if(!completedTasks.includes(this.id)) {
+                    completedTasks.push(this.id);
+                    let sfx = new Audio();
+                    sfx.src = "https://github.com/ShareX/ShareX/blob/master/ShareX/Resources/TaskCompletedSound.wav?raw=true";
+                    sfx.play();
+                }
+            });
+            $(".item-failed").each(function() {
+                if(!failedTasks.includes(this.id)) {
+                    failedTasks.push(this.id);
+                    let sfx = new Audio();
+                    sfx.src = "https://github.com/ShareX/ShareX/blob/master/ShareX/Resources/ErrorSound.wav?raw=true";
+                    sfx.play();
+                }
             });
         }, 1);
     } else if (document.location.hostname == "tracker.archiveteam.org") {
