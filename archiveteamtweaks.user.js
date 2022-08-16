@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ArchiveTeam Tweaks
 // @namespace    https://vukky.ga
-// @version      0.6.2
+// @version      0.6.3
 // @description  Tweakings ArchiveTeam
 // @author       Vukky
 // @match        http*://tracker.archiveteam.org/**
@@ -30,10 +30,10 @@
                 $(item).addClass("open");
             }
         });
-        function removeItem(item) {
+        function removeItem(item, doDelay = false) {
             window.setTimeout(function() {
                 $(item).slideUp(500, function() { $(item).remove(); });
-            }, 5000);
+            }, doDelay ? 5000 : 0);
         }
         setInterval(() => {
             if($("#help ul")[1] != undefined && document.querySelector("#attv") == null) {
@@ -56,7 +56,7 @@
                     $(this).children("h3").css("backgroundColor", "#326827");
                     removeItem(this);
                 } else if (this.classList.contains("item-failed")) {
-                    removeItem(this);
+                    removeItem(this, true);
                 }
             })
             $(".item h3 .name").each(function() {
