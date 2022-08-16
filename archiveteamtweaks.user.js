@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ArchiveTeam Tweaks
 // @namespace    https://vukky.ga
-// @version      0.6.3
+// @version      0.6.4
 // @description  Tweakings ArchiveTeam
 // @author       Vukky
 // @match        http*://tracker.archiveteam.org/**
@@ -18,8 +18,10 @@
     let overloaded = " We don't want to overload the site we're archiving, so we've limited the number of downloads per minute.";
     let completedTasks = [];
     let failedTasks = [];
+    let itemNamePatcher = [];
     if(document.title === "ArchiveTeam Warrior" && document.location.href.startsWith("http://127.0.0.1")) {
         console.log(`ArchiveTeam Tweaks ${version}`);
+        $("<style>.closed-name { display: none; } .item.closed .name { display: none; } .item.closed .closed-name { display: inline; }</style>").appendTo( "head" )
         $(document).on("click", ".twisty", function(event) {
             let item = $(event.target).parent().parent()[0];
             if(item.classList.contains("open")) {
@@ -58,10 +60,11 @@
                 } else if (this.classList.contains("item-failed")) {
                     removeItem(this, true);
                 }
+                if(!itemNamePatcher.includes(this.id)) {
+                    itemNamePatcher.push(this.id);
+                    $("<span class='closed-name'>Item</span>").insertBefore(`#${this.id} h3 .name`)
+                }
             })
-            $(".item h3 .name").each(function() {
-                if($(this).text().length > 140) $(this).text("Item")
-            });
             $("#task-summary li .s").each(function() {
                 if($(this).text() > 0 && $(this).parent().css("opacity") == 0.5) $(this).parent().css("opacity", "1")
                 if($(this).text() == 0 && $(this).parent().css("opacity") == 1) $(this).parent().css("opacity", "0.5")
