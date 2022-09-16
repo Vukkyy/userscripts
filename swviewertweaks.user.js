@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SWViewer Tweaks
 // @namespace    https://sus.omg.lol
-// @version      0.1.1
+// @version      0.1.2
 // @description  try to take over the world! (this is the default desc, gonna get a better one eventually)
 // @author       You
 // @match        https://swviewer.toolforge.org/
@@ -36,6 +36,7 @@
           if(e.target.getAttribute("onclick").startsWith("closeMoreControl")) new Audio("https://github.com/Vukkyy/userscripts/releases/download/skribblplus-music/close.wav").play();
           if(e.target.getAttribute("onclick").startsWith("closePO")) new Audio("https://github.com/Vukkyy/userscripts/releases/download/skribblplus-music/close.wav").play();
           if(e.target.getAttribute("onclick").startsWith("openPO")) new Audio("https://github.com/Vukkyy/userscripts/releases/download/skribblplus-music/open.mp3").play();
+          if(e.target.getAttribute("onclick").startsWith("removeAllNotify")) new Audio("https://github.com/Vukkyy/userscripts/releases/download/skribblplus-music/close.wav").play();
       }
     })
     setInterval(function() {
