@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SWViewer Tweaks
 // @namespace    https://sus.omg.lol
-// @version      0.1.0
+// @version      0.1.1
 // @description  try to take over the world! (this is the default desc, gonna get a better one eventually)
 // @author       You
 // @match        https://swviewer.toolforge.org/
@@ -23,6 +23,7 @@
           if(e.target.getAttribute("ng-click").startsWith("openCustomRevert")) new Audio("https://github.com/Vukkyy/userscripts/releases/download/skribblplus-music/open.mp3").play();
           if(e.target.getAttribute("ng-click").startsWith("openTag")) new Audio("https://github.com/Vukkyy/userscripts/releases/download/skribblplus-music/open.mp3").play();
           if(e.target.getAttribute("ng-click").startsWith("Back()")) new Audio("https://github.com/Vukkyy/userscripts/releases/download/skribblplus-music/close.wav").play();
+          if(e.target.getAttribute("ng-click").startsWith("nextDiff")) new Audio("https://github.com/Vukkyy/userscripts/releases/download/skribblplus-music/select.mp3").play();
       }
       if(e.target.getAttribute("onclick")) {
           if(e.target.getAttribute("onclick").startsWith("toggleMoreControl")) {
