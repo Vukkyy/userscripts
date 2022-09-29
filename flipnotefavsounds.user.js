@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Flipnote Hatena favorite sounds
 // @namespace    https://sus.omg.lol
-// @version      0.1
+// @version      0.1.1
 // @description  try to take over twitter!
 // @author       You
 // @match        https://twitter.com/**
@@ -29,6 +29,7 @@
         }
         if(star.classList.contains("tweet-interact-favorited")) {
             let randomFolpnote = Object.keys(folpnoteColors)[Math.floor(Math.random()*Object.keys(folpnoteColors).length)];
+            new Audio(`https://github.com/Vukkyy/userscripts/releases/download/skribblplus-music/star${randomFolpnote}.mp3`).play()
             star.style.setProperty("--favorite-icon-color", folpnoteColors[randomFolpnote])
         } else if (star.classList.contains("tweet-interact-favorite")) {
             star.style.setProperty("--favorite-icon-color", "")
