@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SWViewer Tweaks
 // @namespace    https://sus.omg.lol
-// @version      0.1.2
+// @version      0.1.3
 // @description  try to take over the world! (this is the default desc, gonna get a better one eventually)
 // @author       You
 // @match        https://swviewer.toolforge.org/
