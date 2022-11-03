@@ -39,11 +39,4 @@
           if(e.target.getAttribute("onclick").startsWith("removeAllNotify")) new Audio("https://github.com/Vukkyy/userscripts/releases/download/skribblplus-music/close.wav").play();
       }
     })
-    setInterval(function() {
-        if(!document.querySelector("#notify-indicator.tab-notice-indicator__inactive")) {
-            if(!document.querySelector("#notificationPanel.po__active")) new Audio("https://github.com/Vukkyy/userscripts/releases/download/skribblplus-music/open.mp3").play();
-            document.querySelector("#notify-indicator").click();
-            new Audio("https://github.com/Vukkyy/userscripts/releases/download/skribblplus-music/chirp3.mp3").play();
-        }
-    }, 1)
 })();
