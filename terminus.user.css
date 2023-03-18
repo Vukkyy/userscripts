@@ -1,0 +1,54 @@
+/* ==UserStyle==
+@name         Terminus override
+@namespace    vukky.net
+@version      1.0.0
+@author       Vukky
+==/UserStyle== */
+
+*:not(.fa-solid):not(.fab):not(.fa-brands):not(.omg-icon):not([class^="icon-"]):not(.fa):not(.icon):not(.icon > span):not(.user-link .line):not(.google-material-icons):not(.fas):not(.material-icons-extended):not(.fa-regular):not(.fa-duotone):not(.jolticon):not([class^="pixicon-"]):not([class^="mat-icon"]):not(.fal):not(.osu-layout .beatmapset-stats .play-button):not(.fa-heart):not(.fa-trash-alt):not(.codicon):not(.blocklyTreeIcon):not([class$="-icon"]):not([class$="Icon"]):not(.vjs-icon-placeholder):not(.material-icons):not([style*='font-family: "Font Awesome 5 Free"']):not(.glyphicon):not(.icon-font-chess):not(.far):not(.material-icons-outlined):not(.ms-Icon):not([data-icon-name]):not(.ico):not(.mee-icon):not(.notification-icon):not(.icon-sorting):not(.hp-dialogue-text):not(.hp-dialogue-text > *):not(.hp-dialogue-text > a > span):not(.fa-light):not(.fass):not(.fa-duotone):not(.fad):not(.fat):not(.dropdown-icon):not(.mms-icon-primary):not(.mms-icon-replica-set):not(.bwi):not(.kong_ico) {
+font-family: "Terminus", "Noto Sans CJK SC", "Terminus (TTF)" !important;
+font-style: normal !important;
+}
+
+.hp-dialogue-text, .hp-dialogue-text .color-yellow {
+    font-size: 16px !important;
+}
+
+@-moz-document url-prefix("https://home.omg.lol") {
+body {
+    font-size: 16px;
+}
+body > div {
+    --width: 85em !important;
+}
+.logotype {
+    font-size: 32px !important;
+}
+footer .logotype {
+    font-size: 16px !important;
+}
+.branding_example > .logotype {
+    font-size: 16px !important;
+}
+h1, h2 {
+    font-size: 32px !important;
+}
+.card:hover {
+    transform: translateY(-10px);
+}
+.card:active {
+    transform: translateY(0px);
+}
+#editor .tab, #editor .tab-preview {
+    font-size: 12px;
+}
+small {
+    font-size: 12px;
+}
+h3 {
+    font-size: 22px !important;
+}
+.mono {
+    font-size: 16px !important;
+}
+}
