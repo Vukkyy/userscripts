@@ -52,6 +52,10 @@
             })
             $(".log-line").each(function() {
                 if($(this).text().includes(overloaded)) $(this).text($(this).text().split(overloaded).join(""));
+                
+                if($(this)[0].innerHTML != "") return;
+				let pissLog = $(this).parentNode.parentNode.querySelector(".log").innerHTML.split("\n")
+				if(pissLog[pissLog.length-1] == "" && pissLog[pissLog.length-2] != "") $(this).text(pissLog[pissLog.length-2])
             })
             $(".item").each(function() {
                 if(this.classList.contains("item-completed")) {
