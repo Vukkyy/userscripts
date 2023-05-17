@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ArchiveTeam Tweaks
 // @namespace    https://vukky.ga
-// @version      0.6.4
+// @version      0.6.5
 // @description  Tweakings ArchiveTeam
 // @author       Vukky
 // @match        http*://tracker.archiveteam.org/**
@@ -54,8 +54,8 @@
                 if($(this).text().includes(overloaded)) $(this).text($(this).text().split(overloaded).join(""));
                 
                 if($(this)[0].innerHTML != "") return;
-				let pissLog = $(this).parentNode.parentNode.querySelector(".log").innerHTML.split("\n")
-				if(pissLog[pissLog.length-1] == "" && pissLog[pissLog.length-2] != "") $(this).text(pissLog[pissLog.length-2])
+		let pissLog = $(this).parentNode.parentNode.querySelector(".log").innerHTML.split("\n")
+		if(pissLog[pissLog.length-1] == "" && pissLog[pissLog.length-2] != "") $(this).text(pissLog[pissLog.length-2])
             })
             $(".item").each(function() {
                 if(this.classList.contains("item-completed")) {
