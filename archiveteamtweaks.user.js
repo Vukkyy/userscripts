@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ArchiveTeam Tweaks
 // @namespace    https://vukky.ga
-// @version      0.6.6
+// @version      0.6.7
 // @description  Tweakings ArchiveTeam
 // @author       Vukky
 // @match        http*://tracker.archiveteam.org/**
@@ -32,7 +32,7 @@
                 $(item).addClass("open");
             }
         });
-        function removeItem(item, doDelay = false) {
+        function removeItem(item, doDelay = true) {
             window.setTimeout(function() {
                 $(item).slideUp(500, function() { $(item).remove(); });
             }, doDelay ? 5000 : 0);
