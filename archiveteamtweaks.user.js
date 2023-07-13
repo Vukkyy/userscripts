@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ArchiveTeam Tweaks
 // @namespace    https://vukky.ga
-// @version      0.6.8
+// @version      0.6.9
 // @description  Tweakings ArchiveTeam
 // @author       Vukky
 // @match        http*://tracker.archiveteam.org/**
