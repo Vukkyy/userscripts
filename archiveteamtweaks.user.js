@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ArchiveTeam Tweaks
 // @namespace    https://vukky.ga
-// @version      0.6.7
+// @version      0.6.8
 // @description  Tweakings ArchiveTeam
 // @author       Vukky
 // @match        http*://tracker.archiveteam.org/**
@@ -21,7 +21,8 @@
     let itemNamePatcher = [];
     if(document.title === "ArchiveTeam Warrior" && document.location.href.startsWith("http://127.0.0.1")) {
         console.log(`ArchiveTeam Tweaks ${version}`);
-        $("<style>.closed-name { display: none; } .item.closed .name { display: none; } .item.closed .closed-name { display: inline; }</style>").appendTo( "head" )
+        $("<style>.closed-name { display: none; } .item.closed .name { display: none; } .item.closed .closed-name { display: inline; } #project-header img.project-logo { height: 64px; 
+  filter: drop-shadow(4px 5px 0px black);}</style>").appendTo( "head" )
         $(document).on("click", ".twisty", function(event) {
             let item = $(event.target).parent().parent()[0];
             if(item.classList.contains("open")) {
