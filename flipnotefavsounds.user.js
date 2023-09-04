@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Flipnote Hatena favorite sounds
 // @namespace    https://sus.omg.lol
-// @version      0.1.1
+// @version      0.1.2
 // @description  try to take over twitter!
 // @author       You
 // @match        https://twitter.com/**
