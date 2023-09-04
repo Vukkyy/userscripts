@@ -9,11 +9,8 @@
 // @grant        none
 // @updateURL    https://raw.githubusercontent.com/Vukky123/userscripts/main/flipnotefavsounds.user.js
 // @downloadURL  https://raw.githubusercontent.com/Vukky123/userscripts/main/flipnotefavsounds.user.js
+// @sandbox      JavaScript
 // ==/UserScript==
-
-// this was originally intended to have mastodon support
-// but mastodon is a crybaby and doesn't let any extensions run scripts
-// so instead it requires OldTwitter: https://github.com/dimdenGD/OldTwitter
 
 (function() {
     'use strict';
