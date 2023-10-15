@@ -32,11 +32,6 @@
                 $(item).addClass("open");
             }
         });
-        function removeItem(item, doDelay = true) {
-            window.setTimeout(function() {
-                $(item).slideUp(500, function() { $(item).remove(); });
-            }, doDelay ? 5000 : 0);
-        }
         setInterval(() => {
             if($("#help ul")[1] != undefined && document.querySelector("#attv") == null) {
                 let attv = document.createElement("li");
@@ -60,9 +55,6 @@
             $(".item").each(function() {
                 if(this.classList.contains("item-completed")) {
                     $(this).children("h3").css("backgroundColor", "#326827");
-                    removeItem(this);
-                } else if (this.classList.contains("item-failed")) {
-                    removeItem(this, true);
                 }
                 if(!itemNamePatcher.includes(this.id)) {
                     itemNamePatcher.push(this.id);
