@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SWViewer Tweaks
 // @namespace    https://sus.omg.lol
-// @version      0.1.3
+// @version      0.1.4
 // @description  try to take over the world! (this is the default desc, gonna get a better one eventually)
 // @author       You
 // @match        https://swviewer.toolforge.org/
@@ -13,6 +13,14 @@
 
 (function() {
     'use strict';
+
+    setInterval(function() {
+        if(!document.querySelector("#notify-indicator.tab-notice-indicator__inactive")) {
+            if(!document.querySelector("#notificationPanel.po__active")) new Audio("https://github.com/Vukkyy/userscripts/releases/download/skribblplus-music/open.mp3").play();
+            document.querySelector("#notify-indicator").click();
+            new Audio("https://github.com/Vukkyy/userscripts/releases/download/skribblplus-music/chirp3.mp3").play();
+        }
+    }, 1)
 
     document.addEventListener("click", function(e) {
       if(Array.from(e.target.parentNode.classList).some((x) => x.startsWith("queue"))) new Audio("https://github.com/Vukkyy/userscripts/releases/download/skribblplus-music/select.mp3").play();
