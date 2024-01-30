@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WavesMV
 // @namespace    https://hakase.life
-// @version      2024-01-30.1
+// @version      2024-01-30.2
 // @description  Add music video support for waves.
 // @author       Hakase
 // @match        https://radio.byemc.xyz/
@@ -40,10 +40,10 @@ Set this to an embed URL. WavesMV will iframe this URL.
 
             if(embedUrl.href.startsWith("https://www.youtube.com/embed/")) {
                 embedUrl.searchParams.set("autoplay", "1")
-                if(embedUrl.searchParams.has("t")) {
-                    embedUrl.searchParams.set("t", parseInt(searchParams.get("t")) + np.now_playing.elapsed)
+                if(embedUrl.searchParams.has("start")) {
+                    embedUrl.searchParams.set("start", parseInt(searchParams.get("start")) + np.now_playing.elapsed)
                 } else {
-                    embedUrl.searchParams.set("t", np.now_playing.elapsed);
+                    embedUrl.searchParams.set("start", np.now_playing.elapsed);
                 }
             } else if(embedUrl.href.startsWith("https://embed.nicovideo.jp/watch/")) {
                 embedUrl.searchParams.set("jsapi", "1")
