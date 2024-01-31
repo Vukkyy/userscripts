@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WavesMV
 // @namespace    https://hakase.life
-// @version      2024-01-30.2
+// @version      2024-01-30.3
 // @description  Add music video support for waves.
 // @author       Hakase
 // @match        https://radio.byemc.xyz/
@@ -26,6 +26,7 @@ Set this to an embed URL. WavesMV will iframe this URL.
     document.querySelector("main").insertBefore(MV, document.querySelector("#playing-next"));
 
     let originalEmbedUrl;
+    let lastWasEmbed = false;
 
     setInterval(async function() {
         if(stream_type_param != "azuracast") return MV.classList.add("hidden");
@@ -60,8 +61,14 @@ Set this to an embed URL. WavesMV will iframe this URL.
 
             player.muted = true;
             MV.src = embedUrl.href;
+            lastWasEmbed = true;
             return MV.classList.remove("hidden");
         } else {
+            if(lastWasEmbed) {
+                player.load();
+                player.play();
+                lastWasEmbed = false;
+            }
             player.muted = false;
             MV.src = "";
             return MV.classList.add("hidden");
