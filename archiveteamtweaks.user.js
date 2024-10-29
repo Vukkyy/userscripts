@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ArchiveTeam Tweaks
 // @namespace    https://vukky.ga
-// @version      0.6.11
+// @version      0.7.0
 // @description  Tweakings ArchiveTeam
 // @author       Vukky
 // @match        http*://tracker.archiveteam.org/**
@@ -18,11 +18,60 @@
     let overloaded = " We don't want to overload the site we're archiving, so we've limited the number of downloads per minute.";
     let completedTasks = [];
     let failedTasks = [];
-    let itemNamePatcher = [];
     if(document.title === "ArchiveTeam Warrior" && document.location.href.startsWith("http://127.0.0.1")) {
         console.log(`ArchiveTeam Tweaks ${version}`);
-        $("<style>.closed-name { display: none; } .item.closed .name { display: none; } .item.closed .closed-name { display: inline; } #project-header img.project-logo { height: 64px; filter: drop-shadow(4px 5px 0px black);}</style>").appendTo( "head" )
-        $(document).on("click", ".twisty", function(event) {
+        const css = `
+            .item.closed .name {
+                display: inline-block;
+                max-width: 200px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                padding-right: 0.5em;
+                margin-right: 0.5em;
+                border-right: 1px solid grey;
+            }
+            .status-line {
+                display: none;
+            }
+            .item .log-line,
+            .item .name,
+            .item .twisty {
+                font-family: 'Terminus' !important;
+                color: #aaa;
+                z-index: 1;
+                background-color: transparent !important;
+            }
+            .item .log-line {
+                color: white;
+            }
+            .item h3 {
+                display: flex;
+            }
+            .item h3:before {
+                content: "";
+                background-color: blue;
+                width: var(--progress);
+                height: 24px;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+            .name, .twisty {
+                cursor: pointer;
+            }
+            .item-completed {
+            background-color: #326827
+            }
+            .log {
+            font-family: 'Terminus' !important;
+            }
+            .status {
+            left: 94% !important;
+            }
+        `;
+        $('head').append(`<style>${css}</style>`);
+
+        $(document).on("click", ".twisty, .name", function(event) {
             let item = $(event.target).parent().parent()[0];
             if(item.classList.contains("open")) {
                 $(item).removeClass("open");
@@ -39,28 +88,12 @@
                 attv.innerHTML = `ArchiveTeam Tweaks version: ${GM.info.script.version}`;
                 $("#help ul")[1].appendChild(attv);
             }
-            $(".twisty").each(function() {
-                if($(this).css("backgroundColor") != "inherit" || $(this).css("cursor") != "pointer") {
-                    $(this).css("backgroundColor", "inherit");
-                    $(this).css("cursor", "pointer");
-                }
-            })
             $(".log-line").each(function() {
                 if($(this).text().includes(overloaded)) $(this).text($(this).text().split(overloaded).join(""));
-                
+
                 if($(this)[0].innerHTML != "") return;
-                let pissLog = $(this)[0].parentNode.parentNode.querySelector(".log").innerHTML.split("\n")
-                if(pissLog[pissLog.length-1] == "" && pissLog[pissLog.length-2] != "") $(this).text(pissLog[pissLog.length-2])
-            })
-            $(".item").each(function() {
-                if(this.classList.contains("item-completed")) {
-                    $(this).children("h3").css("backgroundColor", "#326827");
-                    $(this).slideUp(500, function() { $(this).remove(); });
-                }
-                if(!itemNamePatcher.includes(this.id)) {
-                    itemNamePatcher.push(this.id);
-                    $("<span class='closed-name'>Item</span>").insertBefore(`#${this.id} h3 .name`)
-                }
+                let logList = $(this)[0].parentNode.parentNode.querySelector(".log").innerHTML.split("\n")
+                if(logList[logList.length-1] == "" && logList[logList.length-2] != "") $(this).text(logList[logList.length-2])
             })
             $("#task-summary li .s").each(function() {
                 if($(this).text() > 0 && $(this).parent().css("opacity") == 0.5) $(this).parent().css("opacity", "1")
@@ -76,20 +109,26 @@
             $(".item-completed").each(function() {
                 if(!completedTasks.includes(this.id)) {
                     completedTasks.push(this.id);
-                    let sfx = new Audio();
-                    sfx.src = "https://github.com/ShareX/ShareX/blob/master/ShareX/Resources/TaskCompletedSound.wav?raw=true";
-                    sfx.play();
+                    if(!document.hasFocus()) return;
+
+                    new Audio("https://github.com/ShareX/ShareX/blob/master/ShareX/Resources/TaskCompletedSound.wav?raw=true").play();
                 }
             });
             $(".item-failed").each(function() {
                 if(!failedTasks.includes(this.id)) {
                     failedTasks.push(this.id);
-                    let sfx = new Audio();
-                    sfx.src = "https://github.com/ShareX/ShareX/blob/master/ShareX/Resources/ErrorSound.wav?raw=true";
-                    sfx.play();
+                    new Audio("https://github.com/ShareX/ShareX/blob/master/ShareX/Resources/ErrorSound.wav?raw=true").play();
                 }
             });
         }, 1);
+        setInterval(function() {
+            $(".log-line").each(function() {
+                const timer = $(this).text().match(/(?:Retrying after|Sleeping) (\d+)(?: seconds|s)/)
+                if(timer) {
+                    $(this).text($(this).text().replace(timer[0], timer[0].replace(timer[1], parseInt(timer[1] - 1))))
+                }
+            })
+        }, 1000)
     } else if (document.location.hostname == "tracker.archiveteam.org") {
         if(document.querySelector("#log").innerHTML == "") {
             document.querySelector("#log").innerHTML = "Loading...";
